@@ -77,9 +77,7 @@
       <li class="nav-item">
         <a class="nav-link" id="configuration-tab" data-toggle="tab" href="#configuration" role="tab" aria-controls="configuration">Configuration</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" id="logs-tab" data-toggle="tab" href="#logs" role="tab" aria-controls="logs">Logs</a>
-      </li>
+     
       <li class="nav-item">
         <a class="nav-link active" id="localservices-tab" data-toggle="tab" href="#localservices" role="tab" aria-controls="localservices">Local Services</a>
       </li>
@@ -98,10 +96,7 @@
       <div class="tab-pane fade" id="configuration" role="tabpanel" aria-labelledby="configuration-tab">
         <%-include('tabs/configuration', {config: config}); %>
       </div>
-      <div class="tab-pane fade" id="logs" role="tabpanel" aria-labelledby="logs-tab">
-
-        <%-include('tabs/logs', {logs: logs}); %>
-      </div>
+      
       <div class="tab-pane fade  show active" id="localservices" role="tabpanel" aria-labelledby="services-tab">
         <%-include('tabs/class', {routes: routes}); %>
       </div>

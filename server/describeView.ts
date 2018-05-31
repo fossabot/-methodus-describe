@@ -18,13 +18,16 @@ var http = require('http'),
 
 
 function fullUrl(req) {
-    const urlArr = req.headers['referer'].split('/describe')[0].split('://');
+    if (req.headers['referer']) {
+        const urlArr = req.headers['referer'].split('/describe')[0].split('://');
 
-    return urlBuilder.format({
-        protocol: urlArr[0],
-        host: urlArr[1],
-        pathname: req.originalUrl.split('/describe')[0] + '/describe/'
-    });
+        return urlBuilder.format({
+            protocol: urlArr[0],
+            host: urlArr[1],
+            pathname: req.originalUrl.split('/describe')[0] + '/describe/'
+        });
+    }
+
 }
 
 
@@ -119,9 +122,7 @@ export class DescribeView {
         const data = (global as any).METHODUS_BRIDGE;
 
         const packageJson = require(path.join(process.cwd(), 'package.json'));
-        let logsPath = process.env.NODE_LOG_DIR || './logs';
 
-        const logs = fs.readFileSync(path.join(logsPath, 'general.log'), 'utf-8');
 
         let routes = [];
         Object.keys(data.classes).forEach((cls) => {
@@ -137,9 +138,9 @@ export class DescribeView {
             (global as any).METHODUS_BRIDGE,
             { routes: routes },
             // { remoteRoutes: remoteRoutes },
-            { config: (global as any).tmla.config },
+
             { app: packageJson },
-            { logs: [] },
+
             {
 
                 makeFrameName: (route) => {
@@ -342,9 +343,9 @@ export class DescribeView {
 
             { routes: routes, remoteRoutes: remoteRoutes, events: events },
 
-            { config: (global as any).tmla.config },
+
             { app: packageJson },
-            { logs: [] },
+
             { base: fullUrl(req) },
             {
                 makeFrameName: (route) => {
@@ -387,9 +388,7 @@ export class DescribeView {
         const data = (global as any).METHODUS_BRIDGE;
 
         const packageJson = require(path.join(process.cwd(), 'package.json'));
-        let logsPath = process.env.NODE_LOG_DIR || './logs';
 
-        const logs = fs.readFileSync(path.join(logsPath, 'general.log'), 'utf-8');
 
         let routes = [];
         let events = [];
@@ -431,88 +430,42 @@ export class DescribeView {
 
 
 
-
-        let result = template(Object.assign({},
-            (global as any).METHODUS_BRIDGE,
-            { routes: routes },
-            { events: events },
-            { remoteRoutes: remoteRoutes },
-            { config: (global as any).tmla.config },
-            { app: packageJson },
-            { base: fullUrl(req) },
-            { logs: [] },
-            {
-                makeFrameName: (route) => {
-                    return (route + '_Frame').replace(/\//g, '_').replace(/:/g, '');
-                },
-                cleanID: (route) => {
-                    return (route.name + '__' + route.methodus.name).replace(/\//, '').replace('@', '');
-                },
-                adaptResolver: (url: string) => {
-                    if (url.indexOf('127.0.0.1') > 0) {
-                        url = url.replace('127.0.0.1', req.host)
+        try {
+            let result = template(Object.assign({},
+                (global as any).METHODUS_BRIDGE,
+                { routes: routes },
+                { events: events },
+                { remoteRoutes: remoteRoutes },
+                { app: packageJson },
+                { base: fullUrl(req) },
+                { logs: [] },
+                {
+                    makeFrameName: (route) => {
+                        return (route + '_Frame').replace(/\//g, '_').replace(/:/g, '');
+                    },
+                    cleanID: (route) => {
+                        return (route.name + '__' + route.methodus.name).replace(/\//, '').replace('@', '');
+                    },
+                    adaptResolver: (url: string) => {
+                        if (url.indexOf('127.0.0.1') > 0) {
+                            url = url.replace('127.0.0.1', req.host)
+                        }
+                        if (url.indexOf('localhost') > 0) {
+                            url = url.replace('localhost', req.host)
+                        }
+                        return url;
                     }
-                    if (url.indexOf('localhost') > 0) {
-                        url = url.replace('localhost', req.host)
-                    }
-                    return url;
                 }
-            }
-        ));
-        return new MethodResult(result);
+            ));
+            return new MethodResult(result);
+        } catch (error) {
+            debugger;
+        }
+
     }
 
 
 
-    @Method(Verbs.Get, '/describe/logs')
-    public async logs(@Request() req, @Response() res) {
-
-        let str = fs.readFileSync(path.join(clientDir, 'logs.ejs'), 'utf-8');
-        var template = ejs.compile(str, { filename: path.join(clientDir, 'logs.ejs') });
-        const data = (global as any).METHODUS_BRIDGE;
-
-        const packageJson = require(path.join(process.cwd(), 'package.json'));
-        let logsPath = process.env.NODE_LOG_DIR || './logs';
-
-        const logs = fs.readdirSync(logsPath);
-
-        //const logFile = fs.readFileSync(path.join(logsPath, 'general.log'), 'utf-8');
-        const logFile = await readLastLines.read(path.join(logsPath, 'general.log'), 100)
-
-        let result = template(Object.assign({},
-            (global as any).METHODUS_BRIDGE,
-            { base: fullUrl(req) },
-            { app: packageJson },
-            { logs: logs },
-            { logFile: logFile }
-        ));
-        return new MethodResult(result);
-    }
-
-
-    @Method(Verbs.Get, '/describe/cache')
-    public async cache(@Request() req, @Response() res) {
-
-
-        let str = fs.readFileSync(path.join(clientDir, 'cache.ejs'), 'utf-8');
-        var template = ejs.compile(str, { filename: path.join(clientDir, 'cache.ejs') });
-        const data = (global as any).METHODUS_BRIDGE;
-
-        const packageJson = require(path.join(process.cwd(), 'package.json'));
-        let logsPath = process.env.NODE_LOG_DIR || './logs';
-
-        
-
-
-        let result = template(Object.assign({},
-            (global as any).METHODUS_BRIDGE,
-            { app: packageJson },
-           
-            { base: fullUrl(req) },
-
-        ));
-        return new MethodResult(result);
-    }
 
 
     @Method(Verbs.Get, '/describe/test/:className/:actionKey')
@@ -545,7 +498,7 @@ export class DescribeView {
             }
         }
 
-        let result = template(Object.assign({}, { base: fullUrl(req) }, { helper: helper, methodus: methodus, cls: testedClass.classType, actionKey: actionKey, config: (global as any).tmla.config }));
+        let result = template(Object.assign({}, { base: fullUrl(req) }, { helper: helper, methodus: methodus, cls: testedClass.classType, actionKey: actionKey }));
         return new MethodResult(result);
     }
 
@@ -591,7 +544,7 @@ export class DescribeView {
             testedEvent = { event_type: 'Worker', class: methodus._workevents[actionKey] };
         }
 
-        let result = template(Object.assign({}, { base: fullUrl(req) }, { helper: helper, methodus: testedEvent, cls: testedClass.classType, actionKey: actionKey, config: (global as any).tmla.config }));
+        let result = template(Object.assign({}, { base: fullUrl(req) }, { helper: helper, methodus: testedEvent, cls: testedClass.classType, actionKey: actionKey }));
         return new MethodResult(result);
     }
 }
