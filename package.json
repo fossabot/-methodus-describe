@@ -1,6 +1,6 @@
 {
   "name": "@methodus/describe",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {    
+  "devDependencies": {
     "@methodus/server": "^1.0.0",
     "ts-loader": "^3.2.0",
     "typescript": "^2.6.2",
@@ -24,7 +24,6 @@
     "@methodus/client": "^1.0.0",
     "@types/jquery": "^3.2.16",
     "@types/node": "^8.0.53",
-    
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "http-proxy-middleware": "^0.17.4",
