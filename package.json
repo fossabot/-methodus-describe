@@ -1,0 +1,35 @@
+{
+  "name": "@tmla-plugins/describe",
+  "version": "2.0.12",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && cd client && tsc",
+    "prepare": "npm run build",
+    "webpack": "./node_modules/.bin/webpack ./client/scripts",
+    "watch": "./node_modules/.bin/webpack ./client/scripts --watch",
+    "prepublishOnly": "npm version patch -message \"[VER] automatic tag commit by npm. Reviewer: npm\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tmla/logs": "^4.0.0",
+    "@tmla/methodus": "^8.0.0",
+    "ts-loader": "^3.2.0",
+    "typescript": "^2.6.2",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.5"
+  },
+  "dependencies": {
+    "@tmla/methodus-client": "^1.0.0",
+    "@types/jquery": "^3.2.16",
+    "@types/node": "^8.0.53",
+    "@types/tmla": "^4.0.6",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "http-proxy-middleware": "^0.17.4",
+    "jquery.json-viewer": "^1.1.0",
+    "read-last-lines": "^1.4.0"
+  }
+}

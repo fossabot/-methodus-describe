@@ -1,0 +1,119 @@
+<html>
+
+<head>
+    <script>
+        var exports = {};
+    </script>
+
+    <script src="<%=base%>resources/popper.min.js" crossorigin="anonymous"></script>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="<%=base%>assets/images/favicon.png">
+    <title>Test |
+
+    </title>
+    <!-- Bootstrap Core CSS -->
+    <link href="<%=base%>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=base%>css/style.css" rel="stylesheet">
+    <link href="<%=base%>resources/json-viewer/jquery.json-viewer.css" rel="stylesheet">
+
+    <!-- You can change the theme colors from here -->
+    <link href="<%=base%>css/colors/blue.css" id="theme" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        html,
+        body {
+            background: transparent;
+        }
+
+        .results-block {
+            overflow: auto;
+            height: 70%;
+            padding: 0;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+
+
+    <div class="card d-flex flex-column">
+        <ul class="nav nav-tabs d-flex align-items-start" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" role="tab" href="#testFormTab" style="word-break: break-all;">
+                    <%=cls.name + '.' + actionKey%>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" role="tab" href="#testResult">Result
+                    <span class="well bg-success">
+                        <i id="StatusCode"></i>
+                        <i id="ResultStatusOK" class="mdi mdi-check hide"></i>
+                        <i id="ResultStatusBAD" class="mdi mdi-exclamation hide"></i>
+                    </span>
+                </a>
+            </li>
+        </ul>
+        <div class="card-body tab-content d-flex align-items-stretch">
+            <div class="card-block tab-pane active" role="tabpanel" id="testFormTab">
+                <div class="card-block">
+                    <form id="TestForm" class="form-horizontal form-material" name="TestForm" target="resultFrame" method="POST">
+                        <%-JSON.stringify(methodus)%>
+                    </form>
+                </div>
+            </div>
+            <div class="card-block tab-pane" role="tabpanel" id="testResult">
+                <div class="card-block results-block">
+
+                    <pre id="JsonPane" class="card d-flex hide" style="word-wrap:break-word; font-size: 11px; padding: 5px;"></div>
+                    <div id="HtmlPane" class="card d-flex hide" style="word-wrap:break-word; font-size: 11px; padding: 5px;"></div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card-footer" style="position:fixed;bottom:0;">
+            <small id="RequestUrl"></small>
+        </div>
+        <div>
+        </div>
+      
+
+
+
+        <script src="<%=base%>assets/plugins/jquery/jquery.min.js"></script>
+        <!-- Bootstrap tether Core JavaScript -->
+        <script src="<%=base%>assets/plugins/bootstrap/js/popper.min.js"></script>
+        <script src="<%=base%>assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="<%=base%>resources/json-viewer/jquery.json-viewer.js"></script>
+
+        <script src="<%=base%>scripts/methodus-client.js"></script>
+        <script src="<%=base%>scripts/client.js"></script>
+
+      
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+import { Config } from '@tmla-client/config';
+
+
+
+(window as any).angular.module('configurationManager', [])
+    .controller('main', ($scope) => {
+
+        $scope.apps = (window as any).apps;
+        $scope.envs = (window as any).envs;
+
+        $scope.$watch('SelectedApplication', async (oldVal, newVal) => {
+            if ($scope.SelectedApplication) {
+                const parts = $scope.SelectedApplication.split('/');
+
+                $scope.conf = await Config.getByApplication(parts[0], parts[1], $scope.SelectedEnv);
+                applyConf();
+            }
+        });
+
+        $scope.$watch('SelectedEnv', async (oldVal, newVal) => {
+            if ($scope.SelectedApplication) {
+
+                const parts = $scope.SelectedApplication.split('/');
+                $scope.conf = await Config.getByApplication(parts[0], parts[1], $scope.SelectedEnv);
+                applyConf();
+            }
+
+        })
+
+
+        function applyConf() {
+            if ($scope.conf.keys) {
+                const data = $scope.conf.keys;
+                (window as any).ui.renderJsonResponse("#configuration_json", data, { collapsed: false });
+            } else {
+                (window as any).ui.renderJsonResponse("#configuration_json", {}, { collapsed: false });
+
+            }
+        }
+    });
+
+
+export class ConfigController {
+
+
+
+}

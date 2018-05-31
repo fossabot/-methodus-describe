@@ -1,0 +1,39 @@
+<br /> 
+<div id="DescribeLogs">  
+    <div class="card">
+        <div class="card-block">
+            <% if(cache) {%>
+                <%Object.keys(cache).forEach(function(cacheKey){%>
+                    <div class="sl-item">
+                        <div class="sl-right">
+                            <div>
+                                <a class="link" data-toggle="collapse" href="#cache_<%-cacheKey%>">
+                                    <%=cacheKey%>
+                                        <strong class="badge badge-info">
+                                            <%=Object.keys(cache[cacheKey]).length%>
+                                        </strong>
+                                </a>
+                                <div class="row collapse" id="cache_<%-cacheKey%>">
+                                    <div style="margin:20px 10px;">
+                                        <pre id="viewer_<%-cacheKey%>"></pre>
+
+                                    </div>
+                                    <%if(cache[cacheKey] && Object.keys(cache[cacheKey]).length >0 ){%>
+                                        <script>
+                                            (function () {
+                                                const data = <%-JSON.stringify(cache[cacheKey], null, 2) %>
+                                                    ui.renderJsonResponse("#viewer_<%-cacheKey%>", data);
+                                            })()
+                                        </script>
+
+                                        <%}%>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <%})%>
+                        <%}%>
+        </div>
+    </div>
+</div>
