@@ -5,7 +5,7 @@ let metadataKey = 'params';
 let methodMetadataKey = 'methodus';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Param, MethodType, Method, MethodConfig, Verbs, MethodResult, Request } from '@tmla/methodus';
+import { Param, MethodType, Method, MethodConfig, Verbs, MethodResult, Request } from '@methodus/server';
 //import { Config } from '@tmla-contracts/config';
 const clientDir = path.resolve(path.join(__dirname, '../client'));
 var urlBuilder = require('url');

@@ -1,6 +1,6 @@
 {
-  "name": "@tmla-plugins/describe",
-  "version": "2.0.12",
+  "name": "@methodus/describe",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,19 +13,18 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@tmla/logs": "^4.0.0",
-    "@tmla/methodus": "^8.0.0",
+  "devDependencies": {    
+    "@methodus/server": "^1.0.0",
     "ts-loader": "^3.2.0",
     "typescript": "^2.6.2",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.5"
   },
   "dependencies": {
-    "@tmla/methodus-client": "^1.0.0",
+    "@methodus/client": "^1.0.0",
     "@types/jquery": "^3.2.16",
     "@types/node": "^8.0.53",
-    "@types/tmla": "^4.0.6",
+    
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "http-proxy-middleware": "^0.17.4",

@@ -7,7 +7,7 @@ import { ConfigView } from './server/configView';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as express from 'express';
-import { MethodType, ServerType } from '@tmla/methodus';
+import { MethodType, ServerType } from '@methodus/server';
 //process.env.CONFIGURATIO_SERVICE = 'http://localhost:7777';
 
 
@@ -31,7 +31,7 @@ export function init(config) {
             const clientDir = path.resolve(path.join(__dirname, './client'));
             instance.use('/describe', express.static(clientDir, options))
 
-            const methodClientPath = path.join(process.cwd(), 'node_modules', '@tmla/methodus-client', 'dist');
+            const methodClientPath = path.join(process.cwd(), 'node_modules', '@methodus/client', 'dist');
             instance.use('/describe/scripts/', express.static(methodClientPath, options))
 
 

@@ -2,35 +2,13 @@
 # yarn lockfile v1
 
 
-"@sinonjs/formatio@^2.0.0":
-  version "2.0.0"
-  resolved "http://135.76.2.103:4873/@sinonjs%2fformatio/-/formatio-2.0.0.tgz#84db7e9eb5531df18a8c5e0bfb6e449e55e654b2"
-  dependencies:
-    samsam "1.3.0"
+"@methodus/client@^1.0.0":
+  version "0.0.7"
+  resolved "https://registry.npmjs.org/@methodus/client/-/client-0.0.7.tgz#58c0932f6899822d25d55cc2e0b4ca06b2ebe03a"
 
-"@tmla-client/config@^7.7.1":
-  version "7.7.1"
-  resolved "http://135.76.2.103:4873/@tmla-client%2fconfig/-/config-7.7.1.tgz#88fd8faf420a2c18efc93f5e3ae8b126adc1dd09"
-
-"@tmla/logs@^3.0.5":
-  version "3.0.9"
-  resolved "http://135.76.2.103:4873/@tmla%2flogs/-/logs-3.0.9.tgz#636951edca3b47f4701af87367f51f5a0bf3d0dc"
-  dependencies:
-    caller-id "^0.1.0"
-    debug "^3.0.0"
-    log "^1.4.0"
-    log-symbols "^2.0.0"
-    logrotator "^1.1.0"
-    mkdirp "^0.5.1"
-    stack-trace "^0.0.10"
-
-"@tmla/methodus-client@^1.0.0":
-  version "1.0.12"
-  resolved "http://135.76.2.103:4873/@tmla%2fmethodus-client/-/methodus-client-1.0.12.tgz#6887b900a1ca2ec0b22862a9e64ef5b4f2796125"
-
-"@tmla/methodus@^7.0.2":
-  version "7.0.30"
-  resolved "http://135.76.2.103:4873/@tmla%2fmethodus/-/methodus-7.0.30.tgz#177e6576f3f609a34846d9ac60d481002962bc65"
+"@methodus/server@^1.0.0":
+  version "0.0.18"
+  resolved "https://registry.npmjs.org/@methodus/server/-/server-0.0.18.tgz#8267e771a8427f0e81bcfad87a2cde5defdb0acf"
   dependencies:
     amqplib "^0.5.1"
     child-process-debug "0.0.7"
@@ -44,6 +22,7 @@
     js-yaml "^3.9.0"
     kafka-node "^2.2.0"
     log "^1.4.0"
+    logelas "^1.0.20"
     method-override "^2.3.9"
     mkdirp "^0.5.1"
     mock-require "^2.0.2"
@@ -57,6 +36,7 @@
     sinon "^4.0.0"
     socket.io "^2.0.3"
     socket.io-client "^2.0.3"
+    stream-from-promise "^1.0.0"
     supertest "^3.0.0"
     uuid "^3.1.0"
     whatwg-fetch "^2.0.3"
@@ -66,6 +46,12 @@
     cookie-parser "^1.4.3"
     express "^4.15.3"
 
+"@sinonjs/formatio@^2.0.0":
+  version "2.0.0"
+  resolved "http://135.76.2.103:4873/@sinonjs%2fformatio/-/formatio-2.0.0.tgz#84db7e9eb5531df18a8c5e0bfb6e449e55e654b2"
+  dependencies:
+    samsam "1.3.0"
+
 "@types/jquery@^3.2.16":
   version "3.3.1"
   resolved "http://135.76.2.103:4873/@types%2fjquery/-/jquery-3.3.1.tgz#55758d44d422756d6329cbf54e6d41931d7ba28f"
@@ -73,10 +59,6 @@
 "@types/node@^8.0.53":
   version "8.10.0"
   resolved "http://135.76.2.103:4873/@types%2fnode/-/node-8.10.0.tgz#f5d649cc49af8ed6507d15dc6e9b43fe8b927540"
-
-"@types/tmla@^4.0.6":
-  version "4.0.6"
-  resolved "http://135.76.2.103:4873/@types%2ftmla/-/tmla-4.0.6.tgz#fe920258bb395bc782257db751855251d33071b7"
 
 abbrev@1:
   version "1.1.1"
@@ -978,7 +960,7 @@ debug@2.6.9, debug@^2.1.3, debug@^2.2.0, debug@^2.3.3, debug@^2.6.6, debug@^2.6.
   dependencies:
     ms "2.0.0"
 
-debug@^3.0.0, debug@^3.1.0, debug@~3.1.0:
+debug@^3.0.1, debug@^3.1.0, debug@~3.1.0:
   version "3.1.0"
   resolved "http://135.76.2.103:4873/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
   dependencies:
@@ -2433,6 +2415,16 @@ log@^1.4.0:
   version "1.4.0"
   resolved "http://135.76.2.103:4873/log/-/log-1.4.0.tgz#4ba1d890fde249b031dca03bc37eaaf325656f1c"
 
+logelas@^1.0.20:
+  version "1.0.24"
+  resolved "https://registry.npmjs.org/logelas/-/logelas-1.0.24.tgz#c2c1b2665c2680868f91809a3839c295c427fc1c"
+  dependencies:
+    debug "^3.0.1"
+    log "^1.4.0"
+    log-symbols "^2.0.0"
+    logrotator "^1.1.0"
+    mkdirp "^0.5.1"
+
 loglevel@^1.4.1:
   version "1.6.1"
   resolved "http://135.76.2.103:4873/loglevel/-/loglevel-1.6.1.tgz#e0fc95133b6ef276cdc8887cdaf24aa6f156f8fa"
@@ -3852,7 +3844,7 @@ sshpk@^1.7.0:
     jsbn "~0.1.0"
     tweetnacl "~0.14.0"
 
-stack-trace@^0.0.10, stack-trace@~0.0.7:
+stack-trace@~0.0.7:
   version "0.0.10"
   resolved "http://135.76.2.103:4873/stack-trace/-/stack-trace-0.0.10.tgz#547c70b347e8d32b4e108ea1a2a159e5fdde19c0"
 
@@ -3877,6 +3869,10 @@ stream-browserify@^2.0.1:
   dependencies:
     inherits "~2.0.1"
     readable-stream "^2.0.2"
+
+stream-from-promise@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/stream-from-promise/-/stream-from-promise-1.0.0.tgz#763687f7dd777e4c894f6408333fc6b3fc8a61bb"
 
 stream-http@^2.7.2:
   version "2.8.1"

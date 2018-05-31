@@ -1,4 +1,4 @@
-import * as M from '@tmla/methodus-client';
+import * as M from '@methodus/client';
 export class Proxy {
     constructor() {
 

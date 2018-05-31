@@ -5,7 +5,7 @@ let metadataKey = 'params';
 let methodMetadataKey = 'methodus';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Methodus, Response, Query, Param, MethodType, Method, MethodConfig, Verbs, MethodResult, Request } from '@tmla/methodus';
+import { Methodus, Response, Query, Param, MethodType, Method, MethodConfig, Verbs, MethodResult, Request } from '@methodus/server';
 const clientDir = path.resolve(path.join(__dirname, '../client'));
 import * as readLastLines from 'read-last-lines';
 var urlBuilder = require('url');
@@ -501,13 +501,13 @@ export class DescribeView {
         const packageJson = require(path.join(process.cwd(), 'package.json'));
         let logsPath = process.env.NODE_LOG_DIR || './logs';
 
-        const cache = global.tmla.cacheCollection;// require('@tmla/cache');// (global as any).tmla.cache;
+        
 
 
         let result = template(Object.assign({},
             (global as any).METHODUS_BRIDGE,
             { app: packageJson },
-            { cache: cache },
+           
             { base: fullUrl(req) },
 
         ));
