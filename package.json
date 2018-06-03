@@ -14,14 +14,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@methodus/server": "^1.0.0",
     "ts-loader": "^3.2.0",
     "typescript": "^2.6.2",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.5"
   },
   "dependencies": {
-    "@methodus/client": "^1.0.0",
+    "@methodus/server": "latest",
+    "@methodus/client": "latest",
     "@types/jquery": "^3.2.16",
     "@types/node": "^8.0.53",
     "ejs": "^2.5.7",
