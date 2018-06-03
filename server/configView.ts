@@ -51,14 +51,10 @@ export class ConfigView {
 
         let str = fs.readFileSync(path.join(clientDir, 'configManager.ejs'), 'utf-8');
         var template = ejs.compile(str, { filename: path.join(clientDir, 'configManager.ejs') });
-        const data = (global as any).METHODUS_BRIDGE;
-
-        const packageJson = require(path.join(process.cwd(), 'package.json'));
+       
         let appsAndEnvs = { result: { applications: [], envs: [] } };// await Config.getApplications();
-
         // appsAndEnvs.result.applications = appsAndEnvs.result.applications.map(item => item.id);
         // appsAndEnvs.result.envs = appsAndEnvs.result.envs.map(item => item.id);
-
         let result = template(Object.assign({},
             (global as any).METHODUS_BRIDGE,
             { base: fullUrl(req) },
@@ -75,7 +71,7 @@ export class ConfigView {
 
         let str = fs.readFileSync(path.join(clientDir, 'config.ejs'), 'utf-8');
         var template = ejs.compile(str, { filename: path.join(clientDir, 'config.ejs') });
-        const data = (global as any).METHODUS_BRIDGE;
+        
         const packageJson = require(path.join(process.cwd(), 'package.json'));
 
 

@@ -354,14 +354,14 @@ export class DescribeView {
                 cleanID: (route) => {
                     return (route.name + '__' + route.methodus.name).replace(/\//, '').replace('@', '');
                 },
-                adaptResolver: (url: string) => {
-                    if (url.indexOf('127.0.0.1') > 0) {
-                        url = url.replace('127.0.0.1', req.host)
+                adaptResolver: (urlx: string) => {
+                    if (urlx.indexOf('127.0.0.1') > 0) {
+                        urlx = urlx.replace('127.0.0.1', req.host)
                     }
-                    if (url.indexOf('localhost') > 0) {
-                        url = url.replace('localhost', req.host)
+                    if (urlx.indexOf('localhost') > 0) {
+                        urlx = urlx.replace('localhost', req.host)
                     }
-                    return url;
+                    return urlx;
                 }
             }
         ));
@@ -410,8 +410,8 @@ export class DescribeView {
 
         Object.keys(data.classes).forEach((cls) => {
             if (data.classes[cls].methodType === MethodType.Local) {
-                const methodus = DescribeView.maybeMethodus(data.classes[cls].classType);
-                routes.push({ active: true, methodus: methodus, name: cls });
+                const methodus1 = DescribeView.maybeMethodus(data.classes[cls].classType);
+                routes.push({ active: true, methodus: methodus1, name: cls });
             }
         });
 
@@ -446,20 +446,20 @@ export class DescribeView {
                     cleanID: (route) => {
                         return (route.name + '__' + route.methodus.name).replace(/\//, '').replace('@', '');
                     },
-                    adaptResolver: (url: string) => {
-                        if (url.indexOf('127.0.0.1') > 0) {
-                            url = url.replace('127.0.0.1', req.host)
+                    adaptResolver: (url1: string) => {
+                        if (url1.indexOf('127.0.0.1') > 0) {
+                            url1 = url1.replace('127.0.0.1', req.host)
                         }
-                        if (url.indexOf('localhost') > 0) {
-                            url = url.replace('localhost', req.host)
+                        if (url1.indexOf('localhost') > 0) {
+                            url1 = url1.replace('localhost', req.host)
                         }
-                        return url;
+                        return url1;
                     }
                 }
             ));
             return new MethodResult(result);
         } catch (error) {
-            debugger;
+           console.error(error)
         }
 
     }
@@ -513,16 +513,16 @@ export class DescribeView {
         const methodus = DescribeView.maybeMethodus(testedClass.classType);
 
         const helper = {
-            reflectSmallTypes: (param) => {
-                if (param.name) {
-                    return param.name.toLowerCase();
+            reflectSmallTypes: (param1) => {
+                if (param1.name) {
+                    return param1.name.toLowerCase();
                 }
             },
             reflectObject: (param) => {
                 return param.name;
             },
             nameResolver: (param) => {
-                let finalName = '';
+                let finalName1 = '';
                 if ((param.from === 'body' && param.name) || param.from === 'files') {
                     return `name="${param.name || param.from}"`;
                 } else {
