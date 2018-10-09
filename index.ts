@@ -2,19 +2,16 @@ import { DescribeView } from './server/describeView';
 import { SocketView } from './server/socketView';
 import { ConfigView } from './server/configView';
 
-//import { Config } from '@tmla-contracts/config';
 
-import * as fs from 'fs';
 import * as path from 'path';
 import * as express from 'express';
 import { MethodType, ServerType } from '@methodus/server';
-//process.env.CONFIGURATIO_SERVICE = 'http://localhost:7777';
 
 
 
-export function init(config) {
+export function init(config, options) {
 
-
+    const describePath = (options && options.path) ? options.path : '/describe';
     config.run('express', {
         onStart: (instance) => {
             var options = {
@@ -29,10 +26,10 @@ export function init(config) {
             }
 
             const clientDir = path.resolve(path.join(__dirname, './client'));
-            instance.use('/describe', express.static(clientDir, options))
+            instance.use(describePath, express.static(clientDir, options))
 
             const methodClientPath = path.join(process.cwd(), 'node_modules', '@methodus/client', 'dist');
-            instance.use('/describe/scripts/', express.static(methodClientPath, options))
+            instance.use(`${describePath}/scripts/`, express.static(methodClientPath, options))
 
 
 
@@ -65,7 +62,7 @@ export function init(config) {
 
         }
     });
-    config.run('socketio', { nsp: '/describe' });
+    config.run('socketio', { nsp: describePath });
 
     config.use(DescribeView, 'Local', 'express');
     config.use(ConfigView, 'Local', 'express');
