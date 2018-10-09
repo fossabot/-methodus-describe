@@ -18,19 +18,16 @@ var http = require('http'),
 
 
 function fullUrl(req) {
-    if (req.headers['referer']) {
-        const urlArr = req.headers['referer'].split('/describe')[0].split('://');
-
+    if (req.headers['referer']) {       
         return urlBuilder.format({
-            protocol: urlArr[0],
-            host: urlArr[1],
+            protocol: req.protocol,
+            host: req.headers['referer'],
             pathname: req.originalUrl.split('/describe')[0] + '/describe/'
         });
     }
-
 }
 
-
+const prefix = process.env.describe_route || '';
 
 @MethodConfig('Describe')
 export class DescribeView {
@@ -52,7 +49,7 @@ export class DescribeView {
     }
 
 
-    @Method(Verbs.Get, '/describe/methodus')
+    @Method(Verbs.Get, prefix + '/describe/methodus')
     public getMethodusData() {
         const data = (global as any).METHODUS_BRIDGE;
         let routes = [];
@@ -72,7 +69,7 @@ export class DescribeView {
 
         return new MethodResult(routes);
     }
-    @Method(Verbs.Get, '/describe/methodus/:className')
+    @Method(Verbs.Get, prefix + '/describe/methodus/:className')
     public getMethodusDataClass(@Param('className') className) {
         const data = (global as any).METHODUS_BRIDGE;
         let routes = [];
@@ -90,7 +87,7 @@ export class DescribeView {
 
 
 
-    @Method(Verbs.Get, '/describeproxy/:path')
+    @Method(Verbs.Get, prefix + '/describeproxy/:path')
     public describeproxy(@Query('u') application_endpoint, @Param('path') applicationName, @Request() req, @Response() res) {
 
         //
@@ -114,7 +111,7 @@ export class DescribeView {
         return new MethodResult({});
     }
 
-    @Method(Verbs.Get, '/describe/info')
+    @Method(Verbs.Get, prefix + '/describe/info')
     public info(@Request() req) {
 
         let str = fs.readFileSync(path.join(clientDir, 'views/describe.ejs'), 'utf-8');
@@ -166,7 +163,7 @@ export class DescribeView {
     }
 
 
-    @Method(Verbs.Get, '/describe/swaggerize/:env')
+    @Method(Verbs.Get, prefix + '/describe/swaggerize/:env')
     public swaggerize(@Param('env') env, @Request() req) {
         const data = (global as any).METHODUS_BRIDGE;
         const packageJson = require(path.join(process.cwd(), 'package.json'));
@@ -250,7 +247,7 @@ export class DescribeView {
     }
 
 
-    @Method(Verbs.Get, '/describe/dashboard')
+    @Method(Verbs.Get, prefix + '/describe/dashboard')
     public dashboard(@Request() req, @Response() res) {
 
 
@@ -368,7 +365,7 @@ export class DescribeView {
         return new MethodResult(result);
     }
 
-    @Method(Verbs.Get, '/describe/')
+    @Method(Verbs.Get, prefix + '/describe/')
     public parentFrame(@Request() req, @Response() res) {
         let str = fs.readFileSync(path.join(clientDir, 'frame.ejs'), 'utf-8');
         var template = ejs.compile(str, { filename: path.join(clientDir, 'frame.ejs') });
@@ -379,7 +376,7 @@ export class DescribeView {
     }
 
 
-    @Method(Verbs.Get, '/describe/inner')
+    @Method(Verbs.Get, prefix + '/describe/inner')
     public describe(@Request() req, @Response() res) {
 
 
@@ -459,7 +456,7 @@ export class DescribeView {
             ));
             return new MethodResult(result);
         } catch (error) {
-           console.error(error)
+            console.error(error)
         }
 
     }
@@ -468,7 +465,7 @@ export class DescribeView {
 
 
 
-    @Method(Verbs.Get, '/describe/test/:className/:actionKey')
+    @Method(Verbs.Get, prefix + '/describe/test/:className/:actionKey')
     action(@Param('className') className, @Param('actionKey') actionKey, @Request() req, @Response() res) {
 
         let str = fs.readFileSync(path.join(clientDir, 'test.ejs'), 'utf-8');
@@ -503,7 +500,7 @@ export class DescribeView {
     }
 
 
-    @Method(Verbs.Get, '/describe/testevent/:className/:actionKey')
+    @Method(Verbs.Get, prefix + '/describe/testevent/:className/:actionKey')
     eventAction(@Param('className') className, @Param('actionKey') actionKey, @Request() req, @Response() res) {
 
         let str = fs.readFileSync(path.join(clientDir, 'testEvent.ejs'), 'utf-8');

@@ -1,6 +1,4 @@
-import { DescribeView } from './server/describeView';
-import { SocketView } from './server/socketView';
-import { ConfigView } from './server/configView';
+
 
 
 import * as path from 'path';
@@ -9,9 +7,20 @@ import { MethodType, ServerType } from '@methodus/server';
 
 
 
-export function init(config, options) {
+export function init(config, pluginOptions) {
 
-    const describePath = (options && options.path) ? options.path : '/describe';
+    process.env.describe_route = (pluginOptions && pluginOptions.path) ? pluginOptions.path : '';
+    const describePath = process.env.describe_route + '/describe';
+
+
+    const DescribeView = require('./server/describeView').DescribeView;
+    const SocketView = require('./server/socketView').SocketView;
+    const ConfigView = require('./server/configView').ConfigView;
+
+
+
+
+
     config.run('express', {
         onStart: (instance) => {
             var options = {
