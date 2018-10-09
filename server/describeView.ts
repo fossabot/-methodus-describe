@@ -21,7 +21,7 @@ function fullUrl(req) {
     if (req.headers['referer']) {       
         return urlBuilder.format({
             protocol: req.protocol,
-            host: req.headers['referer'],
+            host: req.headers['host'],
             pathname: req.originalUrl.split('/describe')[0] + '/describe/'
         });
     }
