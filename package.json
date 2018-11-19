@@ -1,6 +1,6 @@
 {
   "name": "@methodus/describe",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@methodus/client": "^0.0.9",
-    "@methodus/server": "^0.0.25",
+    "@methodus/server": "^1.1.0",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "http-proxy-middleware": "^0.17.4",

@@ -14,8 +14,9 @@ var urlBuilder = require('url');
 function fullUrl(req) {
     const urlArr = req.headers['referer'].split('/describe')[0].split('://');
 
+
     return urlBuilder.format({
-        protocol: urlArr[0],
+        protocol: '//',
         host: urlArr[1],
         pathname: req.originalUrl.split('/describe')[0] + '/describe/'
     });
