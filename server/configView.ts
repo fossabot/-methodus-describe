@@ -12,14 +12,15 @@ var urlBuilder = require('url');
 
 
 function fullUrl(req) {
-    const urlArr = req.headers['referer'].split('/describe')[0].split('://');
-    const originalUrl = '//' + req.originalUrl.split('/describe')[0].split('://');
-
-    return urlBuilder.format({
-        protocol: '//',
-        host: urlArr[1],
-        pathname: originalUrl + '/describe/'
-    });
+    if (req.headers['referer']) {
+        const urlArr = req.headers['referer'].split('/describe')[0].split('://');
+        const originalUrl = req.originalUrl.split('/describe')[0];
+        return urlBuilder.format({
+            protocol: '//',
+            host: urlArr[1],
+            pathname: originalUrl + '/describe/'
+        });
+    }
 }
 
 
