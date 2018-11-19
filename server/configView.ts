@@ -13,12 +13,12 @@ var urlBuilder = require('url');
 
 function fullUrl(req) {
     const urlArr = req.headers['referer'].split('/describe')[0].split('://');
-
+    const originalUrl = '//' + req.originalUrl.split('/describe')[0].split('://');
 
     return urlBuilder.format({
         protocol: '//',
         host: urlArr[1],
-        pathname: req.originalUrl.split('/describe')[0] + '/describe/'
+        pathname: originalUrl + '/describe/'
     });
 }
 
@@ -52,7 +52,7 @@ export class ConfigView {
 
         let str = fs.readFileSync(path.join(clientDir, 'configManager.ejs'), 'utf-8');
         var template = ejs.compile(str, { filename: path.join(clientDir, 'configManager.ejs') });
-       
+
         let appsAndEnvs = { result: { applications: [], envs: [] } };// await Config.getApplications();
         // appsAndEnvs.result.applications = appsAndEnvs.result.applications.map(item => item.id);
         // appsAndEnvs.result.envs = appsAndEnvs.result.envs.map(item => item.id);
@@ -72,7 +72,7 @@ export class ConfigView {
 
         let str = fs.readFileSync(path.join(clientDir, 'config.ejs'), 'utf-8');
         var template = ejs.compile(str, { filename: path.join(clientDir, 'config.ejs') });
-        
+
         const packageJson = require(path.join(process.cwd(), 'package.json'));
 
 

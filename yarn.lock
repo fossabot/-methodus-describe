@@ -146,15 +146,10 @@
   dependencies:
     "@types/sizzle" "*"
 
-"@types/node@*":
+"@types/node@*", "@types/node@^10.12.9":
   version "10.12.9"
   resolved "https://registry.npmjs.org/@types/node/-/node-10.12.9.tgz#a07bfa74331471e1dc22a47eb72026843f7b95c8"
   integrity sha512-eajkMXG812/w3w4a1OcBlaTwsFPO5F7fJ/amy+tieQxEMWBlbV1JGSjkFM+zkHNf81Cad+dfIRA+IBkvmvdAeA==
-
-"@types/node@^8.0.53":
-  version "8.10.38"
-  resolved "https://registry.npmjs.org/@types/node/-/node-8.10.38.tgz#e05c201a668492e534b48102aca0294898f449f6"
-  integrity sha512-EibsnbJerd0hBFaDjJStFrVbVBAtOy4dgL8zZFw0uOvPqzBAX59Ci8cgjg3+RgJIWhsB5A4c+pi+D4P9tQQh/A==
 
 "@types/pino@^4.16.0":
   version "4.16.1"

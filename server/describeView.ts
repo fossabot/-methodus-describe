@@ -1,30 +1,32 @@
 
 import * as ejs from 'ejs';
-import * as express from 'express';
-let metadataKey = 'params';
-let methodMetadataKey = 'methodus';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Methodus, Response, Query, Param, MethodType, Method, MethodConfig, Verbs, MethodResult, Request } from '@methodus/server';
+import { Response, Query, Param, MethodType, Method, MethodConfig, Verbs, MethodResult, Request } from '@methodus/server';
 const clientDir = path.resolve(path.join(__dirname, '../client'));
-import * as readLastLines from 'read-last-lines';
 var urlBuilder = require('url');
 
-const proxies: any = {};
-
-
-var http = require('http'),
-    httpProxy = require('http-proxy');
 
 
 function fullUrl(req) {
-    if (req.headers['referer']) {       
-        return urlBuilder.format({
-            protocol: '//',
-            host: req.headers['host'],
-            pathname: req.originalUrl.split('/describe')[0] + '/describe/'
-        });
-    }
+
+    const urlArr = req.headers['referer'].split('/describe')[0].split('://');
+    const originalUrl = '//' + req.originalUrl.split('/describe')[0].split('://');
+
+    return urlBuilder.format({
+        protocol: '//',
+        host: urlArr[1],
+        pathname: originalUrl + '/describe/'
+    });
+
+
+    // if (req.headers['referer']) {       
+    //     return urlBuilder.format({
+    //         protocol: '//',
+    //         host: req.headers['host'],
+    //         pathname: req.originalUrl.split('/describe')[0] + '/describe/'
+    //     });
+    // }
 }
 
 const prefix = process.env.describe_route || '';
