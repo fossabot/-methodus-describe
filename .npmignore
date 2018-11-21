@@ -6,4 +6,8 @@ node_modules
 
 !*.js
 .git
+.vscode
+webpack.config.js
+tsconfig.json
+yarn.lock
 
