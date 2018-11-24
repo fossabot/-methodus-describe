@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@methodus/server": "^1.1.0",
+    "@methodus/server": "^1.1.2",
     "@types/jquery": "^3.2.16",
     "@types/node": "^10.12.9",
     "express": "^4.16.2",
