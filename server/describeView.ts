@@ -22,16 +22,19 @@ export class DescribeView {
     }
     public static maybeMethodus(object: any): any {
         let proto = object.prototype;
-        if (proto && proto.constructor && proto.constructor.methodus)
-            return proto.constructor.methodus;
+        if (proto && proto.constructor && proto.constructor.methodus) {
+            return proto.constructor.methodus[object.name];
+        }
 
-        if (!proto && object.__proto__ && object.__proto__.methodus)
-            return object.__proto__.methodus;
+        if (!proto && object.__proto__ && object.__proto__.methodus) {
+            return object.__proto__.methodus[object.name];
+        }
 
-        if (object.methodus)
-            return object.methodus;
+        if (object.methodus) {
+            return object.methodus[object.name];
+        }
 
-        return proto.methodus;
+        return proto.methodus[object.name];
     }
 
 
@@ -380,6 +383,7 @@ export class DescribeView {
         Object.keys(data.classes).forEach((cls) => {
 
             const methodus: any = DescribeView.maybeMethodus(data.classes[cls].classType);
+
             if (methodus._workevents) {
                 Object.keys(methodus._workevents).forEach(event => {
                     events.push(event);

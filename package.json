@@ -1,11 +1,11 @@
 {
   "name": "@methodus/describe",
-  "version": "1.1.9",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "tsc && cd client && tsc",
-    "prepare": "npm run build",
+    "prepare": "npm run build && npm run webpack",
     "webpack": "./node_modules/.bin/webpack ./client/scripts",
     "watch": "./node_modules/.bin/webpack ./client/scripts --watch",
     "prepublishOnly": "npm version patch -message \"[VER] automatic tag commit by npm. Reviewer: npm\"",
