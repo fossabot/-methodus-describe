@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@methodus/server": "^1.1.2",
+    "@methodus/server": "latest",
     "@types/jquery": "^3.2.16",
     "@types/node": "^10.12.9",
     "express": "^4.16.2",
@@ -25,7 +25,7 @@
     "webpack-dev-server": "^2.9.5"
   },
   "dependencies": {
-    "@methodus/client": "^0.0.9",
+    "@methodus/client": "latest",
     "ejs": "^2.5.7",
     "http-proxy-middleware": "^0.17.4",
     "jquery.json-viewer": "^1.1.0",

@@ -6,7 +6,7 @@ import * as fs from 'fs';
 const logsPath = process.env.NODE_LOG_DIR || './logs';
 
 
-@MethodConfig('tail')
+@MethodConfig('SocketView')
 export class SocketView {
     activeTails: any;
     @Method(Verbs.Get, '/connect')

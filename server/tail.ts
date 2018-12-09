@@ -20,7 +20,7 @@ export class Tail {
 
 
             // watch file
-           this.watcher =  fs.watchFile(filename, function (curr, prev) {
+            fs.watchFile(filename, function (curr, prev) {
 
                 var len = curr.size - prev.size, position = prev.size;
                 if (len > 0) {

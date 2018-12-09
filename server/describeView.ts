@@ -15,7 +15,7 @@ function fullUrl(req) {
 
 const prefix = process.env.describe_route || '';
 
-@MethodConfig('Describe')
+@MethodConfig('DescribeView')
 export class DescribeView {
     constructor(public expressInstance: any) {
         // this._app.use(describe.init());

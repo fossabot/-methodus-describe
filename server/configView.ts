@@ -24,7 +24,7 @@ function fullUrl(req) {
 }
 
 
-@MethodConfig('Config')
+@MethodConfig('ConfigView')
 export class ConfigView {
     constructor(public expressInstance: any) {
         // this._app.use(describe.init());
