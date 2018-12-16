@@ -1,0 +1,34 @@
+
+<select ng-options="item for item in apps" ng-model="SelectedApplication"></select>
+<select ng-options="item for item in envs" ng-model="SelectedEnv"></select>
+
+
+
+
+
+
+
+<pre id="configuration_json"></pre>
+
+<script>
+    (function () {
+            const data = <%-JSON.stringify(config, null, 2) %>;
+            ui.renderJsonResponse("#configuration_json", data,{ collapsed: false });
+    })()
+</script>
+
+
+
+
+
+
+<%-JSON.stringify(appsAndEnvs)%>
+
+<ul>
+    <% Object.keys(instances).forEach(function(instance){ %>
+        <li>
+            Server key:
+            <%=instances[instance].serverType%>
+        </li>
+        <% }); %>
+</ul>

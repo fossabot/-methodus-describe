@@ -1,0 +1,34 @@
+<div class="card">
+    <div class="card-block bg-info">
+        <h4 class="text-white card-title">Active components</h4>
+        <h6 class="card-subtitle text-white m-b-0 op-5">Checkout my contacts here</h6>
+    </div>
+    <div class="card-block">
+        <div class="message-box contact-box">
+            <!-- <h2 class="add-ct-btn">
+                <button type="button" class="btn btn-circle btn-lg btn-success waves-effect waves-dark">+</button>
+            </h2> -->
+            <div class="message-widget contact-widget">
+                <% routes.forEach(function(route){%>
+                    <%if(route.active){%>
+                        <!-- Message -->
+                        <a href="#">
+                            <div class="user-img">
+                                <img src="assets/images/users/1.jpg" alt="user" class="img-circle">
+                                <span class="profile-status online pull-right"></span>
+                            </div>
+                            <div class="mail-contnet">
+                                <h5>
+                                    <%-route.name%>
+                                </h5>
+                                <span class="mail-desc">
+                                    <%=route.methodus.name%>
+                                </span>
+                            </div>
+                        </a>
+                        <%}%>
+                            <%})%>
+            </div>
+        </div>
+    </div>
+</div>

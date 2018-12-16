@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="<%=base %>assets/images/favicon.png">
+    <title>Describe |
+        <%=app.name%>
+    </title>
+    <!-- Bootstrap Core CSS -->
+    <link href="<%=base %>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=base %>css/style.css" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="<%=base %>css/colors/blue.css" id="theme" rel="stylesheet">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="card-no-border">
+
+
+
+
+    <div style="width:100%;">
+        <div class="card">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs profile-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#local_services" role="tab">Local</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#remote_services" role="tab">Remote</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#work_events" role="tab">Events</a>
+                </li>
+
+
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="local_services" role="tabpanel">
+                    <div class="card-block">
+                        <a title="swagger" href="swaggerize/local" target="_blank">{...}</a>
+                        <% if(routes) {%>
+                            <%routes.forEach(function(route){%>
+                                <% if(Object.keys(route.methodus._descriptors).length > 0) {%>
+                                    <div class="sl-item">
+
+                                        <div class="sl-right">
+                                            <div>
+                                                <a class="link" data-toggle="collapse" href="#service_<%=route.name%>">
+                                                    <%=route.name%>
+                                                </a>
+                                                <span class="sl-date">
+                                                    <%=route.methodus.name%>
+                                                        <%=route.info.version%>
+                                                </span>
+                                                <div class="row collapse" id="service_<%=route.name%>">
+
+                                                    <table class="table table-striped table-hover">
+                                                        <thead class="thead-dark">
+                                                            <tr>
+                                                                <th>Verb</th>
+                                                                <th>Key / Route</th>
+                                                                <th>Args</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% Object.keys(route.methodus._descriptors).forEach(function(itemKey){%>
+                                                                <tr>
+                                                                    <td>
+                                                                        <%=route.methodus._descriptors[itemKey].verb%>
+                                                                    </td>
+
+                                                                    <td>
+                                                                        <a href="#" onclick="parent.loadTest('test/<%=route.name%>/<%=itemKey%>');return false;" target="_self" style="word-break: break-all;">
+                                                                            <%=route.methodus._descriptors[itemKey].propertyKey%>
+                                                                        </a>
+
+                                                                        <a href="<%=base %>test/<%=route.name%>/<%=itemKey%>" target="_blank" style="word-break: break-all;">
+                                                                            <i class="mdi mdi-launch"></i>
+                                                                        </a>
+
+                                                                        <br/>
+                                                                        <span style="word-break: break-all;">
+                                                                            <%=route.methodus._descriptors[itemKey].route%>
+                                                                        </span>
+
+
+                                                                    </td>
+                                                                    <td>
+                                                                        <%if(route.methodus._descriptors[itemKey].params){%>
+                                                                            <table class="table dark small">
+                                                                                <% route.methodus._descriptors[itemKey].params.forEach(function(paramItem){%>
+
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <%=paramItem.from%>:
+                                                                                                <%=paramItem.name%>
+
+
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <%=paramItem.type%>
+
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <%})%>
+                                                                            </table>
+
+                                                                            <%}%>
+
+                                                                    </td>
+                                                                </tr>
+                                                                <!-- <tr>
+                                                        <td colspan="5">
+                                                            <a href="test/<%=route.name%>/<%=itemKey%>" target="<%-makeFrameName(route.methodus._descriptors[itemKey].route)%>"
+                                                                class="btn btn-primary" autocomplete="off">
+                                                                Test page
+                                                            </a>
+                                                            <iframe scrolling="no" name="<%-makeFrameName(route.methodus._descriptors[itemKey].route)%>" id="<%-makeFrameName(route.methodus._descriptors[itemKey].route)%>"
+                                                                style="width: 100%;height: 0%;" frameBorder="0"></iframe>
+                                                        </td>
+                                                    </tr> -->
+                                                                <% }); %>
+                                                        </tbody>
+
+
+                                                    </table>
+
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <%}%>
+                                        <%})%>
+                                            <%}%>
+                    </div>
+                </div>
+                <!--second tab-->
+                <div class="tab-pane" id="remote_services" role="tabpanel">
+                    <div class="card-block">
+                        <% if(remoteRoutes) {%>
+                            <%remoteRoutes.forEach(function(route){%>
+                                <div class="sl-item">
+                                    <div class="sl-left">
+                                        <span class="badge" style="width: 50px;">M</span>
+                                    </div>
+                                    <div class="sl-right">
+                                        <div>
+                                            <a class="link" data-toggle="collapse" href="#service_<%=route.name%>">
+                                                <%=route.name%>
+                                            </a>
+                                            <span class="sl-date">
+                                                <%=route.methodus.name%>
+                                                    <%=route.info.version%>
+                                            </span>
+                                            <span class="sl-date pull-right">
+                                                <strong class="badge badge-info">
+                                                    <%=route.configuration.methodType%>
+                                                </strong> |
+
+                                                <a class="link" target="_blank" href="<%=base %><%=adaptResolver(route.configuration.resolver())%>/describe">
+                                                    <%=adaptResolver(route.configuration.resolver())%>
+                                                </a>
+                                            </span>
+                                            <!-- <p>assign a new task
+                                                <a href="#"> Design weblayout</a>
+                                            </p> -->
+                                            <div class="row collapse" id="service_<%=route.name%>">
+
+                                                <table class="table table-striped table-hover">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+
+                                                            <th>Verb</th>
+                                                            <th>Key</th>
+                                                            <th>Route</th>
+                                                            <th>Args</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% Object.keys(route.methodus._descriptors).forEach(function(itemKey){%>
+                                                            <tr>
+
+                                                                <td>
+                                                                    <%=route.methodus._descriptors[itemKey].verb%>
+                                                                </td>
+                                                                <td>
+
+
+                                                                    <a href="#" onclick="parent.loadTest('<%=base %>test/<%=route.name%>/<%=itemKey%>');return false;" target="_self" style="word-break: break-all;">
+                                                                        <%=route.methodus._descriptors[itemKey].propertyKey%>
+                                                                    </a>
+                                                                    <a href="<%=base %>test/<%=route.name%>/<%=itemKey%>" target="_blank" style="word-break: break-all;">
+                                                                        <i class="mdi mdi-launch"></i>
+                                                                    </a>
+
+                                                                </td>
+                                                                <td>
+                                                                    <span style="word-break: break-all;">
+                                                                        <%=route.methodus._descriptors[itemKey].route%>
+                                                                    </span>
+
+
+                                                                </td>
+                                                                <td>
+                                                                    <%if(route.methodus._descriptors[itemKey].params){%>
+
+                                                                        <ul>
+                                                                            <% route.methodus._descriptors[itemKey].params.forEach(function(paramItem){%>
+                                                                                <li>
+                                                                                    <i>
+                                                                                        <%=paramItem.from%>
+                                                                                    </i>:
+                                                                                    <strong>
+                                                                                        <%=paramItem.name%>
+                                                                                    </strong> :
+                                                                                    <u>
+                                                                                        <%=paramItem.type%>
+                                                                                    </u>
+                                                                                </li>
+                                                                                <%})%>
+                                                                        </ul>
+                                                                        <%}%>
+
+
+                                                                </td>
+                                                            </tr>
+                                                            <!-- <tr>
+                                                        <td colspan="5">
+                                                            <a href="test/<%=route.name%>/<%=itemKey%>" target="<%-makeFrameName(route.methodus._descriptors[itemKey].route)%>"
+                                                                class="btn btn-primary" autocomplete="off">
+                                                                Test page
+                                                            </a>
+                                                            <iframe scrolling="no" name="<%-makeFrameName(route.methodus._descriptors[itemKey].route)%>" id="<%-makeFrameName(route.methodus._descriptors[itemKey].route)%>"
+                                                                style="width: 100%;height: 0;" frameBorder="0"></iframe>
+
+                                                        </td>
+                                                    </tr> -->
+
+
+                                                            <% }); %>
+                                                    </tbody>
+                                                </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <%})%>
+                                    <%}%>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="work_events" role="tabpanel">
+                    <div class="card-block">
+                        <% if(events) {%>
+                            <%Object.keys(events).forEach(function(cls){%>
+
+                                <div class="sl-item">
+                                    <div class="sl-left">
+                                        <span class="badge" style="width: 50px;">E</span>
+                                    </div>
+                                    <div class="sl-right">
+                                        <div>
+                                            <a class="link" data-toggle="collapse" href="#event_<%=cls%>">
+                                                <%-cls%>
+                                            </a>
+
+
+                                            <!-- <p>assign a new task
+                                                <a href="#"> Design weblayout</a>
+                                            </p> -->
+                                            <div class="row collapse" id="event_<%=cls%>">
+                                                <table class="table table-striped table-hover">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+
+                                                            <th>Event name</th>
+                                                            <th>Handler</th>
+                                                            <th>Type</th>
+                                                            <th>Exchange</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <% events[cls].events.forEach(function(event){%>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="#" onclick="parent.loadTest('<%=base %>testevent/<%=cls%>/<%=event.name%>');return false;" target="_self" style="word-break: break-all;">
+                                                                        <%=event.name%>
+                                                                    </a>
+                                                                </td>
+                                                                <td>
+                                                                    <%=event.propertyKey%>
+                                                                </td>
+                                                                <td>
+                                                                    <%=event.exchange%>
+                                                                </td>
+                                                                <td>
+                                                                    <%=event.event_type%>
+                                                                </td>
+                                                            </tr>
+
+
+
+                                                            <% }); %>
+                                                    </tbody>
+                                                </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <%})%>
+                                    <%}%>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="<%=base %>assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="<%=base %>assets/plugins/bootstrap/js/popper.min.js"></script>
+    <!-- <script src="assets/plugins/bootstrap/js/tether.min.js"></script> -->
+    <script src="<%=base %>assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+
+
+    <!--Menu sidebar -->
+    <script src="<%=base %>js/sidebarmenu.js"></script>
+    <script src="<%=base %>js/custom.js"></script>
+</body>
+
+</html>

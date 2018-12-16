@@ -1,0 +1,34 @@
+{
+  "name": "@methodus/describe",
+  "version": "2.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && cd client && tsc",
+    "prepare": "npm run build && npm run webpack",
+    "webpack": "./node_modules/.bin/webpack ./client/scripts",
+    "watch": "./node_modules/.bin/webpack ./client/scripts --watch",
+    "prepublishOnly": "npm version patch -message \"[VER] automatic tag commit by npm. Reviewer: npm\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@methodus/server": "latest",
+    "@types/jquery": "^3.2.16",
+    "@types/node": "^10.12.9",
+    "express": "^4.16.2",
+    "ts-loader": "^3.2.0",
+    "tslint": "^5.10.0",
+    "typescript": "^2.6.2",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.5"
+  },
+  "dependencies": {
+    "@methodus/client": "latest",
+    "ejs": "^2.5.7",
+    "http-proxy-middleware": "^0.17.4",
+    "jquery.json-viewer": "^1.1.0",
+    "read-last-lines": "^1.6.0"
+  }
+}
