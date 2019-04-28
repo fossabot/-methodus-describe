@@ -6,3 +6,4 @@ logs/
 *.d.ts
 !client/resources/*.*
 !client/resources/**/*.*
+.npmrc

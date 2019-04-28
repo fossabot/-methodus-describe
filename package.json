@@ -1,6 +1,6 @@
 {
   "name": "@methodus/describe",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,21 +14,21 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@methodus/server": "latest",
+    "@methodus/server": "^3.0.8",
     "@types/jquery": "^3.2.16",
     "@types/node": "^10.12.9",
-    "express": "^4.16.2",
-    "ts-loader": "^3.2.0",
     "tslint": "^5.10.0",
-    "typescript": "^2.6.2",
+    "typescript": "^3.4.0",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.5"
+  },
+  "peerDependencies": {
+    "@methodus/server": "^3.0.8"
   },
   "dependencies": {
     "@methodus/client": "latest",
     "ejs": "^2.5.7",
     "http-proxy-middleware": "^0.17.4",
-    "jquery.json-viewer": "^1.1.0",
-    "read-last-lines": "^1.6.0"
+    "jquery.json-viewer": "^1.1.0"
   }
 }

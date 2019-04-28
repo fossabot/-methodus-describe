@@ -1,8 +1,5 @@
 
 import * as ejs from 'ejs';
-import * as express from 'express';
-let metadataKey = 'params';
-let methodMetadataKey = 'methodus';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Param, MethodType, Method, MethodConfig, Verbs, MethodResult, Request } from '@methodus/server';
