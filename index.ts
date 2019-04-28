@@ -4,6 +4,7 @@
 import * as path from 'path';
 import { BuiltInServers } from '@methodus/server';
 import { MethodType, ServerType } from '@methodus/server';
+import { Server } from 'net';
 
 
 
@@ -41,11 +42,11 @@ export function init(config, pluginOptions) {
             instance.use(`${describePath}/scripts/`, BuiltInServers.Express.static(methodClientPath, options))
         }
     });
-    config.run('socketio', { nsp: describePath });
+    config.run(BuiltInServers.Socket, { nsp: describePath });
 
-    config.use(DescribeView, 'Local', 'express');
-    config.use(ConfigView, 'Local', 'express');
-    config.use(SocketView, 'Local', 'socketio');
+    config.use(DescribeView, 'Local', ServerType.Express);
+    config.use(ConfigView, 'Local', ServerType.Express);
+    config.use(SocketView, 'Local', ServerType.Socket);
 
     // config.use(Config, MethodType.Local, ServerType.Express, process.env.CONFIGURATIO_SERVICE);
 
