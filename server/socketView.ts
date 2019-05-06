@@ -1,4 +1,4 @@
-import { ServerType, MethodEvent, MethodConfig, Method, MethodResult, MethodError, Verbs } from '@methodus/server';
+import { ServerType, MethodConfig, Method, MethodResult, MethodError, Verbs } from '@methodus/server';
 import { Tail } from './tail';
 import * as path from 'path';
 import * as fs from 'fs';

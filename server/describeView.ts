@@ -4,13 +4,11 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { Response, Query, Param, MethodType, Method, MethodConfig, Verbs, MethodResult, Request } from '@methodus/server';
 const clientDir = path.resolve(path.join(__dirname, '../client'));
-var urlBuilder = require('url');
-
 
 
 function fullUrl(req) {
     const originalUrl = req.originalUrl.split('/describe')[0];
-    return '//' + req.headers['host'] + originalUrl + '/describe/';
+    return '//' + req.headers.host + originalUrl + '/describe/';
 }
 
 const prefix = process.env.describe_route || '';
@@ -21,7 +19,7 @@ export class DescribeView {
         // this._app.use(describe.init());
     }
     public static maybeMethodus(object: any): any {
-        let proto = object.prototype;
+        const proto = object.prototype;
         if (proto && proto.constructor && proto.constructor.methodus) {
             return proto.constructor.methodus[object.name];
         }
@@ -41,7 +39,7 @@ export class DescribeView {
     @Method(Verbs.Get, prefix + '/describe/methodus')
     public getMethodusData() {
         const data = (global as any).METHODUS_BRIDGE;
-        let routes = [];
+        const routes = [];
         Object.keys(data.classes).forEach((cls) => {
             const methodus = DescribeView.maybeMethodus(data.classes[cls].classType);
 
@@ -53,7 +51,7 @@ export class DescribeView {
                 pj = { 'version': 'NA' }
             }
 
-            routes.push({ name: cls, methodus: methodus, info: pj });
+            routes.push({ name: cls, methodus, info: pj });
         });
 
         return new MethodResult(routes);
@@ -61,7 +59,7 @@ export class DescribeView {
     @Method(Verbs.Get, prefix + '/describe/methodus/:className')
     public getMethodusDataClass(@Param('className') className) {
         const data = (global as any).METHODUS_BRIDGE;
-        let routes = [];
+        const routes = [];
         const methodus = DescribeView.maybeMethodus(data.classes[className].classType);
         let pj = null;
         try {
@@ -70,32 +68,14 @@ export class DescribeView {
         } catch (error) {
             pj = { 'version': 'NA' }
         }
-        routes.push({ name: className, methodus: methodus, info: pj });
+        routes.push({ name: className, methodus, info: pj });
         return new MethodResult(routes);
     }
 
 
 
     @Method(Verbs.Get, prefix + '/describeproxy/:path')
-    public describeproxy(@Query('u') application_endpoint, @Param('path') applicationName, @Request() req, @Response() res) {
-
-        //
-        // Create a proxy server with custom application logic
-        //
-        // if (!proxies[application_endpoint]) {
-        //     const proxy = httpProxy.createProxyServer({ target: application_endpoint });
-
-        //     proxies[application_endpoint] = proxy;
-        // }
-
-
-        // console.log('--==>>', req.url);
-        // // You can define here your custom logic to handle the request
-        // // and then proxy the  request.
-        // proxies[application_endpoint].web(req, res, { target: application_endpoint }, (e) => {
-        //     res.send(e);
-        // });
-
+    public describeproxy(@Query('u') applicationEndpoint, @Param('path') applicationName, @Request() req, @Response() res) {
 
         return new MethodResult({});
     }
@@ -103,26 +83,25 @@ export class DescribeView {
     @Method(Verbs.Get, prefix + '/describe/info')
     public info(@Request() req) {
 
-        let str = fs.readFileSync(path.join(clientDir, 'views/describe.ejs'), 'utf-8');
-        var template = ejs.compile(str, { filename: path.join(clientDir, 'views/describe.ejs') });
+        const str = fs.readFileSync(path.join(clientDir, 'views/describe.ejs'), 'utf-8');
+        const template = ejs.compile(str, { filename: path.join(clientDir, 'views/describe.ejs') });
         const data = (global as any).METHODUS_BRIDGE;
-
         const packageJson = require(path.join(process.cwd(), 'package.json'));
 
 
-        let routes = [];
-        Object.keys(data.classes).forEach((cls) => {
-            if (data.classes[cls].methodType === MethodType.Local) {
-                const methodus = DescribeView.maybeMethodus(data.classes[cls].classType);
-                routes.push({ active: true, methodus: methodus, name: cls });
-            }
+        const routes = [];
+        const ignoreInClasse = ['DescribeView', 'ConfigView', 'SocketView'];
+
+        Object.keys(data.classes).filter(cls => ignoreInClasse.indexOf(cls) === -1).forEach((cls) => {
+            const methodus = DescribeView.maybeMethodus(data.classes[cls].classType);
+            routes.push({ active: true, methodus, name: cls });
         });
 
 
 
-        let result = template(Object.assign({},
+        const result = template(Object.assign({},
             (global as any).METHODUS_BRIDGE,
-            { routes: routes },
+            { routes },
             // { remoteRoutes: remoteRoutes },
 
             { app: packageJson },
@@ -138,12 +117,15 @@ export class DescribeView {
                     return (route.name + '__' + route.methodus.name).replace(/\//, '').replace('@', '');
                 },
                 adaptResolver: (url: string) => {
-                    if (url.indexOf('127.0.0.1') > 0) {
-                        url = url.replace('127.0.0.1', req.host)
+                    if (url) {
+                        if (url.indexOf('127.0.0.1') > 0) {
+                            url = url.replace('127.0.0.1', req.host)
+                        }
+                        if (url.indexOf('localhost') > 0) {
+                            url = url.replace('localhost', req.host)
+                        }
                     }
-                    if (url.indexOf('localhost') > 0) {
-                        url = url.replace('localhost', req.host)
-                    }
+
                     return url;
                 }
             }
@@ -156,8 +138,8 @@ export class DescribeView {
     public swaggerize(@Param('env') env, @Request() req) {
         const data = (global as any).METHODUS_BRIDGE;
         const packageJson = require(path.join(process.cwd(), 'package.json'));
-        let routes = [];
-        let swagger = {
+        const routes = [];
+        const swagger = {
             "swagger": "2.0",
             "info": {
                 "title": packageJson.name,
@@ -173,122 +155,71 @@ export class DescribeView {
 
 
         Object.keys(data.classes).forEach((cls) => {
-            if (data.classes[cls].methodType === MethodType.Local) {
-                const methodus = DescribeView.maybeMethodus(data.classes[cls].classType);
+            const methodus = DescribeView.maybeMethodus(data.classes[cls].classType);
+            Object.keys(methodus._descriptors).forEach((descriptorKey: any) => {
+                const descriptor = methodus._descriptors[descriptorKey];
+                let route = descriptor.route;
+                if (route.indexOf(':') > -1) {
+                    descriptor.params.filter(item => item.from === 'params').forEach((param) => {
+                        route = route.replace(`:${param.name}`, `{${param.name}}`);
+                    })
+                }
 
-                Object.keys(methodus._descriptors).forEach((descriptorKey: any) => {
-                    const descriptor = methodus._descriptors[descriptorKey];
-                    let route = descriptor.route;
-                    if (route.indexOf(':') > -1) {
-                        descriptor.params.filter(item => item.from === 'params').forEach((param) => {
-                            route = route.replace(`:${param.name}`, `{${param.name}}`);
+
+                swagger.paths[route] = {
+                    [descriptor.verb.toLowerCase()]: {
+                        "description": descriptor.comment,
+                        "responses": {},
+                        "parameters": descriptor.params.filter(item => item.from === 'query' || item.from === 'params').map((param) => {
+                            return {
+                                "name": param.name,
+                                "in": "path",
+                                "description": param,
+                                "required": true,
+                                "schema": {
+                                    "type": param.type,
+                                    // "items": {
+                                    //     "type": "string"
+                                    // }
+                                },
+                                "style": "simple"
+                            }
                         })
                     }
-
-
-                    swagger.paths[route] = {
-                        [descriptor.verb.toLowerCase()]: {
-                            "description": descriptor.comment,
-                            "responses": {},
-                            "parameters": descriptor.params.filter(item => item.from === 'query' || item.from === 'params').map((param) => {
-                                return {
-                                    "name": param.name,
-                                    "in": "path",
-                                    "description": param,
-                                    "required": true,
-                                    "schema": {
-                                        "type": param.type,
-                                        // "items": {
-                                        //     "type": "string"
-                                        // }
-                                    },
-                                    "style": "simple"
-                                }
-                            })
-                        }
-                    };
-                })
-                // routes.push({ methodus: methodus, name: cls });
-            }
+                };
+            });
         });
-
-        // let remoteRoutes = [];
-        // Object.keys(data.classes).map((cls) => {
-        //     if (data.classes[cls].methodType !== MethodType.Local) {
-        //         const methodus = DescribeView.maybeMethodus(data.classes[cls].classType);
-
-
-        //         let pj = { 'version': 'NA' }
-        //         try {
-        //             pj = require(path.join(process.cwd(), 'node_modules', methodus.name, 'package.json'));
-        //         } catch (error) {
-        //         }
-
-
-        //         remoteRoutes.push({ info: pj, active: true, methodus: methodus, configuration: data.classes[cls], name: cls });
-        //     }
-        // });
-
-
-
-
         return new MethodResult(swagger);
     }
 
 
     @Method(Verbs.Get, prefix + '/describe/dashboard')
     public dashboard(@Request() req, @Response() res) {
-
-
-
-        let str = fs.readFileSync(path.join(clientDir, 'tabs/dashboard_tabs.ejs'), 'utf-8');
-        var template = ejs.compile(str, { filename: path.join(clientDir, 'tabs/dashboard_tabs.ejs') });
+        const str = fs.readFileSync(path.join(clientDir, 'tabs/dashboard_tabs.ejs'), 'utf-8');
+        const template = ejs.compile(str, { filename: path.join(clientDir, 'tabs/dashboard_tabs.ejs') });
         const data = (global as any).METHODUS_BRIDGE;
-        // <%-include('tabs/dashboard_tabs', {routes: routes,remoteRoutes:remoteRoutes}); %>
+
         const packageJson = require(path.join(process.cwd(), 'package.json'));
-        let routes = [];
+        const routes = [];
+        const ignoreInClasse = ['DescribeView', 'ConfigView', 'SocketView'];
 
-        Object.keys(data.classes).forEach((cls) => {
-            if (data.classes[cls].methodType === MethodType.Local) {
+        Object.keys(data.classes).filter(cls => ignoreInClasse.indexOf(cls) === -1)
+            .forEach((cls) => {
                 const methodus = DescribeView.maybeMethodus(data.classes[cls].classType);
-                let pj = { 'version': 'NA' };
-                try {
-                    pj = require(path.join(process.cwd(), 'node_modules', methodus.name, 'package.json'));
+                let pj = { 'version': getVersionFromPackageFile(methodus.name) };
+                routes.push({ info: pj, active: true, methodus, name: cls });
+            });
 
-                } catch (error) {
-                    try {
-
-                        pj = require(path.join(methodus.name, 'package.json'));
-                    } catch (error) {
-
-                    }
-                }
-                routes.push({ info: pj, active: true, methodus: methodus, name: cls });
-            }
+        const remoteRoutes = [];
+        Object.keys(data.clients).forEach((cls) => {
+            const methodus = DescribeView.maybeMethodus(data.clients[cls].classType);
+            let pj = { 'version': getVersionFromPackageFile(methodus.name) };
+            remoteRoutes.push({ info: pj, active: true, methodus, configuration: data.clients[cls], name: cls });
         });
 
-        let remoteRoutes = [];
-        Object.keys(data.classes).forEach((cls) => {
-            if (data.classes[cls].methodType !== MethodType.Local) {
-                const methodus = DescribeView.maybeMethodus(data.classes[cls].classType);
-
-
-                let pj = { 'version': 'NA' }
-                try {
-                    pj = require(path.join(process.cwd(), 'node_modules', methodus.name, 'package.json'));
-                } catch (error) {
-                }
-
-
-                remoteRoutes.push({ info: pj, active: true, methodus: methodus, configuration: data.classes[cls], name: cls });
-            }
-        });
-
-        let events = {};
+        const events = {};
         Object.keys(data.classes).forEach((cls) => {
             const methodus: any = DescribeView.maybeMethodus(data.classes[cls].classType);
-
-
             if (methodus._workevents && Object.keys(methodus._workevents).length > 0) {
                 Object.keys(methodus._workevents).forEach((eventKey: any) => {
                     methodus._workevents[eventKey].class = data.classes[cls];
@@ -324,14 +255,10 @@ export class DescribeView {
 
         });
 
-        let result = template(Object.assign({},
+        const result = template(Object.assign({},
             (global as any).METHODUS_BRIDGE,
-
-            { routes: routes, remoteRoutes: remoteRoutes, events: events },
-
-
+            { routes, remoteRoutes, events },
             { app: packageJson },
-
             { base: fullUrl(req) },
             {
                 makeFrameName: (route) => {
@@ -341,12 +268,15 @@ export class DescribeView {
                     return (route.name + '__' + route.methodus.name).replace(/\//, '').replace('@', '');
                 },
                 adaptResolver: (urlx: string) => {
-                    if (urlx.indexOf('127.0.0.1') > 0) {
-                        urlx = urlx.replace('127.0.0.1', req.host)
+                    if (urlx) {
+                        if (urlx.indexOf('127.0.0.1') > 0) {
+                            urlx = urlx.replace('127.0.0.1', req.host)
+                        }
+                        if (urlx.indexOf('localhost') > 0) {
+                            urlx = urlx.replace('localhost', req.host)
+                        }
                     }
-                    if (urlx.indexOf('localhost') > 0) {
-                        urlx = urlx.replace('localhost', req.host)
-                    }
+
                     return urlx;
                 }
             }
@@ -356,10 +286,10 @@ export class DescribeView {
 
     @Method(Verbs.Get, prefix + '/describe/')
     public parentFrame(@Request() req, @Response() res) {
-        let str = fs.readFileSync(path.join(clientDir, 'frame.ejs'), 'utf-8');
-        var template = ejs.compile(str, { filename: path.join(clientDir, 'frame.ejs') });
+        const str = fs.readFileSync(path.join(clientDir, 'frame.ejs'), 'utf-8');
+        const template = ejs.compile(str, { filename: path.join(clientDir, 'frame.ejs') });
         const packageJson = require(path.join(process.cwd(), 'package.json'));
-        let result = template({}, { app: packageJson });
+        const result = template({}, { app: packageJson });
         return new MethodResult(result);
 
     }
@@ -369,45 +299,39 @@ export class DescribeView {
     public describe(@Request() req, @Response() res) {
 
 
-        let str = fs.readFileSync(path.join(clientDir, 'index.ejs'), 'utf-8');
-        var template = ejs.compile(str, { filename: path.join(clientDir, 'index.ejs') });
+        const str = fs.readFileSync(path.join(clientDir, 'index.ejs'), 'utf-8');
+        const template = ejs.compile(str, { filename: path.join(clientDir, 'index.ejs') });
         const data = (global as any).METHODUS_BRIDGE;
 
         const packageJson = require(path.join(process.cwd(), 'package.json'));
 
 
-        let routes = [];
-        let events = [];
+        const routes = [];
+        const events = [];
+        const ignoreInClasse = ['DescribeView', 'ConfigView', 'SocketView'];
 
-
-        Object.keys(data.classes).forEach((cls) => {
+        Object.keys(data.classes).filter(cls => ignoreInClasse.indexOf(cls) === -1).forEach((cls) => {
 
             const methodus: any = DescribeView.maybeMethodus(data.classes[cls].classType);
 
             if (methodus._workevents) {
-                Object.keys(methodus._workevents).forEach(event => {
+                Object.keys(methodus._workevents).forEach((event: any) => {
                     events.push(event);
-                })
-            }
-
-
-        });
-
-
-
-        Object.keys(data.classes).forEach((cls) => {
-            if (data.classes[cls].methodType === MethodType.Local) {
-                const methodus1 = DescribeView.maybeMethodus(data.classes[cls].classType);
-                routes.push({ active: true, methodus: methodus1, name: cls });
+                });
             }
         });
 
-        let remoteRoutes = [];
-        Object.keys(data.classes).forEach((cls) => {
-            if (data.classes[cls].methodType !== MethodType.Local) {
-                const methodus = DescribeView.maybeMethodus(data.classes[cls].classType);
-                remoteRoutes.push({ active: true, methodus: methodus, configuration: data.classes[cls], name: cls });
-            }
+
+
+        Object.keys(data.classes).filter(cls => ignoreInClasse.indexOf(cls) === -1).forEach((cls) => {
+            const methodus1 = DescribeView.maybeMethodus(data.classes[cls].classType);
+            routes.push({ active: true, methodus: methodus1, name: cls });
+        });
+
+        const remoteRoutes = [];
+        Object.keys(data.clients).forEach((cls) => {
+            const methodus = DescribeView.maybeMethodus(data.clients[cls].classType);
+            remoteRoutes.push({ active: true, methodus, configuration: data.clients[cls], name: cls });
         });
 
 
@@ -418,11 +342,11 @@ export class DescribeView {
 
 
         try {
-            let result = template(Object.assign({},
+            const result = template(Object.assign({},
                 (global as any).METHODUS_BRIDGE,
-                { routes: routes },
-                { events: events },
-                { remoteRoutes: remoteRoutes },
+                { routes },
+                { events },
+                { remoteRoutes },
                 { app: packageJson },
                 { base: fullUrl(req) },
                 { logs: [] },
@@ -456,12 +380,12 @@ export class DescribeView {
 
 
     @Method(Verbs.Get, prefix + '/describe/test/:className/:actionKey')
-    action(@Param('className') className, @Param('actionKey') actionKey, @Request() req, @Response() res) {
+    public action(@Param('className') className, @Param('actionKey') actionKey, @Request() req, @Response() res) {
 
-        let str = fs.readFileSync(path.join(clientDir, 'test.ejs'), 'utf-8');
-        var template = ejs.compile(str);
+        const str = fs.readFileSync(path.join(clientDir, 'test.ejs'), 'utf-8');
+        const template = ejs.compile(str);
         const data = (global as any).METHODUS_BRIDGE;
-        const testedClass = data.classes[className];
+        const testedClass = data.classes[className] || data.clients[className];
         const methodus = DescribeView.maybeMethodus(testedClass.classType);
 
         const helper = {
@@ -474,7 +398,7 @@ export class DescribeView {
                 return param.name;
             },
             nameResolver: (param) => {
-                let finalName = '';
+                const finalName = '';
                 if ((param.from === 'body' && param.name) || param.from === 'files') {
                     return `name="${param.name || param.from}"`;
                 } else {
@@ -485,16 +409,16 @@ export class DescribeView {
             }
         }
 
-        let result = template(Object.assign({}, { base: fullUrl(req) }, { helper: helper, methodus: methodus, cls: testedClass.classType, actionKey: actionKey }));
+        const result = template(Object.assign({}, { base: fullUrl(req) }, { helper, methodus, cls: testedClass.classType, actionKey }));
         return new MethodResult(result);
     }
 
 
     @Method(Verbs.Get, prefix + '/describe/testevent/:className/:actionKey')
-    eventAction(@Param('className') className, @Param('actionKey') actionKey, @Request() req, @Response() res) {
+    public eventAction(@Param('className') className, @Param('actionKey') actionKey, @Request() req, @Response() res) {
 
-        let str = fs.readFileSync(path.join(clientDir, 'testEvent.ejs'), 'utf-8');
-        var template = ejs.compile(str);
+        const str = fs.readFileSync(path.join(clientDir, 'testEvent.ejs'), 'utf-8');
+        const template = ejs.compile(str);
         const data = (global as any).METHODUS_BRIDGE;
         const testedClass = data.classes[className];
         const methodus = DescribeView.maybeMethodus(testedClass.classType);
@@ -509,7 +433,7 @@ export class DescribeView {
                 return param.name;
             },
             nameResolver: (param) => {
-                let finalName1 = '';
+                const finalName1 = '';
                 if ((param.from === 'body' && param.name) || param.from === 'files') {
                     return `name="${param.name || param.from}"`;
                 } else {
@@ -531,10 +455,17 @@ export class DescribeView {
             testedEvent = { event_type: 'Worker', class: methodus._workevents[actionKey] };
         }
 
-        let result = template(Object.assign({}, { base: fullUrl(req) }, { helper: helper, methodus: testedEvent, cls: testedClass.classType, actionKey: actionKey }));
+        const result = template(Object.assign({}, { base: fullUrl(req) }, { helper, methodus: testedEvent, cls: testedClass.classType, actionKey }));
         return new MethodResult(result);
     }
 }
 
 
 
+function getVersionFromPackageFile(name) {
+    try {
+        const pj = require(path.join(process.cwd(), 'node_modules', name, 'package.json'));
+        return pj.version;
+    } catch (error) {
+    }
+}
