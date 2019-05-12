@@ -1,0 +1,51 @@
+@font-face {
+    font-family: 'hub-glyphicon';
+    src: url(att-font/hub-glyphicon.woff);
+  }
+  @font-face {
+    font-family: 'ATTAleckSans-Regular';
+    src: url(hub-bootstrap/fonts/ATTAleckSans/ATTAleckSans_W_Rg.woff);
+  }
+  @font-face {
+    font-family: 'ATTAleckSans-Medium';
+    src: url(hub-bootstrap/fonts/ATTAleckSans/ATTAleckSans_W_Md.woff);
+  }
+  @font-face {
+    font-family: 'ATTAleckSans-Italic';
+    src: url(hub-bootstrap/fonts/ATTAleckSans/ATTAleckSans_W_It.woff);
+  }
+  @font-face {
+    font-family: 'ATTAleckSans-Bold';
+    src: url(hub-bootstrap/fonts/ATTAleckSans/ATTAleckSans_W_Bd.woff);
+  }
+  
+  
+  @font-face {
+    font-family: 'omnesattII-regular';
+    src: url(hub-bootstrap/fonts/OmnesATTII/omnes_att_ii-regular-webfont.woff);
+  }
+  
+  @font-face {
+    font-family: 'omnesattII-medium';
+    src: url(hub-bootstrap/fonts/OmnesATTII/omnes_att_ii_medium-webfont.woff);
+  }
+  
+  @font-face {
+    font-family: 'TMLA-glyphicons';
+    src: url(hub-bootstrap/fonts/tmla-glyphicons/TMLA-glyphicons.woff);    
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'icons';
+    src: url(hub-bootstrap/fonts/MssIcons/icons.woff);
+  }
+
+  .glyph-att-logo:before{
+    font-family: 'hub-glyphicon';
+    content: '\e807';
+  }
+
+
+ 

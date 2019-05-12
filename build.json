@@ -1,0 +1,20 @@
+{
+    "crystalcloud": {
+        "contractNameServer": "@methodus/describe-server",
+        "contractNameClient": "@methodus/describe-client",
+        "buildPath": "./",
+        "path": "./",
+        "contracts": {
+            "ConfigView": {
+                "path": "./server/ConfigView.ts"
+            },
+            "DescribeView": {
+                "path": "./server/describeView.ts"
+            }
+        },
+        "models": {},
+        "includes": {},
+        "dependencies": {},
+        "bindings": {}
+    }
+}

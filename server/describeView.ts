@@ -2,16 +2,25 @@
 import * as ejs from 'ejs';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Response, Query, Param, MethodType, Method, MethodConfig, Verbs, MethodResult, Request } from '@methodus/server';
-const clientDir = path.resolve(path.join(__dirname, '../client'));
 
+import {
+    Response, Query, Param, Method,
+    MethodConfig, Verbs, MethodResult, Request
+} from '@methodus/server';
+
+const clientDir = path.resolve(path.join(__dirname, '../client'));
+function getBridge(): any {
+    return (global as any).METHODUS_BRIDGE
+}
 
 function fullUrl(req) {
     const originalUrl = req.originalUrl.split('/describe')[0];
-    return '//' + req.headers.host + originalUrl + '/describe/';
+    return '//' + req.headers.host + originalUrl ;
 }
 
+/*begin custom*/
 const prefix = process.env.describe_route || '';
+/*end custom*/
 
 @MethodConfig('DescribeView')
 export class DescribeView {
@@ -36,9 +45,9 @@ export class DescribeView {
     }
 
 
-    @Method(Verbs.Get, prefix + '/describe/methodus')
-    public getMethodusData() {
-        const data = (global as any).METHODUS_BRIDGE;
+    @Method(Verbs.Get, '/describe/methodus')
+    public static async getMethodusData(): Promise<MethodResult> {
+        const data = getBridge();
         const routes = [];
         Object.keys(data.classes).forEach((cls) => {
             const methodus = DescribeView.maybeMethodus(data.classes[cls].classType);
@@ -56,9 +65,9 @@ export class DescribeView {
 
         return new MethodResult(routes);
     }
-    @Method(Verbs.Get, prefix + '/describe/methodus/:className')
-    public getMethodusDataClass(@Param('className') className) {
-        const data = (global as any).METHODUS_BRIDGE;
+    @Method(Verbs.Get, '/describe/methodus/:className')
+    public static async getMethodusDataClass(@Param('className') className: string): Promise<MethodResult> {
+        const data = getBridge();
         const routes = [];
         const methodus = DescribeView.maybeMethodus(data.classes[className].classType);
         let pj = null;
@@ -74,23 +83,23 @@ export class DescribeView {
 
 
 
-    @Method(Verbs.Get, prefix + '/describeproxy/:path')
-    public describeproxy(@Query('u') applicationEndpoint, @Param('path') applicationName, @Request() req, @Response() res) {
+    @Method(Verbs.Get, '/describeproxy/:path')
+    public static async describeproxy(@Query('u') applicationEndpoint: string, @Param('path') applicationName: string, @Request() req: any, @Response() res: any): Promise<MethodResult> {
 
         return new MethodResult({});
     }
 
-    @Method(Verbs.Get, prefix + '/describe/info')
-    public info(@Request() req) {
+    @Method(Verbs.Get, '/describe/info')
+    public static async info(): Promise<MethodResult> {
 
         const str = fs.readFileSync(path.join(clientDir, 'views/describe.ejs'), 'utf-8');
         const template = ejs.compile(str, { filename: path.join(clientDir, 'views/describe.ejs') });
-        const data = (global as any).METHODUS_BRIDGE;
+        const data = getBridge();
         const packageJson = require(path.join(process.cwd(), 'package.json'));
 
 
         const routes = [];
-        const ignoreInClasse = ['DescribeView', 'ConfigView', 'SocketView'];
+        const ignoreInClasse = ['DescribeView', 'ConfigView'];
 
         Object.keys(data.classes).filter(cls => ignoreInClasse.indexOf(cls) === -1).forEach((cls) => {
             const methodus = DescribeView.maybeMethodus(data.classes[cls].classType);
@@ -100,43 +109,21 @@ export class DescribeView {
 
 
         const result = template(Object.assign({},
-            (global as any).METHODUS_BRIDGE,
+            getBridge(),
             { routes },
             // { remoteRoutes: remoteRoutes },
 
-            { app: packageJson },
-
-            {
-
-                makeFrameName: (route) => {
-                    return (route + '_Frame').replace(/\//g, '_').replace(/:/g, '');
-                },
+            { app: packageJson }
 
 
-                cleanID: (route) => {
-                    return (route.name + '__' + route.methodus.name).replace(/\//, '').replace('@', '');
-                },
-                adaptResolver: (url: string) => {
-                    if (url) {
-                        if (url.indexOf('127.0.0.1') > 0) {
-                            url = url.replace('127.0.0.1', req.host)
-                        }
-                        if (url.indexOf('localhost') > 0) {
-                            url = url.replace('localhost', req.host)
-                        }
-                    }
-
-                    return url;
-                }
-            }
         ));
         return new MethodResult(result);
     }
 
 
-    @Method(Verbs.Get, prefix + '/describe/swaggerize/:env')
-    public swaggerize(@Param('env') env, @Request() req) {
-        const data = (global as any).METHODUS_BRIDGE;
+    @Method(Verbs.Get, '/describe/swaggerize/:env')
+    public static async swaggerize(@Param('env') env: string, @Request() req: any): Promise<MethodResult> {
+        const data = getBridge();
         const packageJson = require(path.join(process.cwd(), 'package.json'));
         const routes = [];
         const swagger = {
@@ -193,15 +180,15 @@ export class DescribeView {
     }
 
 
-    @Method(Verbs.Get, prefix + '/describe/dashboard')
-    public dashboard(@Request() req, @Response() res) {
-        const str = fs.readFileSync(path.join(clientDir, 'tabs/dashboard_tabs.ejs'), 'utf-8');
-        const template = ejs.compile(str, { filename: path.join(clientDir, 'tabs/dashboard_tabs.ejs') });
-        const data = (global as any).METHODUS_BRIDGE;
+    @Method(Verbs.Get, '/describe/dashboard')
+    public static async dashboard(@Request() req: any, @Response() res: any): Promise<MethodResult> {
+        //const str = fs.readFileSync(path.join(clientDir, 'tabs/dashboard_tabs.ejs'), 'utf-8');
+        //const template = ejs.compile(str, { filename: path.join(clientDir, 'tabs/dashboard_tabs.ejs') });
+        const data = getBridge();
 
         const packageJson = require(path.join(process.cwd(), 'package.json'));
         const routes = [];
-        const ignoreInClasse = ['DescribeView', 'ConfigView', 'SocketView'];
+        const ignoreInClasse = ['DescribeView', 'ConfigView'];
 
         Object.keys(data.classes).filter(cls => ignoreInClasse.indexOf(cls) === -1)
             .forEach((cls) => {
@@ -255,37 +242,17 @@ export class DescribeView {
 
         });
 
-        const result = template(Object.assign({},
-            (global as any).METHODUS_BRIDGE,
+        const result = Object.assign({},
             { routes, remoteRoutes, events },
             { app: packageJson },
             { base: fullUrl(req) },
-            {
-                makeFrameName: (route) => {
-                    return (route + '_Frame').replace(/\//g, '_').replace(/:/g, '');
-                },
-                cleanID: (route) => {
-                    return (route.name + '__' + route.methodus.name).replace(/\//, '').replace('@', '');
-                },
-                adaptResolver: (urlx: string) => {
-                    if (urlx) {
-                        if (urlx.indexOf('127.0.0.1') > 0) {
-                            urlx = urlx.replace('127.0.0.1', req.host)
-                        }
-                        if (urlx.indexOf('localhost') > 0) {
-                            urlx = urlx.replace('localhost', req.host)
-                        }
-                    }
 
-                    return urlx;
-                }
-            }
-        ));
+        )
         return new MethodResult(result);
     }
 
-    @Method(Verbs.Get, prefix + '/describe/')
-    public parentFrame(@Request() req, @Response() res) {
+    @Method(Verbs.Get, '/describe/')
+    public async parentFrame(@Request() req: any, @Response() res: any): Promise<MethodResult> {
         const str = fs.readFileSync(path.join(clientDir, 'frame.ejs'), 'utf-8');
         const template = ejs.compile(str, { filename: path.join(clientDir, 'frame.ejs') });
         const packageJson = require(path.join(process.cwd(), 'package.json'));
@@ -295,20 +262,20 @@ export class DescribeView {
     }
 
 
-    @Method(Verbs.Get, prefix + '/describe/inner')
-    public describe(@Request() req, @Response() res) {
+    @Method(Verbs.Get, '/describe/inner')
+    public async describe(@Request() req: any, @Response() res: any): Promise<MethodResult> {
 
 
         const str = fs.readFileSync(path.join(clientDir, 'index.ejs'), 'utf-8');
         const template = ejs.compile(str, { filename: path.join(clientDir, 'index.ejs') });
-        const data = (global as any).METHODUS_BRIDGE;
+        const data = getBridge();
 
         const packageJson = require(path.join(process.cwd(), 'package.json'));
 
 
         const routes = [];
         const events = [];
-        const ignoreInClasse = ['DescribeView', 'ConfigView', 'SocketView'];
+        const ignoreInClasse = ['DescribeView', 'ConfigView'];
 
         Object.keys(data.classes).filter(cls => ignoreInClasse.indexOf(cls) === -1).forEach((cls) => {
 
@@ -343,7 +310,7 @@ export class DescribeView {
 
         try {
             const result = template(Object.assign({},
-                (global as any).METHODUS_BRIDGE,
+                getBridge(),
                 { routes },
                 { events },
                 { remoteRoutes },
@@ -379,47 +346,49 @@ export class DescribeView {
 
 
 
-    @Method(Verbs.Get, prefix + '/describe/test/:className/:actionKey')
-    public action(@Param('className') className, @Param('actionKey') actionKey, @Request() req, @Response() res) {
+    @Method(Verbs.Get, '/describe/test/:className/:actionKey')
+    public static async action(@Param('className') className: string, @Param('actionKey') actionKey: string,
+        @Request() req: any, @Response() res: any): Promise<MethodResult> {
 
-        const str = fs.readFileSync(path.join(clientDir, 'test.ejs'), 'utf-8');
-        const template = ejs.compile(str);
-        const data = (global as any).METHODUS_BRIDGE;
+        // const str = fs.readFileSync(path.join(clientDir, 'test.ejs'), 'utf-8');
+        // const template = ejs.compile(str);
+        const data = getBridge();
         const testedClass = data.classes[className] || data.clients[className];
         const methodus = DescribeView.maybeMethodus(testedClass.classType);
 
-        const helper = {
-            reflectSmallTypes: (param) => {
-                if (param.name) {
-                    return param.name.toLowerCase();
-                }
-            },
-            reflectObject: (param) => {
-                return param.name;
-            },
-            nameResolver: (param) => {
-                const finalName = '';
-                if ((param.from === 'body' && param.name) || param.from === 'files') {
-                    return `name="${param.name || param.from}"`;
-                } else {
+        // const helper = {
+        //     reflectSmallTypes: (param) => {
+        //         if (param.name) {
+        //             return param.name.toLowerCase();
+        //         }
+        //     },
+        //     reflectObject: (param) => {
+        //         return param.name;
+        //     },
+        //     nameResolver: (param) => {
+        //         const finalName = '';
+        //         if ((param.from === 'body' && param.name) || param.from === 'files') {
+        //             return `name="${param.name || param.from}"`;
+        //         } else {
 
-                    return `id="${param.name || param.from}"`;
-                }
+        //             return `id="${param.name || param.from}"`;
+        //         }
 
-            }
-        }
+        //     }
+        // }
 
-        const result = template(Object.assign({}, { base: fullUrl(req) }, { helper, methodus, cls: testedClass.classType, actionKey }));
+        const result = Object.assign({}, { base: fullUrl(req) }, { methodus, cls: testedClass.classType, actionKey });
         return new MethodResult(result);
     }
 
 
-    @Method(Verbs.Get, prefix + '/describe/testevent/:className/:actionKey')
-    public eventAction(@Param('className') className, @Param('actionKey') actionKey, @Request() req, @Response() res) {
+    @Method(Verbs.Get, '/describe/testevent/:className/:actionKey')
+    public async eventAction(@Param('className') className: string, @Param('actionKey') actionKey: string,
+        @Request() req: any, @Response() res: any): Promise<MethodResult> {
 
         const str = fs.readFileSync(path.join(clientDir, 'testEvent.ejs'), 'utf-8');
         const template = ejs.compile(str);
-        const data = (global as any).METHODUS_BRIDGE;
+        const data = getBridge();
         const testedClass = data.classes[className];
         const methodus = DescribeView.maybeMethodus(testedClass.classType);
 

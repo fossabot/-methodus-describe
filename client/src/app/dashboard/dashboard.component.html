@@ -1,0 +1,23 @@
+<div class="wrapper">
+    <div id="content">
+        <app-menu></app-menu>
+        <div class="scroller" [appAdaptHeight]="80">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <app-footer></app-footer>
+ 
+
+    <ng-template #welcomeContent>
+        <h5> <span class="{{'TOUR.WELCOME.ICON' | translate}}"></span>{{'TOUR.WELCOME.TITLE' | translate}}</h5>
+        <p>
+            {{'TOUR.WELCOME.CONTENT' | translate}}
+        </p>
+    </ng-template>
+
+    <ng-template #completeContent>
+        <h5> <span class="{{'TOUR.COMPLETE.ICON' | translate}}"></span> {{'TOUR.COMPLETE.TITLE' | translate}}</h5>
+        <p>
+            {{'TOUR.COMPLETE.CONTENT' | translate}}
+        </p>
+    </ng-template>

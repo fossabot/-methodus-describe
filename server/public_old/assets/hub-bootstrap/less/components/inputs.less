@@ -1,0 +1,188 @@
+label {
+  font-weight: normal;
+}
+
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"] {
+
+}
+
+
+input[type="checkbox"],
+input[type="radio"]{
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  width: 1px;
+
+  + label {
+    cursor: pointer;
+    display: inline-block;
+    padding-left: 30px !important;
+    position: relative;
+    text-transform: capitalize;
+    vertical-align: middle;
+
+    &:before,
+    &:after{
+      content: '';
+      height: 18px;
+      position: absolute;
+      top: 1px;
+      width: 18px;
+    }
+
+    &:before{
+      background-color: #fff;
+      border-radius: 3px;
+      border: 1px solid @input-border;
+      left: 0;
+    }
+
+    &:after{
+      display: none;
+    }
+
+    &.no-text{
+      height: 18px;
+      padding-left:18px !important;
+      width: 18px;
+
+      &:before{
+        top: 0px;
+      }
+    }
+  }
+
+  &:checked{ 
+    + label:before {
+      background-color: #fff;
+    }
+
+    &:focus + label {
+      //checkbox checked and focused state
+    }
+  }
+
+  &:focus + label {
+    //checkbox focused state
+  }
+}
+
+input[type="checkbox"]:checked + label:before {
+  color: @att-blue;
+  font-family: "hub-glyphicon";
+  font-style: normal;
+  font-weight: normal;
+  font-size: .8em;
+  content: '\e80c';
+  padding: 1px 0px 0px 3px;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+input[type="radio"]{
+  + label {
+
+    &:before,
+    &:after{
+      border-radius: 10px;
+    }
+
+    &:after{
+      left: 5px;
+      height: 8px;
+      top: 6px;
+      width: 8px;
+    }
+  }
+
+  &:checked{ 
+    + label:before {
+      background-image: none;
+    }
+    + label:after {
+      background-image: none;
+      background-color: @att-blue;
+      display: block;
+    }
+
+    &:focus + label {
+      //checkbox checked and focused state
+    }
+  }
+}
+ 
+.input-required:before{
+  color: @brand-danger;
+  content: "* ";
+}
+
+.disabled input[type="checkbox"],
+.disabled input[type="radio"] {
+  &:checked + label{
+    color: @gray;
+
+    &:before {
+      background-color: #fff;
+    }
+
+    &:after{
+      background-color: @input-bg-disabled;
+    }
+  }
+
+  + label:before {
+    background-color: @input-bg-disabled;
+    color: @gray;
+  }
+
+  + label{
+    color: @gray;
+  }
+}
+
+
+
+.has-error input[type="checkbox"],
+.has-error input[type="radio"] {
+  + label:before {
+    border-color: @brand-danger;
+    color: @brand-danger;
+  }
+}
+
+
+
+.has-success .form-control,
+.has-error .form-control,
+.has-warning .form-control{
+  &:focus{
+    box-shadow: none;
+  }
+}
+
+.form-control{
+  box-shadow: none;
+
+  &:focus{
+    box-shadow: none;
+  }
+}

@@ -1,0 +1,275 @@
+.container-fluid,
+.container{
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+
+
+//== Scaffolding
+//
+// ## Settings for some of the most global styles.
+
+//** Background color for `<body>`.
+@body-bg:               #fff;
+//** Global text color on `<body>`.
+@text-color:            @functional-text;
+
+//** Global textual link color.
+@link-color:            @brand-primary;
+//** Link hover color set via `darken()` function. //darken(@link-color, 15%);
+@link-hover-color:      @link-color;
+//** Link hover decoration.
+@link-hover-decoration: underline;
+
+
+
+
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+
+@font-family-sans-serif:  "clvatt-book", "Helvetica Neue", Helvetica, Arial, sans-serif;
+//@font-family-serif:       Georgia, "Times New Roman", Times, serif;
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+//@font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+@font-family-base:        @font-family-sans-serif;
+
+//@font-size-base:          14px;
+@font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
+@font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
+
+@font-size-h1:            floor((@font-size-base * 2.15)); // ~30px
+@font-size-h2:            ceil((@font-size-base * 1.7)); // ~24px
+@font-size-h3:            floor((@font-size-base * 1.45)); // ~20px
+@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
+@font-size-h5:            floor((@font-size-base * 1.15)); // ~16px
+@font-size-h6:            @font-size-base;
+
+//** Unit-less `line-height` for use in components like buttons.
+@line-height-base:        1.428571429; // 20/14
+//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+@line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
+
+//** By default, this inherits from the `<body>`.
+@headings-font-family:    inherit;
+@headings-font-weight:    500;
+@headings-line-height:    1.1;
+@headings-color:          inherit;
+
+
+
+//== Colors
+//
+//## Gray and brand colors for use across Bootstrap.
+
+@gray-darker:           @hub-gray-90;
+@gray-dark:             @att-darkgray;
+@gray:                  @att-gray;
+@gray-light:            @att-lightgray;
+@gray-lighter:          @hub-gray-10;
+
+@brand-primary:         @att-darkblue;
+@brand-success:         @att-darkgreen;
+@brand-info:            @att-lightgreen;
+@brand-warning:         @att-orange;
+@brand-danger:          @functional-red;
+
+
+
+/******
+NEED TO OVERRIDE THESE COLORS WITH A MORE AT&T COLOR SCHEME
+******/
+
+//== Form states and alerts
+//
+//## Define colors for form feedback states and, by default, alerts.
+
+@state-success-text:             @brand-success;
+@state-success-border:           @brand-success;
+@state-success-bg:               tint(@att-green, 85%);
+
+@state-info-text:                @brand-info;
+@state-info-border:              @brand-info;
+@state-info-bg:                  lighten(@state-info-border, 46%);
+
+@state-warning-text:             @brand-warning;
+@state-warning-border:           @brand-warning;
+@state-warning-bg:               lighten(@state-warning-border, 46%);
+
+@state-danger-text:              @brand-danger;
+@state-danger-border:            @brand-danger;
+@state-danger-bg:                lighten(@state-danger-border, 46%);
+
+
+//== Panels
+//
+//##
+
+// @panel-bg:                    #fff;
+// @panel-body-padding:          15px;
+// @panel-heading-padding:       10px 15px;
+// @panel-footer-padding:        @panel-heading-padding;
+// @panel-border-radius:         @border-radius-base;
+
+// //** Border color for elements within panels
+// @panel-inner-border:          #ddd;
+// @panel-footer-bg:             #f5f5f5;
+
+// @panel-default-text:          @gray-dark;
+// @panel-default-border:        #ddd;
+// @panel-default-heading-bg:    #f5f5f5;
+
+@panel-primary-text:          @text-color;
+@panel-primary-border:        @att-lightblue;
+@panel-primary-heading-bg:   	lighten(@att-lightblue, 28%);
+
+// @panel-success-text:          @state-success-text;
+// @panel-success-border:        @state-success-border;
+// @panel-success-heading-bg:    @state-success-bg;
+
+// @panel-info-text:             @state-info-text;
+// @panel-info-border:           @state-info-border;
+// @panel-info-heading-bg:       @state-info-bg;
+
+// @panel-warning-text:          @state-warning-text;
+// @panel-warning-border:        @state-warning-border;
+// @panel-warning-heading-bg:    @state-warning-bg;
+
+// @panel-danger-text:           @state-danger-text;
+// @panel-danger-border:         @state-danger-border;
+// @panel-danger-heading-bg:     @state-danger-bg;
+
+
+
+
+//== Buttons
+//
+//## For each of Bootstrap's buttons, define text, background and border color.
+
+@btn-font-weight:                normal;
+
+@btn-default-color:              #333;
+@btn-default-bg:                 #fff;
+@btn-default-border:             @gray;
+
+@btn-primary-color:              #fff;
+@btn-primary-bg:                 @brand-primary;
+@btn-primary-border:             darken(@btn-primary-bg, 5%);
+
+@btn-success-color:              #fff;
+@btn-success-bg:                 @brand-success;
+@btn-success-border:             darken(@btn-success-bg, 5%);
+
+@btn-info-color:                 #fff;
+@btn-info-bg:                    @brand-info;
+@btn-info-border:                darken(@btn-info-bg, 5%);
+
+@btn-warning-color:              #fff;
+@btn-warning-bg:                 @brand-warning;
+@btn-warning-border:             darken(@btn-warning-bg, 5%);
+
+@btn-danger-color:               #fff;
+@btn-danger-bg:                  @brand-danger;
+@btn-danger-border:              darken(@btn-danger-bg, 5%);
+
+@btn-link-disabled-color:        @gray-light;
+
+// Allows for customizing button radius independently from global border radius
+@btn-border-radius-base:         @border-radius-base;
+@btn-border-radius-large:        @border-radius-large;
+@btn-border-radius-small:        @border-radius-small;
+
+
+
+
+
+
+
+//== Components
+//
+//## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
+
+@border-radius-base:        5px;
+@border-radius-large:       6px;
+@border-radius-small:       4px;
+
+
+
+
+
+
+
+//== Forms
+//
+//##
+
+//** `<input>` background color
+@input-bg:                       #fff;
+//** `<input disabled>` background color
+@input-bg-disabled:              @gray-light;
+
+//** Text color for `<input>`s
+@input-color:                    @text-color;
+//** `<input>` border color
+@input-border:                   @gray;
+
+// TODO: Rename `@input-border-radius` to `@input-border-radius-base` in v4
+//** Default `.form-control` border radius
+// This has no effect on `<select>`s in some browsers, due to the limited stylability of `<select>`s in CSS.
+@input-border-radius:            @border-radius-base;
+//** Large `.form-control` border radius
+@input-border-radius-large:      @border-radius-large;
+//** Small `.form-control` border radius
+@input-border-radius-small:      @border-radius-small;
+
+//** Border color for inputs on focus
+@input-border-focus:             #66afe9;
+
+//** Placeholder text color
+@input-color-placeholder:        #999;
+
+//** Default `.form-control` height
+@input-height-base:              (@line-height-computed + (@padding-base-vertical * 2) + 2);
+//** Large `.form-control` height
+@input-height-large:             (ceil(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2);
+//** Small `.form-control` height
+@input-height-small:             (floor(@font-size-small * @line-height-small) + (@padding-small-vertical * 2) + 2);
+
+@legend-color:                   @gray-dark;
+@legend-border-color:            #e5e5e5;
+
+//** Background color for textual input addons
+@input-group-addon-bg:           @gray-lighter;
+//** Border color for textual input addons
+@input-group-addon-border-color: @input-border;
+
+//** Disabled cursor for form controls and buttons.
+@cursor-disabled:                not-allowed;
+
+
+
+
+
+
+
+
+//== Pagination
+//
+//##
+
+@pagination-color:                     @text-color;
+@pagination-bg:                        transparent;
+@pagination-border:                    #ddd;
+
+@pagination-hover-color:               @text-color;
+@pagination-hover-bg:                  transparent;
+@pagination-hover-border:              #ddd;
+
+@pagination-active-color:              #fff;
+@pagination-active-bg:                 @gray-light;
+@pagination-active-border:             @brand-primary;
+
+@pagination-disabled-color:            @gray-lighter;
+@pagination-disabled-bg:               transparent;
+@pagination-disabled-border:           #ddd;

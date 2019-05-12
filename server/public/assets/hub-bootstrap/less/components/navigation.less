@@ -1,0 +1,232 @@
+.nav-main{
+	background-color: @gray-dark;
+	height: 50px;
+	position: absolute;
+	right: 20px;
+
+	> ul {
+		> li{
+			display: inherit;
+			float: left;
+			list-style: none;
+			height: 100%;
+			position: relative;
+			width: auto;
+
+			.omnesattII-medium;
+
+
+			&:last-child:before{
+				display: none;
+
+				a{
+					padding-right: 16px;
+				}
+			}
+
+			&.dropdown:last-child > a{
+				padding-right: 28px;
+
+				&:after{
+					right: 9px;
+				}
+			}
+
+			&:before,
+			&:first-child:before{
+				display: block;
+				bottom: 0px;
+				content: '|';
+				font-size: 12px;
+				height: 20px;
+				left: auto;
+				margin: auto;
+				position: absolute;
+				right: -3px;
+				top: 0px;
+			}
+
+		
+			&:hover{
+				.dropdown-menu{
+					display: block;
+				}
+			}
+			
+
+			&.active,
+			&:hover{
+
+				&:not(.no-hover){
+					cursor: pointer;
+					background-color: @hub-gray-70;
+
+					&:before{
+						display: none;
+					}
+
+					a{
+						text-decoration: none;
+					}
+				}
+			}
+
+			&.nav-divider{
+				border-left: 1px dotted #fff;
+				height: 38px;
+				margin-top: 10px;
+				width: 1px;
+			}
+
+			&.dropdown{
+				
+				> a:after{
+					bottom: 0px;
+					font-family: "hub-glyphicon";
+					font-style: normal;
+					font-weight: normal;
+					font-size: 11px;
+					//This will need to match the .glyph-arrow-down content
+					content: '\e803';
+					left: auto;
+					position: absolute;
+					right: 16px;
+					top: 3px;
+				}
+
+				> a{
+					padding-right: 36px;
+					position: relative;
+					width: 100%;
+				}
+			}
+
+			> a{
+				color: #fff;
+				display: block;
+				height: 100%;
+				line-height: 48px;
+				padding: 0px 16px 0px 16px;
+				text-transform: capitalize;
+				width: 100%;
+
+
+				*[class^="icon"]{
+					height: 100%;
+					float: right;
+					margin-left: 8px;
+					width: 16px;
+
+					&.icon-only{
+						margin-left: 0px;
+					}
+
+					&.left{
+						float: left;
+						margin-left: 0px;
+						margin-right: 8px;
+					}
+
+					@media @desktop, @desktop-lg, @tv{
+						background-position: center 13px;
+					}
+				}
+
+				@media @desktop, @desktop-lg, @tv{
+					line-height: 60px;
+				}
+			}
+		}
+
+		.dropdown-menu{
+			border-top-left-radius: 0px;
+			border-top-right-radius: 0px;
+			border: 1px solid #B3B3B3;
+			box-shadow: none;
+			margin: 0px;
+
+			li{
+				position: relative;
+
+				// &:before{
+				// 	bottom: 0px;
+				// 	color: @gray;
+				// 	content: '|';
+				// 	font-size: 12px;
+				// 	height: 20px;
+				// 	left: auto;
+				// 	margin: auto;
+				// 	position: absolute;
+				// 	right: -3px;
+				// 	top: 0px;
+				// }
+
+				// &:last-child:before{
+				// 	display: none;
+				// }
+			}
+
+			a{
+				padding: 10px 15px;
+			}
+		}
+	}
+}
+
+.nav-main{
+	> ul{
+		display: inline;
+
+		&:last-child{
+			li:last-child{
+				a{
+					padding-right: 0px;
+				}
+			}
+		}
+	}
+}
+
+//**********
+// Nav List
+//**********
+
+.nav-list{
+	display: table;
+	margin-bottom: 0px;
+	width: 100%;
+
+	> li{
+		.icon-bg-arrow-right;
+		background-size: 14px 14px;
+		background-position: right 10px center;
+		display: table-row;
+		min-height: 50px;
+		width: 100%;
+
+
+		&.active,
+		&:hover{
+			background-color: @hub-gray-70;
+		}
+
+		> a{
+			border-bottom: 1px solid #fff;
+			color: #fff;
+			display: table-cell;
+			padding: 0em 2em 0em 1em;
+			text-transform: capitalize;
+			vertical-align: middle;
+
+			*[class^="glyph"]{
+				margin-right: 8px;
+				
+				&.right{
+					float: right;
+					margin-left: 8px;
+					margin-right: 0px;
+				}
+			}
+		}
+	}
+}

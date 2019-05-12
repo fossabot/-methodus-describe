@@ -1,0 +1,37 @@
+{
+  "name": "hub-bootstrap",
+  "version": "0.3.39",
+  "authors": [
+    "Michael DeLeon <md454c@att.com>",
+    "Rodolfo Ovalles <ro3014@att.com>"
+  ],
+  "description": "Hub Components",
+  "main": "./hub-bootstrap.js",
+  "dependencies": {
+    "angular": "1.4.2",
+    "angular-resource": "1.4.2",
+    "angular-cookies": "1.4.2",
+    "angular-sanitize": "1.4.2",
+    "angular-animate": "1.4.2",
+    "angular-touch": "1.4.2",
+    "angular-route": "1.4.2",
+    "d3": ">=3.4.11",
+    "bootstrap": ">=3.3.2"
+  },
+  "keywords": [
+    "Angular",
+    "LESS"
+  ],
+  "license": "MIT",
+  "homepage": "https://codecloud.web.att.com/projects/ST_HUB/repos/hub-bootstrap-client/browse",
+  "private": true,
+  "ignore": [
+    "**/*",
+    "!ui-hub.less",
+    "!less/**",
+    "!fonts/**",
+    "!images/**",
+    "!hub-bootstrap.js",
+    "!hub-bootstrap.min.js"
+  ]
+}

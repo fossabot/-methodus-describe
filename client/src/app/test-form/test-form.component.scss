@@ -1,0 +1,20 @@
+.results-block{
+    height: 100%;
+    overflow: auto;
+    position: fixed;
+    border: 1px solid black;
+    width: 40%;
+    right: 0;
+
+   
+    .editor-container {
+        height: calc(100vh - 100px);
+    }
+    
+
+}
+
+
+
+
+ 

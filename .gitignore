@@ -1,9 +1,8 @@
-*.js
-*.js.map
-package-lock.json
-node_modules/
-logs/
-*.d.ts
-!client/resources/*.*
-!client/resources/**/*.*
 .npmrc
+@methodus/describe-client/node_modules
+client_old/
+node_modules/
+server/public/
+server/public_old/
+public/
+build/

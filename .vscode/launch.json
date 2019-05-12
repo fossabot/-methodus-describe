@@ -12,6 +12,22 @@
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "U | build client contracts",
+            "program": "${workspaceRoot}/node_modules/@methodus/contracts/build/client.js",
+            "args": [
+                "./build.json"
+            ],
+            "cwd": "${workspaceRoot}/",
+            "console": "internalConsole",
+            "sourceMaps": true,
+            "env": {
+                "DEBUG": "none",
+                "NODE_ENV": "debug"
+            }
         }
     ]
 }

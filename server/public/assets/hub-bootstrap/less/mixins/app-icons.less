@@ -1,0 +1,57 @@
+@font-face {
+	.mixinFont(@appIconPath, 'normal', 'normal', 'appIcon', 'appIcon');
+}
+
+
+[class^="app-icon"]:before, [class*=" app-icon"]:before {
+  font-family: 'appIcon';
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+ 
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.app-icon-capabilities:before { content: '\e800'; } /* '' */
+.app-icon-daily-workspace:before { content: '\e801'; } /* '' */
+.app-icon-data-excellence:before { content: '\e802'; } /* '' */
+.app-icon-data-lake-access:before { content: '\e803'; } /* '' */
+.app-icon-data-lake-status:before { content: '\e804'; } /* '' */
+.app-icon-data-manager:before { content: '\e805'; } /* '' */
+.app-icon-data-scout:before { content: '\e806'; } /* '' */
+.app-icon-my-alerts:before { content: '\e807'; } /* '' */
+.app-icon-ops-manager:before { content: '\e808'; } /* '' */
+.app-icon-people-service:before { content: '\e809'; } /* '' */
+.app-icon-sterling:before { content: '\e80a'; } /* '' */
+.app-icon-search:before { content: '\e80b'; } /* '' */
+.app-icon-server:before { content: '\e80c'; } /* '' */
+.app-icon-poi:before { content: '\e80d'; } /* '' */
+.app-icon-data-set-explorer:before { content: '\e80e'; } /* '' */
+.app-icon-avertack:before { content: '\e80f'; } /* '' */
+.app-icon-team-explorer:before { content: '\e810'; } /* '' */

@@ -1,0 +1,126 @@
+//@bg-color is defaulted to transparent for when we use icon for background images
+//to add a background color to a generated icon bg class add your backgroud-color after the class
+
+.bg-icon(@bg-color: transparent, @bg-repeat: no-repeat, @bg-position: center center, @icon-file-name){
+  background-color: @bg-color;
+  background-image: url('@{baseIconsPath}@{icon-file-name}');
+  background-repeat: @bg-repeat;
+  background-position: @bg-position;
+}
+
+.build-icon(@height: 100%, @width: 100%, @rotate: 0deg, @opacity: 1, @icon-file){
+  display: inline-block;
+  height:@height;
+  width:@width;
+
+  .opacity(@opacity);
+  .rotate(@rotate);
+  .bg-icon(@icon-file-name: @icon-file);
+}
+
+.build-icon-classes(@index: length(@hub-icons)) when (@index > 0) {
+  @icon: extract(@hub-icons, @index);
+  @icon-name: extract(@icon, 1);
+  @icon-value: extract(@icon, 2);
+
+  .build-icon-class(@icon-name; @icon-value);
+  .build-icon-classes(@index - 1);
+}
+
+.build-icon-class(@name, @value){
+  .icon-@{name} {
+    .build-icon(@icon-file: @value);
+  }
+}
+
+.build-icon-background-classes(@index: length(@hub-icons)) when (@index > 0) {
+  @icon: extract(@hub-icons, @index);
+  @icon-name: extract(@icon, 1);
+  @icon-value: extract(@icon, 2);
+
+  .build-icon-background-class(@icon-name; @icon-value);
+  .build-icon-background-classes(@index - 1);
+}
+
+.build-icon-background-class(@name, @value){
+  .icon-bg-@{name} {
+    .bg-icon(@icon-file-name: @value);
+  }
+}
+
+.build-icon-classes();
+.build-icon-background-classes();
+
+
+.icon-text[class*="icon"]{
+  background-position: left center;
+  padding-left:5rem;
+}
+
+.icon-ham-menu{
+
+  &:before {
+    background: white;
+    box-shadow: 
+      0 0.4em 0 0 white,
+      0 0.8em 0 0 white;
+    content: "";
+    height: 0.15em;
+    left: 0;
+    position: absolute;
+    top: 0.08em;
+    width: 1.3em;
+  }
+}
+
+.user-pic-settings{
+  background:#cccccc;
+  border: 1px solid #fff;
+  overflow: hidden;
+  position: relative;
+  .circle(30px, 30px);
+}
+
+.user-pic{
+  .user-pic-settings;
+  img{
+    position: absolute;
+  }
+}
+
+.default-user-pic{
+  .user-pic-settings;
+
+  &:before,
+  &:after{
+    background-color: #ffffff;
+    content: '';
+    left: 0px;
+    margin:auto;
+    position: absolute;
+    right: 0px;
+  }
+  &:before{
+    bottom: 13px;
+    border-radius: 50%;
+    height:50%;
+    top:0px;
+    width: 50%;
+    z-index: 20;
+  }
+  &:after{
+    background-color: #fbfbfb;
+    border-radius: 45%;
+    box-shadow: 0px 5px 8px rgba(0,0,0,.3);
+    height:100%;
+    top:60%;
+    width: 75%;
+    z-index: 10;
+  }
+
+  img{
+    margin:-1px;
+    position: absolute;
+    z-index: 30;
+  }
+}

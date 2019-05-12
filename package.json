@@ -1,32 +1,33 @@
 {
   "name": "@methodus/describe",
-  "version": "3.0.8",
+  "version": "4.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
     "build": "tsc && cd client && tsc",
-    "prepare": "npm run build && npm run webpack",
-    "webpack": "./node_modules/.bin/webpack ./client/scripts",
-    "watch": "./node_modules/.bin/webpack ./client/scripts --watch",
     "prepublishOnly": "npm version patch -message \"[VER] automatic tag commit by npm. Reviewer: npm\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "contracts": "  npm run contract-publish && npm run client-publish",
+    "postpublish": "npm run tag && npm run contract-publish && npm run client-publish",
+    "contract": "contracts-server ./build.json",
+    "client": "contracts-client ./build.json",
+    "contract-publish": "npm version patch && contracts-server ./build.json -p",
+    "client-publish": "npm version patch && contracts-client ./build.json -p"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@methodus/server": "^3.0.8",
+    "@methodus/server": "latest",
     "@types/jquery": "^3.2.16",
     "@types/node": "^10.12.9",
     "tslint": "^5.10.0",
     "typescript": "^3.4.0",
-    "webpack": "^3.8.1"
+    "trash-cli": "^1.4.0"
   },
   "peerDependencies": {
-    "@methodus/server": "^3.0.8"
+    "@methodus/server": "latest"
   },
   "dependencies": {
-    "@methodus/client": "latest",
-    "ejs": "^2.5.7",
-    "jquery.json-viewer": "^1.1.0"
+    "@methodus/client": "latest"
   }
 }

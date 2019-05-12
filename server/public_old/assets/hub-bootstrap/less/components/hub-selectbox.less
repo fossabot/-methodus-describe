@@ -1,0 +1,86 @@
+/* fixing dropdown issue in ipad */
+.dropdown-backdrop{
+  z-index: 1;
+}
+
+div[hub-selectbox=""],
+hub-selectbox{
+
+  .dropdown.open{
+    > div{
+      button{
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        z-index: 11;
+      }
+      span{
+        z-index: 12;
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .dropdown-menu{
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    margin: 0px;
+    right: 0px;
+    top: 33px;
+    z-index: 10;
+    min-width: auto;
+    max-height: 300px;
+    overflow: auto;
+    border: 1px solid @input-border;
+    .box-shadow(0 3px 4px rgba(0,0,0,.175));
+
+    a{
+      padding: 7px 13px;
+    }
+  }
+
+
+  button.btn{
+    background-color: #fff;
+    display: block;
+    //min-width: 170px;
+    min-height: 34px;
+    position: relative;
+    text-transform: none;
+    text-align: left;
+    overflow: hidden !important;
+    width: 100%;
+    z-index: 2;
+  }
+
+  .dropdown > div span{
+    cursor: pointer;
+    bottom: 8px;
+    font-size: 11px;
+    padding-right: 8px;
+    position: absolute;
+    right: 0px;
+    text-align: right;
+    width: 36px;
+    z-index: 5;
+
+    &:before{
+      margin-right: 5px;
+    }
+
+    &.disabled{
+      cursor: not-allowed;
+    }
+  }
+
+  .btn.disabled, 
+  .btn[disabled]{
+    background-color: @gray-light;
+  }
+}
+
+
+.has-error div[hub-selectbox=""] button.btn, 
+.has-error hub-selectbox button.btn{
+  border-color: @brand-danger;
+  color: @brand-danger;
+}

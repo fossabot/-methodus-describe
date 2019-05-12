@@ -2,8 +2,7 @@
 import * as ejs from 'ejs';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Param, MethodType, Method, MethodConfig, Verbs, MethodResult, Request } from '@methodus/server';
-//import { Config } from '@tmla-contracts/config';
+import { Method, MethodConfig, Verbs, MethodResult, Request } from '@methodus/server';
 const clientDir = path.resolve(path.join(__dirname, '../client'));
 var urlBuilder = require('url');
 
@@ -20,6 +19,9 @@ function fullUrl(req) {
     }
 }
 
+function getBridge(): any {
+    return (global as any).METHODUS_BRIDGE
+}
 
 @MethodConfig('ConfigView')
 export class ConfigView {
@@ -45,7 +47,7 @@ export class ConfigView {
 
 
     @Method(Verbs.Get, '/config_manager')
-    public async configManager(@Request() req) {
+    public static async configManager(@Request() req: any): Promise<MethodResult> {
 
 
         let str = fs.readFileSync(path.join(clientDir, 'configManager.ejs'), 'utf-8');
@@ -55,40 +57,26 @@ export class ConfigView {
         // appsAndEnvs.result.applications = appsAndEnvs.result.applications.map(item => item.id);
         // appsAndEnvs.result.envs = appsAndEnvs.result.envs.map(item => item.id);
         let result = template(Object.assign({},
-            (global as any).METHODUS_BRIDGE,
+            getBridge(),
             { base: fullUrl(req) },
             appsAndEnvs
         ));
         return new MethodResult(result);
     }
 
-
-
-
     @Method(Verbs.Get, '/describe/config')
-    public async config(@Request() req) {
-
+    public static async config(@Request() req: any): Promise<MethodResult> {
         let str = fs.readFileSync(path.join(clientDir, 'config.ejs'), 'utf-8');
         var template = ejs.compile(str, { filename: path.join(clientDir, 'config.ejs') });
-
         const packageJson = require(path.join(process.cwd(), 'package.json'));
-
-
         let appsAndEnvsResult = {};//await Config.getApplications();
-
         let appsAndEnvs = {
             apps: [],
             envs: []
-            // apps: appsAndEnvsResult.result.applications.map(item => item.id),
-            // envs: appsAndEnvsResult.result.envs.map(item => item.id)
         }
 
-
-
-
-
         let result = template(Object.assign({},
-            (global as any).METHODUS_BRIDGE,
+            getBridge(),
             { app: packageJson },
             { appsAndEnvs: appsAndEnvs },
             { config: (global as any).tmla.config },
@@ -96,13 +84,4 @@ export class ConfigView {
         ));
         return new MethodResult(result);
     }
-
-
-
-
-
-
 }
-
-
-

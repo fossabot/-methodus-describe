@@ -1,0 +1,19 @@
+.hub-breadcrumb{
+	background-color: transparent;
+	border-radius: 0px;
+	margin-bottom: 0px;
+	text-transform: lowercase;
+
+	li + li:before{
+		padding: 0 8px 0px 13px;
+	}
+
+	li.disabled{
+
+		a{
+			color: @hub-gray-30;
+			text-decoration: none;
+			pointer-events: none;
+		}
+	}
+}

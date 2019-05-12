@@ -1,0 +1,71 @@
+.pagination.hub-pagination{
+	font-size: 16px;
+
+	.form-control{
+		width: 50px;
+	}
+
+	li{
+		display: inline-block;
+		vertical-align: middle;
+	}
+
+	a,
+	span{
+		border: none;
+		line-height: 20px;
+		margin: 1px 2px 0px;
+		padding: 3px 6px;
+		text-align: center;
+
+		.circle(27px, 27px);
+		min-width: 27px;
+		width: auto;
+	}
+
+	li.inactive:not(.active),
+	li.inactive:not(.active) a:hover,
+	li.inactive:not(.active) span:hover{
+		text-decoration: none;
+	}
+
+	li:not(.active){
+		a,
+		span{
+
+			&:hover{
+				text-decoration: underline;
+			}
+		}
+	}
+
+	li:first-child,
+	li:last-child{
+
+		a{
+			color: @gray-light;
+
+			&:hover{
+				text-decoration: none;
+			}
+			//NEED TO UPDATE WHEN hub-glyphicon is updated glyph-arrow-left glyph-arrow-right
+			&:after{
+				font-family: "hub-glyphicon";
+				font-style: normal;
+				font-weight: normal;
+				content: '\e805';
+				display: inline-block;
+				text-decoration: inherit;
+				width: 1em;
+				font-variant: normal;
+				text-transform: none;
+			}
+		}
+	}
+
+	li:first-child{
+		a:after{
+			content: '\e804';
+		}
+	}
+}

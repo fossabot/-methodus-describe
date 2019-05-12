@@ -1,0 +1,183 @@
+.btn{
+	text-transform: capitalize;
+
+	&:focus,
+	&:active,
+	&:active:focus{
+		outline: none;
+	}
+}
+
+.btn-circle{
+	border-radius: 100%;
+	font-size: 11px;
+	height: 24px;
+	padding: 0px;
+	position: relative;
+	width: 24px;
+
+	&.btn-link:after{
+		display: none;
+	}
+
+	&:before{
+		height: 11px;
+		position: absolute;
+		left: 0px;
+		right: 0px;
+		top: 0px;
+		bottom: 0px;
+		margin: auto;
+	}
+
+	&.btn-link:hover,
+	&.btn-link:focus{
+		text-decoration: none;
+	}
+}
+
+.btn-default {
+
+}
+
+.btn-primary {
+	&.btn-link {
+  	color: @link-color;
+	}
+}
+
+.btn-success {
+	&.btn-link {
+		color: @brand-success;
+	}
+}
+
+.btn-info {
+	&.btn-link {
+		color: @brand-info;
+	}
+}
+
+.btn-warning {
+	&.btn-link {
+		color: @brand-warning;
+	}
+}
+
+.btn-danger {
+	&.btn-link {
+		color: @brand-danger;
+	}
+}
+
+.btn-cancel{
+	border-color: @att-darkgray;
+
+	&.btn-link {
+		background-color: transparent;
+		border-color: transparent;
+		color: @hub-gray-60;
+
+		&:hover,
+		&:active,
+		&:visited,
+		&:focus{
+			background-color: transparent;
+		}
+
+		&:active{
+			color: inherit;
+		}
+	}
+
+	
+}
+
+
+
+.dropdown .btn.disabled,
+.dropdown .btn[disabled]{
+	
+}
+
+.btn.disabled, .btn[disabled]{
+	border-color: @att-gray;
+	background-color: @input-bg-disabled;
+	color: @text-color;
+
+	&.btn-link {
+		background-color: transparent;
+		color: @hub-gray-20;
+	}
+
+	
+
+	&:hover,
+	&:focus,
+	&:active,
+	.open .dropdown-toggle& {
+		background-color: darken(#b2b2b2, 14%);
+	}
+}
+
+.btn-link{
+	// &:after{
+	// 	font-family: "hub-glyphicon";
+	// 	font-style: normal;
+	// 	font-weight: normal;
+	// 	font-size: .6em;
+	// 	content: '\e805';
+	// 	padding-left: 4px;
+	// 	text-decoration: none;
+	// 	vertical-align: middle;
+	// }
+	
+	&:hover{
+		background-color: transparent;
+	}
+
+	&:focus{
+		text-decoration: none;
+	}
+}
+
+.button-container {
+	clear: both;
+	overflow: hidden;
+	
+	.btn{
+		margin-left: 10px;
+
+		&[class^="btn"] {
+			&:first-child{
+				margin-left: 0px;
+
+				&.right{
+					margin-left: 10px;
+					margin-right: 0px;
+				}
+
+				&.btn-block{
+					margin-left: 0px;
+				}
+			}
+		}
+
+		&.left{
+			float:left;
+		}
+
+		&.right{
+			float:right;
+		}
+	}
+}
+
+
+.btn-group > .btn{
+	
+	&:focus,
+	&:active{
+		color: #fff;
+	}
+}
