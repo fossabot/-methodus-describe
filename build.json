@@ -6,7 +6,7 @@
         "path": "./",
         "contracts": {
             "ConfigView": {
-                "path": "./server/ConfigView.ts"
+                "path": "./server/configView.ts"
             },
             "DescribeView": {
                 "path": "./server/describeView.ts"
