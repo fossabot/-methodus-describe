@@ -1,6 +1,5 @@
 @import "./_variables";
 @import "./mixins";
-@import "../assets/hub-bootstrap/less/mixins/glyphicon";
 @import "./common.mss-icons";
 @import "../../node_modules/font-awesome/scss/font-awesome";
 
@@ -128,12 +127,14 @@
   -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
 }
-
+* {
+  font-family: 'Ubuntu', sans-serif;
+}
 html,
 body {
   height: 100%;
   overflow: hidden;
-  font-family: "ATTAleckSans-Regular", Arial, sans-serif;
+
 }
 
 .sortable-header {

@@ -25,11 +25,8 @@
               }
             ],
             "styles": [
-              "src/assets/att-font.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",
-              "src/sass/styles.scss",
-              "./node_modules/ngx-ui-switch/ui-switch.component.css",
-              "./node_modules/xterm/dist/xterm.css"
+              "src/sass/styles.scss"
             ],
             "scripts": []
           },
