@@ -20,7 +20,7 @@
               "src/assets",
               {
                 "glob": "**/*",
-                "input": "../node_modules/ngx-monaco-editor/assets/monaco",
+                "input": "./node_modules/ngx-monaco-editor/assets/monaco",
                 "output": "./assets/monaco/"
               }
             ],
@@ -81,7 +81,12 @@
               "node_modules/ngx-toastr/toastr.css"
             ],
             "assets": [
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/ngx-monaco-editor/assets/monaco/",
+                "output": "./assets/"
+              }
             ]
           }
         },
