@@ -2,13 +2,13 @@
     height: 100%;
     overflow: auto;
     position: fixed;
-    border: 1px solid black;
+    border: 1px solid gray;
     width: 40%;
-    right: 0;
+    right: 5px;
 
    
     .editor-container {
-        height: calc(100vh - 100px);
+        height: calc(100%);
     }
     
 
