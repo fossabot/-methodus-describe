@@ -12,7 +12,7 @@ deploy:
 addons:
   sonarcloud:
     organization: "nodulusteam-github" # the key of the org you chose at step #3  
-before_deploy:
+before_script:
   - npm run client
   - cd client
   - npm install

@@ -25,7 +25,7 @@ export function init(config, pluginOptions) {
                 }
             }
 
-            const clientDir = path.resolve(path.join(__dirname, 'public'));
+            const clientDir = path.resolve(path.join(__dirname, '..', 'public'));
             instance.use(describePath, BuiltInServers.Express.static(clientDir, options))
 
             const methodClientPath = path.join(process.cwd(), 'node_modules', '@methodus/client', 'dist');
