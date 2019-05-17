@@ -43,18 +43,18 @@ export function tokenGetter() {
 
 const monacoConfig: NgxMonacoEditorConfig = {
   baseUrl: '/describe/assets',
-  defaultOptions: { scrollBeyondLastLine: false }, // pass default options to be used
-  onMonacoLoad: () => {
-    const _monaco = (<any>window).monaco;
-    // validation settings
-
-    _monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
-      noSemanticValidation: false,
-      noSyntaxValidation: false
-    });
-  } // here monaco object will be available as window.monaco use this function to extend monaco editor functionality.
+  defaultOptions: { scrollBeyondLastLine: false },
+  onMonacoLoad: monacoLoad,
 };
 
+export function monacoLoad() {
+  const _monaco = (<any>window).monaco;
+  // validation settings
+  _monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
+    noSemanticValidation: false,
+    noSyntaxValidation: false
+  });
+}
 
 @NgModule({
   declarations: [
