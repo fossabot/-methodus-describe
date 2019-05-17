@@ -15,21 +15,14 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { OrderModule } from 'ngx-order-pipe';
 import { SharedModule } from './shared.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { LobbyComponent } from './common/lobby/lobby.component';
 import { UserService } from './services/user.context.service';
-import { LoaderService } from './services/loader.service';
-import { FooterComponent } from './footer/footer.component';
 import { appRoutes } from './routes';
-import { MenuComponent } from './menu/menu.component';
+
 import { FeatureService } from './services/feature.service';
 import { RefreshService } from './services/refresh.service';
-import { ApiRoutesComponent } from './api-routes/api-routes.component';
-import { TestFormComponent } from './test-form/test-form.component';
-import { TestRouteService } from './services/test-route.service';
-import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor';
+
+import { DescribeModule } from './describe/describe.module';
 
 
 // AoT requires an exported function for factories
@@ -41,44 +34,27 @@ export function tokenGetter() {
   return sessionStorage.getItem('access_token');
 }
 
-const monacoConfig: NgxMonacoEditorConfig = {
-  baseUrl: '/describe/assets',
-  defaultOptions: { scrollBeyondLastLine: false },
-  onMonacoLoad: monacoLoad,
-};
 
-export function monacoLoad() {
-  const _monaco = (<any>window).monaco;
-  // validation settings
-  _monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
-    noSemanticValidation: false,
-    noSyntaxValidation: false
-  });
-}
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    DashboardComponent,
-    LobbyComponent,
-    FooterComponent,
-    MenuComponent,
-    ApiRoutesComponent,
-    TestFormComponent,
-
+    AppComponent
   ],
 
   imports: [
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    MonacoEditorModule.forRoot(monacoConfig),
     SharedModule,
+    DescribeModule,
+    HttpClientModule,
+    // TranslateModule.forRoot({
+    //   loader: {
+    //     provide: TranslateLoader,
+    //     useFactory: HttpLoaderFactory,
+    //     deps: [HttpClient]
+    //   }
+    // }),
+
+
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false, useHash: true } // <-- debugging purposes only
@@ -93,19 +69,16 @@ export function monacoLoad() {
     OrderModule,
     DynamicFormsBootstrapUIModule,
     BrowserAnimationsModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter,
-      }
-    })
+    // JwtModule.forRoot({
+    //   config: {
+    //     tokenGetter,
+    //   }
+    // })
   ],
   providers: [
     RefreshService,
-    LoaderService,
     UserService,
     FeatureService,
-    TestRouteService,
-
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

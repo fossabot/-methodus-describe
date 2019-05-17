@@ -1,27 +1,43 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoaderComponent } from './loader.component';
-import { LoaderService } from '../../services/loader.service';
+import { SharedModule } from '../../shared.module';
+
 describe('LoaderComponent', () => {
   let component: LoaderComponent;
   let fixture: ComponentFixture<LoaderComponent>;
-  let loaderService: LoaderService;
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [LoaderComponent],
-      providers: [LoaderService]
-    })
-      .compileComponents();
-    loaderService = TestBed.get(LoaderService);
-  }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(LoaderComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+
+
+  // beforeEach(async(() => {
+  //   TestBed.configureTestingModule({
+  //     imports: [SharedModule],
+  //     declarations: [],
+  //     providers: []
+  //   })
+  //     .compileComponents().then((resolve) => {
+
+  //       fixture = TestBed.createComponent(LoaderComponent);
+  //       component = fixture.componentInstance;
+  //       fixture.detectChanges();
+  //       return true;
+  //     });
+  // }));
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    TestBed.configureTestingModule({
+      imports: [SharedModule],
+      declarations: [],
+      providers: []
+    })
+      .compileComponents().then((resolve) => {
+      
+        fixture = TestBed.createComponent(LoaderComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+
+        expect(component).toBeTruthy();
+
+      });
   });
 });

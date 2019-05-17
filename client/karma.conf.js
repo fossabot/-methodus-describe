@@ -30,7 +30,7 @@ module.exports = function (config) {
     port: 9876,
     colors: true,
     logLevel: config.LOG_DEBUG,
-    autoWatch: true,
+    autoWatch: false,
     browsers: ['ChromeNoSandbox'],
     customLaunchers: {
       ChromeNoSandbox: {
@@ -38,6 +38,6 @@ module.exports = function (config) {
         flags: ['--no-sandbox']
       }
     },
-    singleRun: false
+    singleRun: true
   });
 };

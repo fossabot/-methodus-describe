@@ -1,7 +1,13 @@
 @import "./_variables";
 @import "./mixins";
-@import "./common.mss-icons";
 @import "../../node_modules/font-awesome/scss/font-awesome";
+
+.my-code-editor {   
+    height: 100%!important;
+  
+}
+
+
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -9,9 +15,7 @@
   background-image: none;
 }
 
-.white {
-  color: white;
-}
+ 
 
 .att-bg {
   background-image: url("assets/bg-dashboard.png");
@@ -75,8 +79,7 @@
     font-size: 12px !important;
   }
 
-  .switch.switch-small.checked {
-  }
+ 
 
   .switch.switch-small {
     height: 20px;
@@ -324,7 +327,7 @@ dialog {
   background: #fff;
   border: none;
   border-radius: 0;
-  margin-bottom: 20px;
+ 
 }
 
 .selected {
@@ -340,6 +343,21 @@ dialog {
 }
 
 .ltr {
+  .btn-long {
+    opacity: 0.6;
+    font-size: 24px;
+    text-align: left;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+  .input-group > .input-group-prepend > .input-group-text {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
   .direction {
     float: right;
   }
@@ -373,7 +391,6 @@ dialog {
     max-width: 900px;
     right: 0;
     overflow-x: hidden;
-    width: 100%;
     transition-property: all;
     transition-duration: 0.5s;
     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
@@ -404,30 +421,7 @@ dialog {
   }
 }
 
-.ltr {
-  .btn-long {
-    opacity: 0.6;
-    font-size: 24px;
-    text-align: left;
-    vertical-align: middle;
-    cursor: pointer;
-  }
-
-  .input-group > .input-group-prepend > .input-group-text {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-  }
-  /*
-    .input-group > .form-control:not(:first-child), .input-group > .custom-select:not(:first-child)
-{
-        border-top-left-radius: 0!important;
-        border-bottom-left-radius: 0!important;
-        border-top-right-radius: 10px!important;
-        border-bottom-right-radius: 10px!important;
-}*/
-}
+ 
 
 .btn-long:hover {
   opacity: 1;
@@ -448,12 +442,7 @@ dialog {
   border-radius: 0.2rem;
 }
 
-.ltr {
-  .sqr-toolbar {
-    right: 4px;
-    direction: rtl;
-  }
-}
+ 
 
 .sqr-toolbar {
   margin: 0;
@@ -601,26 +590,9 @@ div.nav-cat {
   border-bottom: 1px solid #d2d2d2;
 }
 
-.accordion-toggle[aria-expanded="true"]:before {
-  content: "\f078"; /* fa-chevron-down */
-  font-family: "FontAwesome";
-  position: absolute;
-  color: #0568ae;
-}
+ 
 
-.accordion-toggle[aria-expanded="false"]:before {
-  content: "\f054"; /* fa-chevron-up */
-  font-family: "FontAwesome";
-  position: absolute;
-  color: #0568ae;
-}
-
-.accordion-toggle > div {
-  color: #0568ae;
-  padding-left: 30px;
-  font-weight: bold;
-  cursor: pointer;
-}
+ 
 
 /* ---------------------------------------------------
     END OF ACCORDION OVERRIDE STYLE

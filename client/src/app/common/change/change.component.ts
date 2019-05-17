@@ -5,7 +5,7 @@ import stringify from 'fast-stringify';
 @Component({
   selector: 'app-changes',
   templateUrl: './change.component.html',
-  styleUrls: ['./change.component.scss']
+
 })
 export class ChangeComponent implements OnChanges, OnDestroy, OnInit {
   constructor(public dirtyService: DirtyService) {

@@ -1,0 +1,58 @@
+<div class="card d-flex flex-column test-form" [appAdaptHeight]="100">
+  <ul class="nav nav-tabs d-flex align-items-start" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link " [ngClass]="{'active':tabs[0].selected }" data-toggle="tab" role="tab"
+        (click)="selectTab(tabs[0])" style="word-break: break-all;">
+        {{controllerName}}.{{methodName}}
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" [ngClass]="{'active':tabs[1].selected }" role="tab"
+        (click)="selectTab(tabs[1])">Result
+        <span class="well bg-success">
+          <em id="StatusCode"></em>
+          <em id="ResultStatusOK" class="mdi mdi-check hide"></em>
+          <em id="ResultStatusBAD" class="mdi mdi-exclamation hide"></em>
+        </span>
+      </a>
+    </li>
+  </ul>
+  <div class="card-body tab-content d-flex align-items-stretch">
+    <div class="card-block tab-pane active" role="tabpanel" id="testFormTab">
+      <div class="card-block" *ngIf="methodInfo && tabs[0].selected">
+        <form id="TestForm" class="form-horizontal form-material" name="TestForm" target="resultFrame"
+          [action]="methodInfo.route" [method]="methodInfo.verb">
+
+          <div class="form-group" *ngFor="let param of methodInfo.params">
+            <label class="col-md-12">
+              {{param.name || param.from}}:
+              <em>
+                {{param.type}}
+              </em>
+            </label>
+
+
+            <input type="text" [(ngModel)]="param.value" [ngModelOptions]="{standalone: true}" id="<%=param.name%>"
+              class="form-control form-control-line param store" *ngIf="param.from==='params'" />
+
+            <textarea [(ngModel)]="param.value" [ngModelOptions]="{standalone: true}" *ngIf="param.from==='body'"
+              class="form-control store"></textarea>
+
+          </div>
+          <div class="form-control">
+            <input type="button" value="Submit" class="btn btn-primary" (click)="testMethod();" />
+            <input type="reset" class="btn btn-default" />
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="card-block results-block" role="tabpanel" *ngIf="tabs[1].selected">
+      <ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="actionResultJson">
+      </ngx-monaco-editor>
+    </div>
+  </div>
+  <div class="card-footer" style="position:fixed;bottom:0;">
+    <small id="RequestUrl"></small>
+  </div>
+  <div>
+  </div>

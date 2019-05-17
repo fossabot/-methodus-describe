@@ -69,16 +69,7 @@
   margin-right: 20px;
 }
 
-:host-context(.ltr) {
-  .close-button-topper {
-    right: 0px;
-  }
-}
-:host-context(.rtl) {
-  .close-button-topper {
-    left: 0px;
-  }
-}
+ 
 .close-button-topper {
   position: absolute;
   z-index: 2000;
@@ -138,30 +129,7 @@
   -moz-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
-
-:host-context(.rtl) {
-  .toolbar {
-    left: 110px;
-  }
-
-  .save-btn-topper {
-    left: 49px;
-    &.true {
-      background-color:$color-red !important;
-      color: $color-white;
-    }
-  }
-  .save-btn-inline-topper {
-    float: right;
-    left: 49px;
-  }
-
-  .close-button-inline-topper {
-    float: right;
-
-    left: 0px;
-  }
-}
+ 
 :host-context(.ltr) {
   .toolbar {
     right: 110px;

@@ -1,5 +1,5 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { FileDropModule } from 'ngx-file-drop';
 import { FormsModule } from '@angular/forms';
@@ -16,13 +16,47 @@ import { ChangeComponent } from './common/change/change.component';
 import { DetectChangesDirective } from './directives/change.directive';
 import { UiSwitchModule, UiSwitchComponent } from 'ngx-ui-switch';
 import { JoyrideModule } from 'ngx-joyride';
+import { LoaderService } from './services/loader.service';
 import { LoaderComponent } from './common/loader/loader.component';
-
+import { appRoutes } from './routes';
 import { PrettyPrintPipe } from './pipes/prettyprint';
 import { KeysPipe } from './pipes/keys-pipe';
 import { HumanizePipe } from './pipes/humanize-pipe';
 import { DictionaryPipe } from './pipes/dictionary-pipe';
 import { SafeHtmlPipe } from './pipes/safe-html';
+import { RouterTestingModule } from '@angular/router/testing';
+import { JwtModule } from '@auth0/angular-jwt';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MenuComponent } from './menu/menu.component';
+import { LobbyComponent } from './common/lobby/lobby.component';
+import { FooterComponent } from './footer/footer.component';
+import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+export function tokenGetter() {
+  return sessionStorage.getItem('access_token');
+}
+
+const monacoConfig: NgxMonacoEditorConfig = {
+  baseUrl: '/describe/assets',
+  defaultOptions: { scrollBeyondLastLine: false },
+  onMonacoLoad: monacoLoad,
+};
+
+
+export function monacoLoad() {
+  const _monaco = (<any>window).monaco;
+  // validation settings
+  _monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
+    noSemanticValidation: false,
+    noSyntaxValidation: false
+  });
+}
 
 @NgModule({
   imports: [
@@ -39,11 +73,29 @@ import { SafeHtmlPipe } from './pipes/safe-html';
       checkedLabel: 'Live',
       uncheckedLabel: 'Off'
     }),
-    TranslateModule.forChild(),
+    MonacoEditorModule.forRoot(monacoConfig),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter
+      }
+    }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }), HttpClientTestingModule,
+
+    RouterTestingModule.withRoutes(appRoutes),
+    // TranslateModule.forChild(),
     FileDropModule,
     BsDropdownModule.forRoot()
   ],
   declarations: [
+    LobbyComponent,
+    MenuComponent,
+    DashboardComponent,
     AdaptHeightDirective,
     AdaptWidthDirective,
     ClickStopPropagationDirective,
@@ -51,7 +103,9 @@ import { SafeHtmlPipe } from './pipes/safe-html';
     ChangeComponent,
     SlideHeaderComponent,
     SlideFooterComponent,
+    FooterComponent,
     LobbyItemComponent,
+    LobbyComponent,
     LoaderComponent,
     PrettyPrintPipe,
     KeysPipe,
@@ -62,8 +116,12 @@ import { SafeHtmlPipe } from './pipes/safe-html';
   providers: [
     TranslateService,
     DirtyService,
+    LoaderService,
   ],
   exports: [
+    RouterTestingModule,
+    CommonModule,
+    LobbyComponent,
     LobbyItemComponent,
     TranslateModule,
     FileDropModule,
@@ -76,11 +134,13 @@ import { SafeHtmlPipe } from './pipes/safe-html';
     SlideFooterComponent,
     UiSwitchComponent,
     LoaderComponent,
+
     PrettyPrintPipe,
     KeysPipe,
     HumanizePipe,
     SafeHtmlPipe,
     DictionaryPipe,
+    MonacoEditorModule,
   ],
 })
 export class SharedModule {

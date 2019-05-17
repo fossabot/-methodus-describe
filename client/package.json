@@ -67,6 +67,7 @@
     "ngx-toastr": "^9.1.0",
     "ngx-ui-switch": "^8.0.0-beta.0",
     "popper.js": "^1.14.6",
+    "puppeteer": "^1.16.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.4.0",
     "rxjs-compat": "~6.4.0",

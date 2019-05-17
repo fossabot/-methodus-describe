@@ -14,6 +14,36 @@
             ]
         },
         {
+            "request": "launch",
+            "console": "internalConsole",
+            "name": "T | Run describe tests",
+            "type": "node",
+            "program": "${workspaceRoot}/node_modules/alsatian/cli/alsatian-cli",
+            "stopOnEntry": false,
+            "args": [
+                "build/tests/describe.spec.js"
+            ],
+            "sourceMaps": true,
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": null,
+            "env": {
+                "NODE_ENV": "test",
+            }
+        },
+        {
+            "request": "launch",
+            "console": "internalConsole",
+            "name": "T | Run Test server",
+            "sourceMaps": true,
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": null,
+            "type": "node",
+            "program": "${workspaceFolder}\\build\\tests\\servers\\autorun.js",
+            "env": {
+                "NODE_ENV": "test",
+            }
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "U | build client contracts",
