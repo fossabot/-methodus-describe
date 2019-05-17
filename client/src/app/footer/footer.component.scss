@@ -89,7 +89,7 @@ $color-v: #e6f6fb;
     // }
     .copyright-text {
       display: none;
-      font-family: "omnesattII-regular";
+    
       color: $color-n;
       @include transition-all();
     }
@@ -98,7 +98,7 @@ $color-v: #e6f6fb;
         margin-top: 5px;
         font-size: 12px;
         color: $color-p;
-        font-family: "omnesattII-regular";
+       
       }
     }
     .footer-toggle {
@@ -170,7 +170,7 @@ $color-v: #e6f6fb;
             margin-bottom: 7px;
             a {
               font-size: 14px;
-              font-family: "omnesattII-regular";
+              
               margin-bottom: 4px;
               color: $color-p;
             }

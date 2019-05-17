@@ -4,14 +4,14 @@
   <div class="no-results" *ngIf="items && items.length===0">
     <h4>{{'LOBBY.NORESULTS' | translate}}</h4>
 
-    <div *ngIf="!noNew"  
-      class="sqr shadow sqr-btn {{itemClass}}" (click)="newItemHandler()" (next)="newItemHandler()"><i
-        class="fas fa-plus-circle"></i></div>
+    <div *ngIf="!noNew" class="sqr shadow sqr-btn {{itemClass}}" (click)="newItemHandler()" (next)="newItemHandler()">
+      <em class="fas fa-plus-circle"></em></div>
 
   </div>
 
-  <div *ngIf="!noNew && items && items.length > 0"   class="sqr shadow sqr-btn {{itemClass}}" (click)="newItemHandler()" (next)="newItemHandler()">
-    <i class="fas fa-plus-circle"></i></div>
+  <div *ngIf="!noNew && items && items.length > 0" class="sqr shadow sqr-btn {{itemClass}}" (click)="newItemHandler()"
+    (next)="newItemHandler()">
+    <em class="fas fa-plus-circle"></em></div>
   <div *ngIf="!groupBy" class="all-container">
     <section class="all-container-items">
       <ng-template *ngIf="!groupBy" [ngTemplateOutlet]="companiesTemplate" [ngTemplateOutletContext]="{items: items}">
@@ -37,13 +37,13 @@
     <app-lobby-item [item]="item" [model]="model" [template]="itemTemplate"></app-lobby-item>
     <ul class="sqr-toolbar btn-group" role="group" *ngIf="!noNew">
       <li>
-        <button class="btn btn-secondary btn-md btn-danger" (click)="deleteItemHandler(item);"> <i
-            class="fas fa-trash"></i>
+        <button class="btn btn-secondary btn-md btn-danger" (click)="deleteItemHandler(item);"> <em
+            class="fas fa-trash"></em>
         </button>
       </li>
       <li>
-        <button class="btn btn-secondary btn-md btn-primary" (click)="editItemHandler(item);"> <i
-            class="fas fa-edit"></i>
+        <button class="btn btn-secondary btn-md btn-primary" (click)="editItemHandler(item);"> <em
+            class="fas fa-edit"></em>
         </button>
       </li>
     </ul>

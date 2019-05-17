@@ -120,17 +120,11 @@
   transition: all 0.2s ease;
   color: white;
   cursor: pointer;
-
   position: absolute;
-
   top: 0px;
   width: 49px;
   height: 49px;
   background-color: $color-blue;
-
-  color: white;
-  cursor: pointer;
-
   &.true {
     background-color:  $color-red;
     color: black;
