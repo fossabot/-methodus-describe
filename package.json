@@ -12,7 +12,8 @@
     "contract": "contracts-server ./build.json",
     "client": "contracts-client ./build.json",
     "contract-publish": "npm version patch && contracts-server ./build.json -p",
-    "client-publish": "npm version patch && contracts-client ./build.json -p"
+    "client-publish": "npm version patch && contracts-client ./build.json -p",
+    "sonar": "sonar-scanner.bat -Dsonar.projectKey=nodulusteam_-methodus-describe -Dsonar.organization=nodulusteam-github -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=8c7c7f129d82d3fe77455df4bf7607c5dacbfdc2"
   },
   "author": "",
   "license": "ISC",
