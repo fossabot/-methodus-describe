@@ -5,27 +5,39 @@ import { ApiRoutesComponent } from './api-routes/api-routes.component';
 import { TestRouteService } from './test-route.service';
 import { FormsModule } from '@angular/forms';
 import { AccordionModule } from 'ngx-bootstrap';
-import { SharedModule } from '../shared.module';
+import { SharedModule } from '../app/shared.module';
+import { Routes, RouterModule } from '@angular/router';
 
-import { DescribeRoutingModule } from './describe.routes';
+
+export const describeRoutes: Routes = [
+  {
+    path: 'describe/local-services', component: ApiRoutesComponent, children: [
+      { path: ':controller/:method', component: TestFormComponent },
+    ]
+  }
+];
 
 @NgModule({
   imports: [
     SharedModule,
     FormsModule,
     AccordionModule.forRoot(),
-    DescribeRoutingModule,
+    RouterModule.forChild(describeRoutes),
+
   ],
   declarations: [
     TestFormComponent,
     ApiRoutesComponent,
   ],
+  entryComponents: [ApiRoutesComponent],
   providers: [
     TestRouteService,
   ],
   exports: [
     TestFormComponent,
     ApiRoutesComponent,
+    RouterModule,
+
   ],
 })
 

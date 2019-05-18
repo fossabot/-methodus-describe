@@ -9,9 +9,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-
-import { JwtModule } from '@auth0/angular-jwt';
-
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { OrderModule } from 'ngx-order-pipe';
 import { SharedModule } from './shared.module';
@@ -21,8 +19,7 @@ import { appRoutes } from './routes';
 
 import { FeatureService } from './services/feature.service';
 import { RefreshService } from './services/refresh.service';
-
-import { DescribeModule } from './describe/describe.module';
+import { JwtModule } from '@auth0/angular-jwt';
 
 
 // AoT requires an exported function for factories
@@ -36,29 +33,28 @@ export function tokenGetter() {
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent
   ],
 
   imports: [
-    SharedModule,
-    DescribeModule,
+    SharedModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter
+      }
+    }),
     HttpClientModule,
-    // TranslateModule.forRoot({
-    //   loader: {
-    //     provide: TranslateLoader,
-    //     useFactory: HttpLoaderFactory,
-    //     deps: [HttpClient]
-    //   }
-    // }),
 
 
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: false, useHash: true } // <-- debugging purposes only
-    ),
     TabsModule.forRoot(),
     ModalModule.forRoot(),
     SortableModule.forRoot(),
@@ -69,11 +65,10 @@ export function tokenGetter() {
     OrderModule,
     DynamicFormsBootstrapUIModule,
     BrowserAnimationsModule,
-    // JwtModule.forRoot({
-    //   config: {
-    //     tokenGetter,
-    //   }
-    // })
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true, useHash: true } // <-- debugging purposes only
+    ),
   ],
   providers: [
     RefreshService,

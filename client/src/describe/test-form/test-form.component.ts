@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DescribeView } from '../../../contracts';
+import { DescribeView } from '../../contracts';
 import { TestRouteService } from '../test-route.service';
 
 @Component({

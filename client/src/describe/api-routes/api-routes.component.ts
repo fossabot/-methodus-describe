@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DescribeView } from '../../../contracts';
+import { DescribeView } from '../../contracts';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,6 +23,7 @@ export class ApiRoutesComponent implements OnInit {
   }
 
   loadTest(apiRoute, item) {
-    this.router.navigate(['/dashboard/local-services', apiRoute.name, item.propertyKey]);
+
+    this.router.navigate(['/dashboard/describe/local-services/', apiRoute.name, item.propertyKey]);
   }
 }

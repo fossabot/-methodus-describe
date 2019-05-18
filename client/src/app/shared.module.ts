@@ -35,9 +35,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}
+
 export function tokenGetter() {
   return sessionStorage.getItem('access_token');
 }
@@ -74,19 +72,9 @@ export function monacoLoad() {
       uncheckedLabel: 'Off'
     }),
     MonacoEditorModule.forRoot(monacoConfig),
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter
-      }
-    }),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }), HttpClientTestingModule,
 
+    HttpClientTestingModule,
+    TranslateModule.forChild(),
     RouterTestingModule.withRoutes(appRoutes),
     // TranslateModule.forChild(),
     FileDropModule,
@@ -141,6 +129,7 @@ export function monacoLoad() {
     SafeHtmlPipe,
     DictionaryPipe,
     MonacoEditorModule,
+
   ],
 })
 export class SharedModule {
@@ -149,9 +138,10 @@ export class SharedModule {
     translate.setDefaultLang('en');
   }
 
-  static forRoot(loader): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
+
       providers: [],
     };
   }
