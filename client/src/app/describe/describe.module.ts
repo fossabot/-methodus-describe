@@ -23,7 +23,8 @@ import { SharedModule } from '../shared.module';
     TestRouteService,
   ],
   exports: [
-
+    TestFormComponent,
+    ApiRoutesComponent,
   ],
 })
 export class DescribeModule {
