@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TestFormComponent } from './test-form.component';
-import { SharedModule } from '../../shared.module';
+import { SharedModule } from '../../app/shared.module';
 import { DescribeModule } from '../describe.module';
 
 describe('TestFormComponent', () => {

@@ -10,8 +10,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 export const describeRoutes: Routes = [
+
+  { path: '', redirectTo: 'local-services', pathMatch: 'full' },
   {
-    path: 'describe/local-services', component: ApiRoutesComponent, children: [
+
+    path: 'local-services', component: ApiRoutesComponent, children: [
       { path: ':controller/:method', component: TestFormComponent },
     ]
   }

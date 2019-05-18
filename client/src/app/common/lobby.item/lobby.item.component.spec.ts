@@ -1,8 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LobbyItemComponent } from './lobby.item.component';
 import { SharedModule } from '../../shared.module';
-import { DescribeModule } from '../../describe/describe.module';
-
 
 describe('LobbyItemComponent', () => {
   let component: LobbyItemComponent;
@@ -10,7 +8,7 @@ describe('LobbyItemComponent', () => {
 
   it('should create', () => {
     TestBed.configureTestingModule({
-      imports: [SharedModule, DescribeModule],
+      imports: [SharedModule],
       declarations: [],
       providers: []
     })

@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MenuComponent } from './menu.component';
 import { SharedModule } from '../shared.module';
-import { DescribeModule } from '../describe/describe.module';
 export function getToken(): string {
   return sessionStorage.getItem('token');
 }
@@ -11,7 +10,7 @@ describe('MenuComponent', () => {
   let fixture: ComponentFixture<MenuComponent>;
   it('should create MenuComponent', () => {
     TestBed.configureTestingModule({
-      imports: [SharedModule, DescribeModule],
+      imports: [SharedModule],
       declarations: [],
       providers: []
     })

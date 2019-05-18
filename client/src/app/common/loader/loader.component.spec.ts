@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoaderComponent } from './loader.component';
 import { SharedModule } from '../../shared.module';
-import { DescribeModule } from '../../describe/describe.module';
 
 describe('LoaderComponent', () => {
   let component: LoaderComponent;
@@ -10,7 +9,7 @@ describe('LoaderComponent', () => {
 
   it('should create', () => {
     TestBed.configureTestingModule({
-      imports: [SharedModule, DescribeModule],
+      imports: [SharedModule],
       declarations: [],
       providers: []
     })

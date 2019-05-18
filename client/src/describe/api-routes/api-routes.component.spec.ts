@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ApiRoutesComponent } from './api-routes.component';
-import { SharedModule } from '../../shared.module';
+import { SharedModule } from '../../app/shared.module';
 import { DescribeModule } from '../describe.module';
 
 describe('ApiRoutesComponent', () => {

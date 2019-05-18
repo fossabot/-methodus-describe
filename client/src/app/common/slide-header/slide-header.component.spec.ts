@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SlideHeaderComponent } from './slide-header.component';
 import { SharedModule } from '../../shared.module';
-import { DescribeModule } from '../../describe/describe.module';
 
 
 describe('SlideHeaderComponent', () => {
@@ -9,7 +8,7 @@ describe('SlideHeaderComponent', () => {
   let fixture: ComponentFixture<SlideHeaderComponent>;
   it('should create', () => {
     TestBed.configureTestingModule({
-      imports: [SharedModule, DescribeModule],
+      imports: [SharedModule],
       declarations: [],
       providers: []
     })

@@ -1,15 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LobbyComponent } from './lobby.component';
 import { SharedModule } from '../../shared.module';
-import { DescribeModule } from '../../describe/describe.module';
-
 
 describe('LobbyComponent', () => {
   let component: LobbyComponent;
   let fixture: ComponentFixture<LobbyComponent>;
   it('should create', () => {
     TestBed.configureTestingModule({
-      imports: [SharedModule, DescribeModule],
+      imports: [SharedModule],
       declarations: [],
       providers: []
     })

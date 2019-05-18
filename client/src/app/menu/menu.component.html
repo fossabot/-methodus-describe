@@ -14,39 +14,21 @@
   </div>
   <div class="menu-container">
     <ul class="nav-bar menubars">
-
-
-
-
       <li *ngIf="user" class="bordered">
         <div class="user-indicator"><em class="fas fa-user"></em>&nbsp;&nbsp;{{user['last name']}}
           {{user['first name']}}</div>
       </li>
     </ul>
     <ul class="mainmenu">
-
-
       <li class="topItem">
         <a class="nav-link active" data-toggle="tab" routerLink="describe/local-services" routerLinkActive="active-top"
-          role="tab"> {{"NAVBAR.SERVICES" | translate}}</a>
+          role="tab">Services</a>
       </li>
       <li class="topItem">
         <a class="nav-link" data-toggle="tab" routerLink="describe/remote-services" routerLinkActive="active-top"
-          role="tab">Remote</a>
+          role="tab">Remotes</a>
       </li>
-      
-
-
-
-
-
-
-
-
-
-
-
-    </ul>
+          </ul>
   </div>
 </div>
 <app-loader name="main"></app-loader>
