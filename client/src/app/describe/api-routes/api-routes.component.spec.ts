@@ -1,13 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ApiRoutesComponent } from './api-routes.component';
 import { SharedModule } from '../../shared.module';
+import { DescribeModule } from '../describe.module';
 
 describe('ApiRoutesComponent', () => {
   let component: ApiRoutesComponent;
   let fixture: ComponentFixture<ApiRoutesComponent>;
   it('should create', () => {
     TestBed.configureTestingModule({
-      imports: [SharedModule],
+      imports: [SharedModule, DescribeModule],
       declarations: [],
       providers: []
     })

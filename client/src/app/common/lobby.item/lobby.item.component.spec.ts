@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LobbyItemComponent } from './lobby.item.component';
 import { SharedModule } from '../../shared.module';
+import { DescribeModule } from '../../describe/describe.module';
 
 
 describe('LobbyItemComponent', () => {
@@ -9,12 +10,12 @@ describe('LobbyItemComponent', () => {
 
   it('should create', () => {
     TestBed.configureTestingModule({
-      imports: [SharedModule],
+      imports: [SharedModule, DescribeModule],
       declarations: [],
       providers: []
     })
       .compileComponents().then(() => {
-      
+
         fixture = TestBed.createComponent(LobbyItemComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

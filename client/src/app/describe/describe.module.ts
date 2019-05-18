@@ -7,13 +7,14 @@ import { FormsModule } from '@angular/forms';
 import { AccordionModule } from 'ngx-bootstrap';
 import { SharedModule } from '../shared.module';
 
-
+import { DescribeRoutingModule } from './describe.routes';
 
 @NgModule({
   imports: [
     SharedModule,
     FormsModule,
     AccordionModule.forRoot(),
+    DescribeRoutingModule,
   ],
   declarations: [
     TestFormComponent,
@@ -27,6 +28,9 @@ import { SharedModule } from '../shared.module';
     ApiRoutesComponent,
   ],
 })
+
+
+
 export class DescribeModule {
   constructor() {
     // this language will be used as a fallback when a translation isn't found in the current language

@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FooterComponent } from './footer.component';
 import { SharedModule } from '../shared.module';
+import { DescribeModule } from '../describe/describe.module';
+
 
 describe('FooterComponent', () => {
   let component: FooterComponent;
@@ -9,7 +10,7 @@ describe('FooterComponent', () => {
 
   it('should create', () => {
     TestBed.configureTestingModule({
-      imports: [SharedModule],
+      imports: [SharedModule, DescribeModule],
       declarations: [],
       providers: []
     })

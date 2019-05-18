@@ -17,7 +17,7 @@ export function init(config, pluginOptions) {
             var options = {
                 //dotfiles: 'ignore',
                 etag: true,
-                extensions: ['htm', 'html', 'js', 'js.map', 'css'],
+                extensions: ['htm', 'html', 'js', 'js.map', 'css', 'json'],
                 maxAge: '1d',
                 redirect: false,
                 setHeaders: function (res, path, stat) {
