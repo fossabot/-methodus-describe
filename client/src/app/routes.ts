@@ -10,7 +10,7 @@ export const appRoutes: Routes = [
 
             {
                 path: 'describe',
-                loadChildren: '../describe/describe.module#DescribeModule'
+                loadChildren: 'describe/describe.module#DescribeModule'
             }
         ],
 
