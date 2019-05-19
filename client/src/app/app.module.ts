@@ -63,6 +63,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     RefreshService,
   ],
+  exports: [RouterModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })

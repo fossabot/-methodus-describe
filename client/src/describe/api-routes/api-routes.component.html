@@ -1,15 +1,13 @@
 <div class="row">
   <div class="col-md-7 list">
-    <div class="card" style="width: 90%">
-      <div class="card-header">
-        Local Services
-      </div>
+    <div class="card">
+
       <ul class="list-group list-group-flush" *ngIf="dashboard">
         <li class="list-group-item" *ngFor="let route of dashboard.routes">
 
-          <span (click)="route._display=!route._display">{{route.name}} <span class="sl-date">
-              {{route.info | json}}
-            </span></span>
+          <div class="card-header" (click)="route._display=!route._display">
+            {{route.name}}
+          </div>
 
           <table class="table table-striped table-hover" [hidden]="!route._display">
             <thead class="thead-dark">
@@ -17,9 +15,10 @@
                 <th>Verb</th>
                 <th>Key / Route</th>
                 <th>Args</th>
+                <th></th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="routes-table">
 
               <tr *ngFor="let method of route.methodus._descriptors | keyvalue">
                 <td>
@@ -30,7 +29,7 @@
                   <a style="word-break: break-all;">
                     {{ method.value.propertyKey}}
                   </a>
-                  <button class="btn btn-primary" (click)="loadTest(route, method.value)">TestX</button>
+
                   <br />
                   <span style="word-break: break-all;">
                     {{ method.value.route}}
@@ -45,22 +44,20 @@
                       <td>
                         {{paramItem.from}}:
                         {{paramItem.name}}
-
-
                       </td>
                       <td>
                         {{paramItem.type}}
-
                       </td>
                     </tr>
-
                   </table>
                 </td>
+                <td>
+                  <button class="btn btn-primary btn-md test-btn"
+                    [routerLink]="[route.name,method.value.propertyKey  ]">Test
+                    Form</button>
+                </td>
               </tr>
-
             </tbody>
-
-
           </table>
         </li>
 

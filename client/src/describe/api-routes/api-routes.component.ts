@@ -22,8 +22,5 @@ export class ApiRoutesComponent implements OnInit {
     }
   }
 
-  loadTest(apiRoute, item) {
 
-    this.router.navigate(['/dashboard/describe/local-services/', apiRoute.name, item.propertyKey]);
-  }
 }

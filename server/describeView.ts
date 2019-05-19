@@ -2,9 +2,9 @@
 import * as ejs from 'ejs';
 import * as fs from 'fs';
 import * as path from 'path';
-
+import { Mock } from './Mock';
 import {
-    Response, Query, Param, Method,
+    Response, Query, Param, Method, MethodMock,
     MethodConfig, Verbs, MethodResult, Request
 } from '@methodus/server';
 
@@ -15,7 +15,7 @@ function getBridge(): any {
 
 function fullUrl(req) {
     const originalUrl = req.originalUrl.split('/describe')[0];
-    return '//' + req.headers.host + originalUrl ;
+    return '//' + req.headers.host + originalUrl;
 }
 
 /*begin custom*/
@@ -179,7 +179,7 @@ export class DescribeView {
         return new MethodResult(swagger);
     }
 
-
+    @MethodMock(Mock.dashbaord)
     @Method(Verbs.Get, '/describe/dashboard')
     public static async dashboard(@Request() req: any, @Response() res: any): Promise<MethodResult> {
         //const str = fs.readFileSync(path.join(clientDir, 'tabs/dashboard_tabs.ejs'), 'utf-8');
