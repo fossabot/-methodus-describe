@@ -6,14 +6,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
-import { JwtModule } from '@auth0/angular-jwt';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserService } from './services/user.context.service';
 
 import { FooterComponent } from './footer/footer.component';
 import { appRoutes } from './routes';
 import { MenuComponent } from './menu/menu.component';
-import { FeatureService } from './services/feature.service';
 import { RefreshService } from './services/refresh.service';
 
 describe('AppComponent', () => {
@@ -27,13 +24,7 @@ describe('AppComponent', () => {
         SharedModule,
         FormsModule,
         ReactiveFormsModule,
-        JwtModule.forRoot({
-          config: {
-            tokenGetter: () => {
-              return sessionStorage.getItem('access_token');
-            }
-          }
-        }),
+
         RouterTestingModule.withRoutes(appRoutes),
 
         HttpClientTestingModule,
@@ -52,8 +43,6 @@ describe('AppComponent', () => {
       ],
       providers: [
         TranslateService,
-        UserService,
-        FeatureService,
         RefreshService,
       ]
     }).compileComponents();

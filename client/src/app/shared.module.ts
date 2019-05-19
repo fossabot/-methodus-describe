@@ -25,7 +25,6 @@ import { HumanizePipe } from './pipes/humanize-pipe';
 import { DictionaryPipe } from './pipes/dictionary-pipe';
 import { SafeHtmlPipe } from './pipes/safe-html';
 import { RouterTestingModule } from '@angular/router/testing';
-import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';

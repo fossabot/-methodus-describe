@@ -3,7 +3,7 @@
   <div class="menu-header">
     <ul class="menu-header-bar">
       <li class="">
-          {{"NAVBAR.SERVICES" | translate}}
+
       </li>
 
       <li class="att-logo-title">
@@ -14,10 +14,7 @@
   </div>
   <div class="menu-container">
     <ul class="nav-bar menubars">
-      <li *ngIf="user" class="bordered">
-        <div class="user-indicator"><em class="fas fa-user"></em>&nbsp;&nbsp;{{user['last name']}}
-          {{user['first name']}}</div>
-      </li>
+
     </ul>
     <ul class="mainmenu">
       <li class="topItem">
@@ -28,7 +25,7 @@
         <a class="nav-link" data-toggle="tab" routerLink="describe/remote-services" routerLinkActive="active-top"
           role="tab">Remotes</a>
       </li>
-          </ul>
+    </ul>
   </div>
 </div>
 <app-loader name="main"></app-loader>

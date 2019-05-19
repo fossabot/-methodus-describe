@@ -14,12 +14,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { OrderModule } from 'ngx-order-pipe';
 import { SharedModule } from './shared.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { UserService } from './services/user.context.service';
 import { appRoutes } from './routes';
 
-import { FeatureService } from './services/feature.service';
 import { RefreshService } from './services/refresh.service';
-import { JwtModule } from '@auth0/angular-jwt';
 
 
 // AoT requires an exported function for factories
@@ -27,9 +24,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-export function tokenGetter() {
-  return sessionStorage.getItem('access_token');
-}
 
 
 
@@ -47,11 +41,7 @@ export function tokenGetter() {
         deps: [HttpClient]
       }
     }),
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter
-      }
-    }),
+
     HttpClientModule,
 
 
@@ -72,9 +62,6 @@ export function tokenGetter() {
   ],
   providers: [
     RefreshService,
-    UserService,
-    FeatureService,
-
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
