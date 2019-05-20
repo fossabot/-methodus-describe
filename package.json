@@ -4,8 +4,7 @@
   "description": "",
   "main": "build/index.js",
   "scripts": {
-    "build": "trash build && tsc",
-    "prepublishOnly": "npm version patch -message \"[VER] automatic tag commit by npm. Reviewer: npm\"",
+    "build": "trash build && tsc",     
     "test": "nyc alsatian build/tests/*.spec.js && nyc report --reporter=clover --reporter=html",
     "contracts": "npm run contract-publish && npm run client-publish",
     "postpublish": "npm run tag && npm run contract-publish && npm run client-publish",
