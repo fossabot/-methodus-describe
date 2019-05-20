@@ -21,6 +21,6 @@ before_script:
   - ng test
   - cd ..
   - npm run build
-  - npm publish
+
 script:
   - sonar-scanner
