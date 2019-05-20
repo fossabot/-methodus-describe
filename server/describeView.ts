@@ -2,9 +2,9 @@
 import * as ejs from 'ejs';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Mock } from './Mock';
+import { Mock } from './mock';
 import {
-    Response, Query, Param, Method, MethodMock,
+    Query, Param, Method, MethodMock,
     MethodConfig, Verbs, MethodResult
 } from '@methodus/server';
 
@@ -125,7 +125,7 @@ export class DescribeView {
     // public static async swaggerize(@Param('env') env: string): Promise<MethodResult> {
     //     const data = getBridge();
     //     const packageJson = require(path.join(process.cwd(), 'package.json'));
-       
+
     //     const swagger = {
     //         "swagger": "2.0",
     //         "info": {

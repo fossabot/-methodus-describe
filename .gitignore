@@ -12,3 +12,4 @@ client/src/**/*.js.map
 client/src/**/*.d.ts
 @methodus/describe-client/
 .nyc_output/
+coverage/
