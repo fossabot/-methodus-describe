@@ -3,16 +3,30 @@
     width: 100%;    
     border: 1px solid gray; 
     .editor-container {
-        height: 100%;
+        height: 100%!important;
     }  
 }
 
 .test-form{
+    height: 100%;
     position: fixed;
     width: 40%;
     right: 5px;
     border-left: 1px solid gray;
     padding: 2px;
+}
+
+.form-footer{
+    width: 100%;
+    border-top: 1px solid #000000;
+}
+
+.card-block{
+    padding: 10px;
+    width: 100%;
+}
+.scroller{
+    overflow: auto;
 }
 
 

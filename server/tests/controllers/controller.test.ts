@@ -18,8 +18,8 @@ export class TestController {
         return result;
     }
 
-    @Method(Verbs.Get, '/api/player/desfaults')
-    public static async listdefaults(@Param() params: any,
+    @Method(Verbs.Get, '/api/player/:player_name/desfaults')
+    public static async listdefaults(@Param('player_name') player_name: any,
         @Body() body: any,
         @Headers() headers: any,
         @Files() files: any,
@@ -44,7 +44,7 @@ export class TestController {
     }
 
     @Method(Verbs.Get, '/api/player/:field/:value')
-    public static async getByField(@Param('field') field: any, @Param('value') value: number) {
+    public static async getByField(@Param('field') field: string, @Param('value') value: number) {
         return new MethodResult({});
     }
 
@@ -53,8 +53,8 @@ export class TestController {
         return new MethodResult({});
     }
 
-    @Method(Verbs.Delete, '/api/player')
-    public static delete() {
+    @Method(Verbs.Delete, '/api/player/:id')
+    public static delete(@Param('id') id: string) {
         return new MethodResult({});
     }
 

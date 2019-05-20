@@ -39,6 +39,18 @@ export class TestFormComponent implements OnInit {
     });
 
   }
+
+  forTextArea(type) {
+    if (type === 'object') {
+      return true;
+    }
+  }
+
+  forTextBox(type) {
+    if (type === 'string') {
+      return true;
+    }
+  }
   async testMethod() {
     try {
       this.actionResult = await this.testRouteService.activate(this.baseUrl + this.methodInfo.route, this.methodInfo);

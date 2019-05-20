@@ -41,7 +41,7 @@ export function tokenGetter() {
 
 const monacoConfig: NgxMonacoEditorConfig = {
   baseUrl: '/describe/assets',
-  defaultOptions: { scrollBeyondLastLine: false },
+  defaultOptions: { scrollBeyondLastLine: false, automaticLayout: true },
   onMonacoLoad: monacoLoad,
 };
 

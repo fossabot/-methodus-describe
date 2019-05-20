@@ -1,4 +1,4 @@
-<div class="card d-flex flex-column test-form" [appAdaptHeight]="100">
+<div class="card d-flex flex-column test-form">
   <ul class="nav nav-tabs d-flex align-items-start" role="tablist">
     <li class="nav-item">
       <a class="nav-link " [ngClass]="{'active':tabs[0].selected }" data-toggle="tab" role="tab"
@@ -18,28 +18,27 @@
     </li>
   </ul>
   <div class="card-body tab-content d-flex align-items-stretch">
-    <div class="card-block tab-pane active" role="tabpanel" id="testFormTab">
-      <div class="card-block" *ngIf="methodInfo && tabs[0].selected">
+    <div class="card-block scroller" role="tabpanel" id="testFormTab" [appAdaptHeight]="100"
+      *ngIf="methodInfo && tabs[0].selected">
+      <div class="card-block">
         <form id="TestForm" class="form-horizontal form-material" name="TestForm" target="resultFrame"
           [action]="methodInfo.route" [method]="methodInfo.verb">
 
           <div class="form-group" *ngFor="let param of methodInfo.params">
             <label class="col-md-12">
-              {{param.name || param.from}}:
-              <em>
-                {{param.type}}
-              </em>
+              {{param.from}}:{{param.name}}: <em>{{param.type}}</em>
             </label>
 
 
             <input type="text" [(ngModel)]="param.value" [ngModelOptions]="{standalone: true}" id="<%=param.name%>"
-              class="form-control form-control-line param store" *ngIf="param.from==='params'" />
+              class="form-control form-control-line param store" *ngIf="forTextBox(param.type)" />
 
-            <textarea [(ngModel)]="param.value" [ngModelOptions]="{standalone: true}" *ngIf="param.from==='body'"
+            <textarea [(ngModel)]="param.value" [ngModelOptions]="{standalone: true}" *ngIf="forTextArea(param.type)"
               class="form-control store"></textarea>
 
+
           </div>
-          <div class="form-control">
+          <div class="form-footer">
             <input type="button" value="Submit" class="btn btn-primary" (click)="testMethod();" />
             <input type="reset" class="btn btn-default" />
           </div>
