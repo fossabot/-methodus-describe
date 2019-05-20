@@ -13,10 +13,7 @@ function getBridge(): any {
     return (global as any).METHODUS_BRIDGE
 }
 
-function fullUrl(req) {
-    const originalUrl = req.originalUrl.split('/describe')[0];
-    return '//' + req.headers.host + originalUrl;
-}
+
 
 /*begin custom*/
 const prefix = process.env.describe_route || '';
@@ -24,9 +21,7 @@ const prefix = process.env.describe_route || '';
 
 @MethodConfig('DescribeView')
 export class DescribeView {
-    constructor(public expressInstance: any) {
-        // this._app.use(describe.init());
-    }
+
     public static maybeMethodus(object: any): any {
         const proto = object.prototype;
         if (proto && proto.constructor && proto.constructor.methodus) {
@@ -48,11 +43,11 @@ export class DescribeView {
     @Method(Verbs.Get, '/describe/methodus')
     public static async getMethodusData(): Promise<MethodResult> {
         const data = getBridge();
-        const routes = [];
+        const routes: any = [];
         Object.keys(data.classes).forEach((cls) => {
             const methodus = DescribeView.maybeMethodus(data.classes[cls].classType);
 
-            let pj = null;
+            let pj: any = null;
             try {
                 pj = require(path.join(process.cwd(), 'node_modules', methodus.name, 'package.json'));
 
@@ -68,9 +63,9 @@ export class DescribeView {
     @Method(Verbs.Get, '/describe/methodus/:className')
     public static async getMethodusDataClass(@Param('className') className: string): Promise<MethodResult> {
         const data = getBridge();
-        const routes = [];
+        const routes: any = [];
         const methodus = DescribeView.maybeMethodus(data.classes[className].classType);
-        let pj = null;
+        let pj: any = null;
         try {
             pj = require(path.join(process.cwd(), 'node_modules', methodus.name, 'package.json'));
 
@@ -89,36 +84,7 @@ export class DescribeView {
         return new MethodResult({});
     }
 
-    @Method(Verbs.Get, '/describe/info')
-    public static async info(): Promise<MethodResult> {
 
-        const str = fs.readFileSync(path.join(clientDir, 'views/describe.ejs'), 'utf-8');
-        const template = ejs.compile(str, { filename: path.join(clientDir, 'views/describe.ejs') });
-        const data = getBridge();
-        const packageJson = require(path.join(process.cwd(), 'package.json'));
-
-
-        const routes = [];
-        const ignoreInClasse = ['DescribeView', 'ConfigView'];
-
-        Object.keys(data.classes).filter(cls => ignoreInClasse.indexOf(cls) === -1).forEach((cls) => {
-            const methodus = DescribeView.maybeMethodus(data.classes[cls].classType);
-            routes.push({ active: true, methodus, name: cls });
-        });
-
-
-
-        const result = template(Object.assign({},
-            getBridge(),
-            { routes },
-            // { remoteRoutes: remoteRoutes },
-
-            { app: packageJson }
-
-
-        ));
-        return new MethodResult(result);
-    }
 
 
     // @Method(Verbs.Get, '/describe/swaggerize/:env')
@@ -187,7 +153,7 @@ export class DescribeView {
         const data = getBridge();
 
         const packageJson = require(path.join(process.cwd(), 'package.json'));
-        const routes = [];
+        const routes: any = [];
         const ignoreInClasse = ['DescribeView', 'ConfigView'];
 
         Object.keys(data.classes).filter(cls => ignoreInClasse.indexOf(cls) === -1)
@@ -197,7 +163,7 @@ export class DescribeView {
                 routes.push({ info: pj, active: true, methodus, name: cls });
             });
 
-        const remoteRoutes = [];
+        const remoteRoutes: any = [];
         Object.keys(data.clients).forEach((cls) => {
             const methodus = DescribeView.maybeMethodus(data.clients[cls].classType);
             let pj = { 'version': getVersionFromPackageFile(methodus.name) };
@@ -205,42 +171,42 @@ export class DescribeView {
         });
 
         const events = {};
-        Object.keys(data.classes).forEach((cls) => {
-            const methodus: any = DescribeView.maybeMethodus(data.classes[cls].classType);
-            if (methodus._workevents && Object.keys(methodus._workevents).length > 0) {
-                Object.keys(methodus._workevents).forEach((eventKey: any) => {
-                    methodus._workevents[eventKey].class = data.classes[cls];
-                    methodus._workevents[eventKey].eventKey = eventKey;
-                    methodus._workevents[eventKey].event_type = 'Event Worker';
-                    events[cls] = events[cls] || { events: [] };
-                    events[cls].events.push(methodus._workevents[eventKey]);
-                })
-            }
-            if (methodus._events && Object.keys(methodus._events).length > 0) {
+        // Object.keys(data.classes).forEach((cls) => {
+        //     const methodus: any = DescribeView.maybeMethodus(data.classes[cls].classType);
+        //     if (methodus._workevents && Object.keys(methodus._workevents).length > 0) {
+        //         Object.keys(methodus._workevents).forEach((eventKey: any) => {
+        //             methodus._workevents[eventKey].class = data.classes[cls];
+        //             methodus._workevents[eventKey].eventKey = eventKey;
+        //             methodus._workevents[eventKey].event_type = 'Event Worker';
+        //             events[cls] = events[cls] || { events: [] };
+        //             events[cls].events.push(methodus._workevents[eventKey]);
+        //         })
+        //     }
+        //     if (methodus._events && Object.keys(methodus._events).length > 0) {
 
-                Object.keys(methodus._events).forEach((eventKey: any) => {
-                    methodus._events[eventKey].class = data.classes[cls];
-                    methodus._events[eventKey].eventKey = eventKey;
-                    methodus._events[eventKey].event_type = 'Event Handler';
+        //         Object.keys(methodus._events).forEach((eventKey: any) => {
+        //             methodus._events[eventKey].class = data.classes[cls];
+        //             methodus._events[eventKey].eventKey = eventKey;
+        //             methodus._events[eventKey].event_type = 'Event Handler';
 
-                    events[cls] = events[cls] || { events: [] };
-                    events[cls].events.push(methodus._events[eventKey]);
-                })
-            }
+        //             events[cls] = events[cls] || { events: [] };
+        //             events[cls].events.push(methodus._events[eventKey]);
+        //         })
+        //     }
 
-            if (methodus._workers && Object.keys(methodus._workers).length > 0) {
+        //     if (methodus._workers && Object.keys(methodus._workers).length > 0) {
 
-                Object.keys(methodus._workers).forEach((eventKey: any) => {
-                    methodus._workers[eventKey].class = data.classes[cls];
-                    methodus._workers[eventKey].eventKey = eventKey;
-                    methodus._workers[eventKey].event_type = 'Worker';
-                    events[cls] = events[cls] || { events: [] };
-                    events[cls].events.push(methodus._workers[eventKey]);
-                })
-            }
+        //         Object.keys(methodus._workers).forEach((eventKey: any) => {
+        //             methodus._workers[eventKey].class = data.classes[cls];
+        //             methodus._workers[eventKey].eventKey = eventKey;
+        //             methodus._workers[eventKey].event_type = 'Worker';
+        //             events[cls] = events[cls] || { events: [] };
+        //             events[cls].events.push(methodus._workers[eventKey]);
+        //         })
+        //     }
 
 
-        });
+        // });
 
         const result = Object.assign({},
             { routes, remoteRoutes, events },
@@ -251,78 +217,57 @@ export class DescribeView {
         return new MethodResult(result);
     }
 
-    @Method(Verbs.Get, '/describe/')
-    public async parentFrame(): Promise<MethodResult> {
-        const str = fs.readFileSync(path.join(clientDir, 'frame.ejs'), 'utf-8');
-        const template = ejs.compile(str, { filename: path.join(clientDir, 'frame.ejs') });
-        const packageJson = require(path.join(process.cwd(), 'package.json'));
-        const result = template({}, { app: packageJson });
-        return new MethodResult(result);
-
-    }
-
-
-    @Method(Verbs.Get, '/describe/inner')
-    public async describe(): Promise<MethodResult> {
-
-
-        const str = fs.readFileSync(path.join(clientDir, 'index.ejs'), 'utf-8');
-        const template = ejs.compile(str, { filename: path.join(clientDir, 'index.ejs') });
-        const data = getBridge();
-
-        const packageJson = require(path.join(process.cwd(), 'package.json'));
-
-
-        const routes = [];
-        const events = [];
-        const ignoreInClasse = ['DescribeView', 'ConfigView'];
-
-        Object.keys(data.classes).filter(cls => ignoreInClasse.indexOf(cls) === -1).forEach((cls) => {
-
-            const methodus: any = DescribeView.maybeMethodus(data.classes[cls].classType);
-
-            if (methodus._workevents) {
-                Object.keys(methodus._workevents).forEach((event: any) => {
-                    events.push(event);
-                });
-            }
-        });
 
 
 
-        Object.keys(data.classes).filter(cls => ignoreInClasse.indexOf(cls) === -1).forEach((cls) => {
-            const methodus1 = DescribeView.maybeMethodus(data.classes[cls].classType);
-            routes.push({ active: true, methodus: methodus1, name: cls });
-        });
+    // @Method(Verbs.Get, '/describe/inner')
+    // public async describe(): Promise<MethodResult> {
 
-        const remoteRoutes = [];
-        Object.keys(data.clients).forEach((cls) => {
-            const methodus = DescribeView.maybeMethodus(data.clients[cls].classType);
-            remoteRoutes.push({ active: true, methodus, configuration: data.clients[cls], name: cls });
-        });
+    //     const str = fs.readFileSync(path.join(clientDir, 'index.ejs'), 'utf-8');
+    //     const template = ejs.compile(str, { filename: path.join(clientDir, 'index.ejs') });
+    //     const data = getBridge();
 
+    //     const packageJson = require(path.join(process.cwd(), 'package.json'));
 
+    //     const routes: any = [];
+    //     const events: any = [];
+    //     const ignoreInClasse = ['DescribeView', 'ConfigView'];
 
+    //     Object.keys(data.classes).filter(cls => ignoreInClasse.indexOf(cls) === -1).forEach((cls) => {
+    //         const methodus: any = DescribeView.maybeMethodus(data.classes[cls].classType);
+    //         if (methodus._workevents) {
+    //             Object.keys(methodus._workevents).forEach((event: any) => {
+    //                 events.push(event);
+    //             });
+    //         }
+    //     });
 
+    //     Object.keys(data.classes).filter(cls => ignoreInClasse.indexOf(cls) === -1).forEach((cls) => {
+    //         const methodus1 = DescribeView.maybeMethodus(data.classes[cls].classType);
+    //         routes.push({ active: true, methodus: methodus1, name: cls });
+    //     });
 
+    //     const remoteRoutes: any = [];
+    //     Object.keys(data.clients).forEach((cls) => {
+    //         const methodus = DescribeView.maybeMethodus(data.clients[cls].classType);
+    //         remoteRoutes.push({ active: true, methodus, configuration: data.clients[cls], name: cls });
+    //     });
 
+    //     try {
+    //         const result = template(Object.assign({},
+    //             getBridge(),
+    //             { routes },
+    //             { events },
+    //             { remoteRoutes },
+    //             { app: packageJson },
 
-
-        try {
-            const result = template(Object.assign({},
-                getBridge(),
-                { routes },
-                { events },
-                { remoteRoutes },
-                { app: packageJson },
-
-            ));
-            return new MethodResult(result);
-        } catch (error) {
-            console.error(error)
-        }
-
-    }
+    //         ));
+    //         return new MethodResult(result);
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    //     return new MethodResult({});
+    // }
 
 
 

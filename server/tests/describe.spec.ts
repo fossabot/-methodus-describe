@@ -3,7 +3,8 @@ import { AsyncTest, Expect, TestFixture, Timeout, AsyncSetupFixture, AsyncTeardo
 import { ExpressTestServer } from './servers/';
 import { DescribeView } from '../describeView';
 
-import { TestTarget } from './controllers';
+import { TestTarget, TestController } from './controllers';
+import { Mocker } from '@methodus/server';
 
 @TestFixture('Test Xserver configuration')
 export class Servers {
@@ -13,6 +14,7 @@ export class Servers {
         return new Promise(async (resolve, reject) => {
             this.server = new ExpressTestServer();
             this.server.on('ready', () => {
+
                 resolve();
             });
         });
@@ -23,10 +25,64 @@ export class Servers {
         this.server.kill();
     }
 
+    @AsyncTest('dashboard')
+    @Timeout(1000 * 1000)
+    public async dashboard() {
+        const response = await DescribeView.dashboard();
+        Expect(response).toBeDefined();
+    }
+
+
+    @AsyncTest('action')
+    @Timeout(1000 * 1000)
+    public async action() {
+        const response = await DescribeView.action('TestController', 'update');
+        Expect(response).toBeDefined();
+    }
+
+
+    @AsyncTest('getMethodusData')
+    @Timeout(1000 * 1000)
+    public async getMethodusData() {
+        const response = await DescribeView.getMethodusData();
+        Expect(response).toBeDefined();
+    }
+
+    @AsyncTest('getMethodusDataClass')
+    @Timeout(1000 * 1000)
+    public async getMethodusDataClass() {
+        const response = await DescribeView.getMethodusDataClass('TestController');
+        Expect(response).toBeDefined();
+    }
+
+
     @AsyncTest('list')
     @Timeout(1000 * 1000)
     public async list() {
-        const response = DescribeView.dashboard();
+        const response = await TestController.list('some value', 'some key');
+        await TestController.create('some value', 'some key', 'some_name');
+        await TestController.read(11);
+        await TestController.getByField('some value', 1);
+        await TestController.update();
+        await TestController.delete('id');
         Expect(response).toBeDefined();
     }
+
+
+    @AsyncTest('mock dashboard')
+    @Timeout(1000 * 1000)
+    public async dashboardMock() {
+        Mocker.mockServer(DescribeView);
+        const response = await DescribeView.dashboard();
+        Expect(response).toBeDefined();
+    }
+
+    @AsyncTest('mock action')
+    @Timeout(1000 * 1000)
+    public async actionMock() {
+        Mocker.mockServer(DescribeView);
+        const response = await DescribeView.action('TestController', 'update');
+        Expect(response).toBeDefined();
+    }
+
 }

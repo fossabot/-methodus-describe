@@ -40,7 +40,7 @@ export class TestController {
 
     @Method(Verbs.Get, '/api/player/:player_id')
     public static async read(@Param('player_id') playerId: number) {
-        throw new MethodError('intended error', 500, 'some more data');
+        return new MethodResult(playerId);
     }
 
     @Method(Verbs.Get, '/api/player/:field/:value')
@@ -54,7 +54,7 @@ export class TestController {
     }
 
     @Method(Verbs.Delete, '/api/player/:id')
-    public static delete(@Param('id') id: string) {
+    public static async delete(@Param('id') id: string) {
         return new MethodResult({});
     }
 

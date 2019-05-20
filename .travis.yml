@@ -21,7 +21,7 @@ before_script:
   - ng test
   - ng build --prod
   - cd ..
-  - npm run build
+  - npm test
 
 script:
   - sonar-scanner

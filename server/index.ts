@@ -5,7 +5,6 @@ import * as path from 'path';
 import { BuiltInServers } from '@methodus/server';
 import { ServerType } from '@methodus/server';
 import { DescribeView } from './describeView';
-import { ConfigView } from './configView';
 
 export function init(config, pluginOptions) {
 
@@ -32,9 +31,7 @@ export function init(config, pluginOptions) {
             instance.use(`${describePath}/scripts/`, BuiltInServers.Express.static(methodClientPath, options))
         }
     });
-    //config.run(BuiltInServers.Socket, { nsp: describePath });
     config.use(DescribeView, 'Local', ServerType.Express);
-    config.use(ConfigView, 'Local', ServerType.Express);
 
     return config;
 }
