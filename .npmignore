@@ -10,6 +10,9 @@ yarn.lock
 @methodus
 server/*
 client_old
-client/src
-client/node_modules
- 
+.nyc_output
+.scannerwork
+coverage
+.travis.yml
+build.json
+sonar-project.properties 
