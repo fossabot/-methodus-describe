@@ -5,7 +5,7 @@ import * as path from 'path';
 import { Mock } from './Mock';
 import {
     Response, Query, Param, Method, MethodMock,
-    MethodConfig, Verbs, MethodResult, Request
+    MethodConfig, Verbs, MethodResult
 } from '@methodus/server';
 
 const clientDir = path.resolve(path.join(__dirname, '../client'));
@@ -84,7 +84,7 @@ export class DescribeView {
 
 
     @Method(Verbs.Get, '/describeproxy/:path')
-    public static async describeproxy(@Query('u') applicationEndpoint: string, @Param('path') applicationName: string, @Request() req: any, @Response() res: any): Promise<MethodResult> {
+    public static async describeproxy(@Query('u') applicationEndpoint: string, @Param('path') applicationName: string): Promise<MethodResult> {
 
         return new MethodResult({});
     }
@@ -121,63 +121,63 @@ export class DescribeView {
     }
 
 
-    @Method(Verbs.Get, '/describe/swaggerize/:env')
-    public static async swaggerize(@Param('env') env: string, @Request() req: any): Promise<MethodResult> {
-        const data = getBridge();
-        const packageJson = require(path.join(process.cwd(), 'package.json'));
-        const routes = [];
-        const swagger = {
-            "swagger": "2.0",
-            "info": {
-                "title": packageJson.name,
-                "description": packageJson.description,
-                "version": packageJson.version
-            },
-            "host": req.headers.host,
-            "basePath": "/",
-            "schemes": [req.protocol],
-            "paths": {}
-        }
+    // @Method(Verbs.Get, '/describe/swaggerize/:env')
+    // public static async swaggerize(@Param('env') env: string): Promise<MethodResult> {
+    //     const data = getBridge();
+    //     const packageJson = require(path.join(process.cwd(), 'package.json'));
+       
+    //     const swagger = {
+    //         "swagger": "2.0",
+    //         "info": {
+    //             "title": packageJson.name,
+    //             "description": packageJson.description,
+    //             "version": packageJson.version
+    //         },
+    //         "host": req.headers.host,
+    //         "basePath": "/",
+    //         "schemes": [req.protocol],
+    //         "paths": {}
+    //     }
 
 
 
-        Object.keys(data.classes).forEach((cls) => {
-            const methodus = DescribeView.maybeMethodus(data.classes[cls].classType);
-            Object.keys(methodus._descriptors).forEach((descriptorKey: any) => {
-                const descriptor = methodus._descriptors[descriptorKey];
-                let route = descriptor.route;
-                if (route.indexOf(':') > -1) {
-                    descriptor.params.filter(item => item.from === 'params').forEach((param) => {
-                        route = route.replace(`:${param.name}`, `{${param.name}}`);
-                    })
-                }
+    //     Object.keys(data.classes).forEach((cls) => {
+    //         const methodus = DescribeView.maybeMethodus(data.classes[cls].classType);
+    //         Object.keys(methodus._descriptors).forEach((descriptorKey: any) => {
+    //             const descriptor = methodus._descriptors[descriptorKey];
+    //             let route = descriptor.route;
+    //             if (route.indexOf(':') > -1) {
+    //                 descriptor.params.filter(item => item.from === 'params').forEach((param) => {
+    //                     route = route.replace(`:${param.name}`, `{${param.name}}`);
+    //                 })
+    //             }
 
 
-                swagger.paths[route] = {
-                    [descriptor.verb.toLowerCase()]: {
-                        "description": descriptor.comment,
-                        "responses": {},
-                        "parameters": descriptor.params.filter(item => item.from === 'query' || item.from === 'params').map((param) => {
-                            return {
-                                "name": param.name,
-                                "in": "path",
-                                "description": param,
-                                "required": true,
-                                "schema": {
-                                    "type": param.type,
-                                    // "items": {
-                                    //     "type": "string"
-                                    // }
-                                },
-                                "style": "simple"
-                            }
-                        })
-                    }
-                };
-            });
-        });
-        return new MethodResult(swagger);
-    }
+    //             swagger.paths[route] = {
+    //                 [descriptor.verb.toLowerCase()]: {
+    //                     "description": descriptor.comment,
+    //                     "responses": {},
+    //                     "parameters": descriptor.params.filter(item => item.from === 'query' || item.from === 'params').map((param) => {
+    //                         return {
+    //                             "name": param.name,
+    //                             "in": "path",
+    //                             "description": param,
+    //                             "required": true,
+    //                             "schema": {
+    //                                 "type": param.type,
+    //                                 // "items": {
+    //                                 //     "type": "string"
+    //                                 // }
+    //                             },
+    //                             "style": "simple"
+    //                         }
+    //                     })
+    //                 }
+    //             };
+    //         });
+    //     });
+    //     return new MethodResult(swagger);
+    // }
 
     @MethodMock(Mock.dashbaord)
     @Method(Verbs.Get, '/describe/dashboard')
@@ -316,24 +316,6 @@ export class DescribeView {
                 { remoteRoutes },
                 { app: packageJson },
 
-                { logs: [] },
-                {
-                    makeFrameName: (route) => {
-                        return (route + '_Frame').replace(/\//g, '_').replace(/:/g, '');
-                    },
-                    cleanID: (route) => {
-                        return (route.name + '__' + route.methodus.name).replace(/\//, '').replace('@', '');
-                    },
-                    adaptResolver: (url1: string) => {
-                        if (url1.indexOf('127.0.0.1') > 0) {
-                            url1 = url1.replace('127.0.0.1', req.host)
-                        }
-                        if (url1.indexOf('localhost') > 0) {
-                            url1 = url1.replace('localhost', req.host)
-                        }
-                        return url1;
-                    }
-                }
             ));
             return new MethodResult(result);
         } catch (error) {
@@ -357,8 +339,7 @@ export class DescribeView {
 
 
     @Method(Verbs.Get, '/describe/testevent/:className/:actionKey')
-    public async eventAction(@Param('className') className: string, @Param('actionKey') actionKey: string,
-        @Request() req: any, @Response() res: any): Promise<MethodResult> {
+    public async eventAction(@Param('className') className: string, @Param('actionKey') actionKey: string): Promise<MethodResult> {
 
         const str = fs.readFileSync(path.join(clientDir, 'testEvent.ejs'), 'utf-8');
         const template = ejs.compile(str);
@@ -398,7 +379,7 @@ export class DescribeView {
             testedEvent = { event_type: 'Worker', class: methodus._workevents[actionKey] };
         }
 
-        const result = template(Object.assign({}, { base: fullUrl(req) }, { helper, methodus: testedEvent, cls: testedClass.classType, actionKey }));
+        const result = template(Object.assign({}, { helper, methodus: testedEvent, cls: testedClass.classType, actionKey }));
         return new MethodResult(result);
     }
 }
