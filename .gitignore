@@ -7,3 +7,7 @@ server/public_old/
 public/
 build/
 .scannerwork/
+client/src/**/*.js
+client/src/**/*.js.map
+client/src/**/*.d.ts
+@methodus/describe-client/

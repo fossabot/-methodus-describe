@@ -9,20 +9,14 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { OrderModule } from 'ngx-order-pipe';
 import { SharedModule } from './shared.module';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { appRoutes } from './routes';
 
 import { RefreshService } from './services/refresh.service';
 
 
-// AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}
 
 
 
@@ -34,13 +28,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
   imports: [
     SharedModule.forRoot(),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
+
 
     HttpClientModule,
 

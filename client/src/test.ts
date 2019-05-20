@@ -7,6 +7,9 @@ import {
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
 
+
+(window as any).METHODUS_CONFIG = { transport: 'Mock', methodType: 'Mock' };
+
 declare const require: any;
 
 // First, initialize the Angular testing environment.

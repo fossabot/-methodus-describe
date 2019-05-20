@@ -25,7 +25,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
   @Output() editItem = new EventEmitter<any>();
   @Output() newItem = new EventEmitter<any>();
   @Output() selectItem = new EventEmitter<any>();
-  searchSubscription: Subscription;
+
   itemsHolder: any[] = [];
   itemsGroup = {};
   isFirstOpen = true;
@@ -33,20 +33,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
 
   }
 
-  private handleSubscription(value: string) {
-    this._ngZone.run(async () => {
-      this.items = this.itemsHolder;
-      const result = this.items.filter((item: any) => {
-        if (!value) { return item; }
-        if (item.name.toLowerCase().indexOf(value.toLowerCase()) > -1) {
-          return item;
-        }
-      });
-      this.items = result;
-      this.groupedItems(result, 'type');
-      this.ref.detectChanges();
-    });
-  }
+
 
   deleteItemHandler(item) {
     this.deleteItem.emit(item);
@@ -106,9 +93,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
   }
 
   async ngOnDestroy() {
-    if (this.searchSubscription) {
-      this.searchSubscription.unsubscribe();
-    }
+
   }
 }
 

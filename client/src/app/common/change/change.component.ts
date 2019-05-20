@@ -31,14 +31,7 @@ export class ChangeComponent implements OnChanges, OnDestroy, OnInit {
   }
 
   ngOnDestroy() {
-    // try {
-    //   this.dirtyService.dirty.unsubscribe();
-    //   this.dirtyService.saving.unsubscribe();
 
-    // } catch (ex) {
-    //   console.error(ex);
-
-    // }
   }
 
 

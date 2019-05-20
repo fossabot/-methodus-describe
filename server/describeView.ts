@@ -181,7 +181,7 @@ export class DescribeView {
 
     @MethodMock(Mock.dashbaord)
     @Method(Verbs.Get, '/describe/dashboard')
-    public static async dashboard(@Request() req: any, @Response() res: any): Promise<MethodResult> {
+    public static async dashboard(): Promise<MethodResult> {
         //const str = fs.readFileSync(path.join(clientDir, 'tabs/dashboard_tabs.ejs'), 'utf-8');
         //const template = ejs.compile(str, { filename: path.join(clientDir, 'tabs/dashboard_tabs.ejs') });
         const data = getBridge();
@@ -245,14 +245,14 @@ export class DescribeView {
         const result = Object.assign({},
             { routes, remoteRoutes, events },
             { app: packageJson },
-            { base: fullUrl(req) },
+
 
         )
         return new MethodResult(result);
     }
 
     @Method(Verbs.Get, '/describe/')
-    public async parentFrame(@Request() req: any, @Response() res: any): Promise<MethodResult> {
+    public async parentFrame(): Promise<MethodResult> {
         const str = fs.readFileSync(path.join(clientDir, 'frame.ejs'), 'utf-8');
         const template = ejs.compile(str, { filename: path.join(clientDir, 'frame.ejs') });
         const packageJson = require(path.join(process.cwd(), 'package.json'));
@@ -263,7 +263,7 @@ export class DescribeView {
 
 
     @Method(Verbs.Get, '/describe/inner')
-    public async describe(@Request() req: any, @Response() res: any): Promise<MethodResult> {
+    public async describe(): Promise<MethodResult> {
 
 
         const str = fs.readFileSync(path.join(clientDir, 'index.ejs'), 'utf-8');
@@ -315,7 +315,7 @@ export class DescribeView {
                 { events },
                 { remoteRoutes },
                 { app: packageJson },
-                { base: fullUrl(req) },
+
                 { logs: [] },
                 {
                     makeFrameName: (route) => {
@@ -345,39 +345,13 @@ export class DescribeView {
 
 
 
-
+    @MethodMock(Mock.action)
     @Method(Verbs.Get, '/describe/test/:className/:actionKey')
-    public static async action(@Param('className') className: string, @Param('actionKey') actionKey: string,
-        @Request() req: any, @Response() res: any): Promise<MethodResult> {
-
-        // const str = fs.readFileSync(path.join(clientDir, 'test.ejs'), 'utf-8');
-        // const template = ejs.compile(str);
+    public static async action(@Param('className') className: string, @Param('actionKey') actionKey: string): Promise<MethodResult> {
         const data = getBridge();
         const testedClass = data.classes[className] || data.clients[className];
         const methodus = DescribeView.maybeMethodus(testedClass.classType);
-
-        // const helper = {
-        //     reflectSmallTypes: (param) => {
-        //         if (param.name) {
-        //             return param.name.toLowerCase();
-        //         }
-        //     },
-        //     reflectObject: (param) => {
-        //         return param.name;
-        //     },
-        //     nameResolver: (param) => {
-        //         const finalName = '';
-        //         if ((param.from === 'body' && param.name) || param.from === 'files') {
-        //             return `name="${param.name || param.from}"`;
-        //         } else {
-
-        //             return `id="${param.name || param.from}"`;
-        //         }
-
-        //     }
-        // }
-
-        const result = Object.assign({}, { base: fullUrl(req) }, { methodus, cls: testedClass.classType, actionKey });
+        const result = Object.assign({}, { methodus, cls: testedClass.classType, actionKey });
         return new MethodResult(result);
     }
 

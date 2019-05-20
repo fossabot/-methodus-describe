@@ -2,7 +2,7 @@
   <app-loader name="lobby"></app-loader>
 
   <div class="no-results" *ngIf="items && items.length===0">
-    <h4>{{'LOBBY.NORESULTS' | translate}}</h4>
+    <h4>No results</h4>
 
     <div *ngIf="!noNew" class="sqr shadow sqr-btn {{itemClass}}" (click)="newItemHandler()" (next)="newItemHandler()">
       <em class="fas fa-plus-circle"></em></div>
@@ -50,10 +50,4 @@
   </div>
 </ng-template>
 
-
-<ng-template #addItemContent>
-  <h5> <span class="{{'TOUR.LOBBY.ICON' | translate}}"> </span> {{'TOUR.LOBBY.TITLE' | translate}}</h5>
-  <p>
-    {{'TOUR.LOBBY.CONTENT' | translate}}
-  </p>
-</ng-template>
+ 

@@ -1,5 +1,4 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { FileDropModule } from 'ngx-file-drop';
 import { FormsModule } from '@angular/forms';
@@ -27,7 +26,6 @@ import { SafeHtmlPipe } from './pipes/safe-html';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MenuComponent } from './menu/menu.component';
 import { LobbyComponent } from './common/lobby/lobby.component';
 import { FooterComponent } from './footer/footer.component';
@@ -73,9 +71,7 @@ export function monacoLoad() {
     MonacoEditorModule.forRoot(monacoConfig),
 
     HttpClientTestingModule,
-    TranslateModule.forChild(),
     RouterTestingModule.withRoutes(appRoutes),
-    // TranslateModule.forChild(),
     FileDropModule,
     BsDropdownModule.forRoot()
   ],
@@ -101,7 +97,6 @@ export function monacoLoad() {
     DictionaryPipe,
   ],
   providers: [
-    TranslateService,
     DirtyService,
     LoaderService,
   ],
@@ -110,7 +105,6 @@ export function monacoLoad() {
     CommonModule,
     LobbyComponent,
     LobbyItemComponent,
-    TranslateModule,
     FileDropModule,
     AccordionModule,
     AdaptHeightDirective,
@@ -132,9 +126,8 @@ export function monacoLoad() {
   ],
 })
 export class SharedModule {
-  constructor(translate: TranslateService) {
-    // this language will be used as a fallback when a translation isn't found in the current language
-    translate.setDefaultLang('en');
+  constructor() {
+
   }
 
   static forRoot(): ModuleWithProviders {

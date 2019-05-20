@@ -13,9 +13,10 @@ export class ApiRoutesComponent implements OnInit {
   dashboard: any;
   activeItem: any;
   async ngOnInit() {
+
     try {
       this.dashboard = await DescribeView.dashboard();
-
+      console.log(this.dashboard);
     } catch (error) {
 
       console.error(error);

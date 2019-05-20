@@ -1,11 +1,10 @@
 import { NgZone } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { DirtyService } from './services/dirty.service';
 
 
 
 export class DataComponent {
-    constructor(public _ngZone: NgZone, public translateService: TranslateService, public dirtyService?: DirtyService) { }
+    constructor(public _ngZone: NgZone, public dirtyService?: DirtyService) { }
     DataController: any;
     displayModalNew: string;
     items: any[];
@@ -71,12 +70,10 @@ export class DataComponent {
     }
 
     async deleteItem(item) {
-        this.translateService.get('DATA.CONFIRM_DELETE').subscribe(async (confirmMessage) => {
-            if (confirm(`${confirmMessage}`)) {
-                await this.DataController.delete(this.collectionName, item._id);
-                this.loadItems();
-            }
-        });
+        if (confirm(`Are you sure?`)) {
+            await this.DataController.delete(this.collectionName, item._id);
+            this.loadItems();
+        }
     }
     async createItem() {
 
