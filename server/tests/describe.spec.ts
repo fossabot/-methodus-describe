@@ -65,6 +65,15 @@ export class Servers {
         await TestController.getByField('some value', 1);
         await TestController.update();
         await TestController.delete('id');
+
+
+        await TestTarget.list('some value', 'some key');
+        await TestTarget.create('some value', 'some key', 'some_name');
+        await TestTarget.read(11);
+        // await TestTarget.getByField('some value', 1);
+        // await TestTarget.update();
+        // await TestTarget.delete();
+
         Expect(response).toBeDefined();
     }
 

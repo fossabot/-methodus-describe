@@ -21,11 +21,11 @@
     ],
     "temp-directory": "./.nyc_output",
     "all": true,
-    "exclude": "server/tests/controllers",
+    "exclude": ["build/tests/servers/*.*"],
     "extension": [
       ".ts"
     ],
-    "sourceMap": true,
+    "sourceMap": false,
     "instrument": true,
     "include": [
       "build"

@@ -55,7 +55,7 @@ export class TestController {
 
     @Method(Verbs.Delete, '/api/player/:id')
     public static async delete(@Param('id') id: string) {
-        return new MethodResult({});
+        return new MethodResult(id);
     }
 
 }
