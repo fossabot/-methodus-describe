@@ -19,7 +19,8 @@ before_script:
   - npm i -g @angular/cli@~7.3.0
   - npm install
   - ng test
- 
-
+  - cd ..
+  - npm run build
+  - npm publish
 script:
   - sonar-scanner
