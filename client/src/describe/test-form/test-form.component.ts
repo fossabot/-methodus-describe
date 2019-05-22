@@ -39,18 +39,19 @@ export class TestFormComponent implements OnInit {
       this.methodInfo = actionInfo.methodus._descriptors[this.methodName];
       this.baseUrl = actionInfo.base;
 
-      const parameterStr = localStorage.getItem(`${this.methodInfo.verb}_${this.methodInfo.route}`);
-      if (parameterStr) {
-        const values = JSON.parse(parameterStr);
-        this.methodInfo.params.forEach((param, index) => {
-          if (this.forTextBox(param.type)) {
-            param.value = values[index];
-          } else {
-            param.value = JSON.stringify(values[index]);
-          }
-        });
+      if (this.methodInfo) {
+        const parameterStr = localStorage.getItem(`${this.methodInfo.verb}_${this.methodInfo.route}`);
+        if (parameterStr) {
+          const values = JSON.parse(parameterStr);
+          this.methodInfo.params.forEach((param, index) => {
+            if (this.forTextBox(param.type)) {
+              param.value = values[index];
+            } else {
+              param.value = JSON.stringify(values[index]);
+            }
+          });
+        }
       }
-
     });
   }
 
