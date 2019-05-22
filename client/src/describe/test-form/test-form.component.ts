@@ -53,8 +53,10 @@ export class TestFormComponent implements OnInit {
         }
       }
 
-      this.tabs[1].selected = false;
+
       this.tabs[0].selected = true;
+      this.tabs[1].selected = false;
+      this.actionResultJson = '';
 
     });
   }
