@@ -19,6 +19,7 @@ export class TestRouteService {
 
         const restRequest = new Rest(uri, methodInformation.verb,
             methodInformation.params, argsForRequest);
+
         const result = await restRequest.execute();
         return result;
         // if (methodInformation.params) {

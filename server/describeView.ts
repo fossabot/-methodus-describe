@@ -111,7 +111,9 @@ export class DescribeView {
 
 
         const result = Object.assign({},
-            { routes, remoteRoutes },
+            {
+                routes, remoteRoutes
+            },
             { app: packageJson },
 
 
