@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-md-7 list">
     <div class="card">
-
+ 
       <ul class="list-group list-group-flush" *ngIf="dashboard">
-        <li class="list-group-item" *ngFor="let route of dashboard.routes">
+        <li class="list-group-item" *ngFor="let route of dashboard[publicProperty]">
 
           <div class="card-header" (click)="route._display=!route._display">
             {{route.name}}
@@ -53,7 +53,7 @@
                 </td>
                 <td>
                   <a class="btn btn-primary btn-md test-btn"
-                    href="#/dashboard/describe/local-services/{{route.name}}/{{method.value.propertyKey}}">Test
+                    href="#/dashboard/describe/{{servicesType}}/{{route.name}}/{{method.value.propertyKey}}">Test
                     Form</a>
                 </td>
               </tr>

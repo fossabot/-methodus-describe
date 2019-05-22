@@ -7,6 +7,13 @@
     }  
 }
 
+.code-container{
+    height: 250px;
+    .editor-container {
+        height: 100%!important;
+    }  
+}
+
 .test-form{
     height: 100%;
     position: fixed;

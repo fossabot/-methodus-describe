@@ -33,9 +33,12 @@
             <input type="text" [(ngModel)]="param.value" [ngModelOptions]="{standalone: true}" id="<%=param.name%>"
               class="form-control form-control-line param store" *ngIf="forTextBox(param.type)" />
 
-            <textarea [(ngModel)]="param.value" [ngModelOptions]="{standalone: true}" *ngIf="forTextArea(param.type)"
-              class="form-control store"></textarea>
-
+           
+            <div class="code-container" *ngIf="forTextArea(param.type)">
+              <ngx-monaco-editor class="my-code-editor"  [(ngModel)]="param.value"
+                [ngModelOptions]="{standalone: true}" [options]="fieldOptions" [(ngModel)]="actionResultJson">
+              </ngx-monaco-editor>
+            </div>
 
           </div>
           <div class="form-footer">

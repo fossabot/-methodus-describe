@@ -19,7 +19,12 @@ export class TestFormComponent implements OnInit {
   methodName: string;
   methodInfo: any;
   baseUrl: string;
-  editorOptions = { theme: 'vs-light', language: 'json' };
+  editorOptions = { theme: 'vs-dark', language: 'json' };
+  fieldOptions = {
+    theme: 'vs-light', language: 'json', minimap: {
+      enabled: false
+    }
+  };
   tabs = [{ name: 'method', selected: true }, { name: 'result', selected: false }];
   primitives = ['string', 'number'];
   selectTab(tab) {
@@ -47,7 +52,7 @@ export class TestFormComponent implements OnInit {
             if (this.forTextBox(param.type)) {
               param.value = values[index];
             } else {
-              param.value = JSON.stringify(values[index]);
+              param.value = JSON.stringify(values[index], null, 2);
             }
           });
         }
