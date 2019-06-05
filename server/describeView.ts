@@ -104,7 +104,7 @@ export class DescribeView {
         Object.keys(data.clients).forEach((cls) => {
             const methodus = DescribeView.maybeMethodus(data.clients[cls].classType);
             let pj = { 'version': getVersionFromPackageFile(methodus.name) };
-            remoteRoutes.push({ info: pj, active: true, methodus, configuration: data.clients[cls], name: cls });
+            remoteRoutes.push({ info: pj, active: true, methodus, name: cls });
         });
 
 
